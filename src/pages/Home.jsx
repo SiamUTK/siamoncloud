@@ -443,15 +443,13 @@ function Home() {
               >
                 {t.about.title}
               </h2>
-                      href="/about"
-                {t.about.desc}
-              </p>
+              <p className="text-lg text-slate-500">{t.about.desc}</p>
             </div>
 
             <div className="grid gap-8 md:grid-cols-3">
               <article className="group rounded-[2.5rem] border border-slate-100 bg-slate-50 p-10 transition-all hover:bg-white hover:shadow-2xl">
                 <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0A2540] text-white transition-transform group-hover:scale-110">
-                      href="/services"
+                  <Icon name="Briefcase" size={32} aria-hidden="true" />
                 </div>
                 <h3 className="mb-4 text-2xl font-bold text-[#0A2540]">
                   {t.about.card1}
