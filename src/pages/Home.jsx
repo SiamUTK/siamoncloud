@@ -375,9 +375,12 @@ function Home() {
             </div>
 
             <div className="hidden gap-3 sm:flex">
-              <button className="rounded px-2 py-1 text-sm font-semibold text-[#0A2540] hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600">
+              <a
+                href="/login"
+                className="rounded px-2 py-1 text-sm font-semibold text-[#0A2540] hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
+              >
                 {t.nav.login}
-              </button>
+              </a>
               <a
                 href="/signup"
                 className="rounded-full bg-gradient-to-r from-[#0A2540] to-[#06B6D4] px-5 py-2 text-sm font-semibold text-white shadow-md transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-offset-2"
