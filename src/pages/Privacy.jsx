@@ -9,11 +9,11 @@ import {
 } from "lucide-react";
 import usePageMeta from "../hooks/usePageMeta";
 
-function Terms() {
+function Privacy() {
   usePageMeta({
-    title: "Siam On Cloud | Terms of Use",
+    title: "Siam On Cloud | Privacy Policy",
     description:
-      "Official Terms of Use for Siam On Cloud travel and technology services.",
+      "Official Privacy Policy for Siam On Cloud travel and technology services.",
   });
 
   return (
@@ -72,16 +72,16 @@ function Terms() {
               </Link>
               <Link
                 to="/terms"
-                className="rounded px-1 font-bold text-cyan-600 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-600"
+                className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
-                aria-current="page"
               >
                 Terms of Use
               </Link>
               <Link
                 to="/privacy"
-                className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
+                className="rounded px-1 font-bold text-cyan-600 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
+                aria-current="page"
               >
                 Privacy Policy
               </Link>
@@ -100,7 +100,7 @@ function Terms() {
       <main>
         <section
           className="relative overflow-hidden bg-[#0A2540] pb-20 pt-32 lg:pb-28 lg:pt-44"
-          aria-label="Terms of Use Hero"
+          aria-label="Privacy Policy Hero"
         >
           <div
             className="absolute inset-0 bg-gradient-to-b from-[#0A2540]/80 to-white"
@@ -116,22 +116,21 @@ function Terms() {
               Legal Information
             </div>
             <h1 className="mb-6 text-5xl font-black leading-tight text-[#0A2540] lg:text-7xl">
-              Terms of Use
+              Privacy Policy
             </h1>
             <p className="mx-auto max-w-3xl text-lg leading-relaxed text-slate-700">
-              Please read these terms carefully before using Siam On Cloud
-              services.
+              Your privacy and data protection are important to Siam On Cloud.
             </p>
           </div>
         </section>
 
         <section
           className="bg-white py-20"
-          aria-labelledby="terms-content-heading"
+          aria-labelledby="privacy-content-heading"
         >
           <div className="mx-auto max-w-4xl px-4">
-            <h2 id="terms-content-heading" className="sr-only">
-              Terms of Use Content
+            <h2 id="privacy-content-heading" className="sr-only">
+              Privacy Policy Content
             </h2>
 
             <article className="space-y-12 text-slate-600">
@@ -140,119 +139,133 @@ function Terms() {
                   Introduction
                 </h2>
                 <p className="leading-relaxed">
-                  These Terms of Use govern your access to and use of Siam On
-                  Cloud Co., Ltd. websites, services, platforms, and related
-                  technology solutions. By accessing our services, you agree to
-                  comply with these terms and all applicable laws and
-                  regulations.
+                  Siam On Cloud Co., Ltd. is committed to protecting your
+                  personal information and maintaining transparency in how we
+                  collect, use, and protect data across our travel and
+                  technology services.
                 </p>
               </section>
 
               <section>
                 <h2 className="mb-4 text-2xl font-bold text-[#0A2540]">
-                  Acceptance of Terms
+                  Information We Collect
                 </h2>
                 <p className="leading-relaxed">
-                  By using Siam On Cloud services, you confirm that you have
-                  read, understood, and agreed to these Terms of Use. If you do
-                  not agree, you must discontinue use of our services.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="mb-4 text-2xl font-bold text-[#0A2540]">
-                  Use of Services
-                </h2>
-                <p className="leading-relaxed">
-                  Our services are provided for lawful business and personal
-                  travel-related purposes. You agree not to misuse, interfere
-                  with, or attempt unauthorized access to any part of our
-                  systems, data, or infrastructure.
+                  We may collect information directly from you, automatically
+                  through platform usage, and from trusted service partners to
+                  provide our services effectively.
                 </p>
                 <ul className="mt-4 list-disc space-y-2 pl-6 leading-relaxed">
                   <li>
-                    Use accurate and up-to-date information for all bookings and
-                    account details.
+                    Identity and contact details such as name, email, and phone
+                    number.
                   </li>
                   <li>
-                    Comply with all service-specific instructions and booking
-                    policies.
+                    Booking, transaction, and service interaction records.
                   </li>
                   <li>
-                    Respect security, integrity, and availability of all Siam On
-                    Cloud platforms.
+                    Technical data such as IP address, browser type, and device
+                    metadata.
                   </li>
                 </ul>
               </section>
 
               <section>
                 <h2 className="mb-4 text-2xl font-bold text-[#0A2540]">
-                  User Responsibilities
+                  How We Use Information
                 </h2>
                 <p className="leading-relaxed">
-                  You are responsible for your account credentials, submitted
-                  information, and all activities conducted through your access.
-                  You agree to notify us promptly of any unauthorized use or
-                  suspected security incident.
+                  We use collected information to deliver and improve services,
+                  process transactions, support customer requests, maintain
+                  security, and comply with legal obligations.
                 </p>
               </section>
 
               <section>
                 <h2 className="mb-4 text-2xl font-bold text-[#0A2540]">
-                  Intellectual Property
+                  Cookies and Tracking Technologies
                 </h2>
                 <p className="leading-relaxed">
-                  All content, trademarks, software, designs, and service
-                  elements on Siam On Cloud platforms are owned by or licensed
-                  to Siam On Cloud Co., Ltd. You may not reproduce, distribute,
-                  modify, or create derivative works without prior written
-                  permission.
+                  We use cookies and similar technologies to enhance user
+                  experience, analyze platform performance, and support
+                  essential service functionality.
                 </p>
               </section>
 
               <section>
                 <h2 className="mb-4 text-2xl font-bold text-[#0A2540]">
-                  Limitation of Liability
+                  Data Sharing and Disclosure
                 </h2>
                 <p className="leading-relaxed">
-                  Siam On Cloud provides services on an as-available basis and
-                  makes reasonable efforts to maintain accuracy and uptime. To
-                  the maximum extent permitted by law, we are not liable for
-                  indirect, incidental, special, or consequential damages
-                  arising from use of our services.
+                  We only share data with authorized partners, suppliers, and
+                  service providers when necessary for service delivery,
+                  regulatory compliance, or protection of legal rights.
                 </p>
               </section>
 
               <section>
                 <h2 className="mb-4 text-2xl font-bold text-[#0A2540]">
-                  Privacy Reference
+                  Data Security
                 </h2>
                 <p className="leading-relaxed">
-                  Your use of our services is also subject to our Privacy
-                  Policy, which explains how we collect, process, store, and
-                  protect your personal information.
+                  We implement reasonable administrative, technical, and
+                  organizational safeguards to protect your information against
+                  unauthorized access, loss, misuse, or alteration.
                 </p>
               </section>
 
               <section>
                 <h2 className="mb-4 text-2xl font-bold text-[#0A2540]">
-                  Modifications to Terms
+                  Data Retention
                 </h2>
                 <p className="leading-relaxed">
-                  We may revise these Terms of Use from time to time to reflect
-                  business, legal, or technical updates. Updated terms become
-                  effective when published on this page.
+                  Personal data is retained only as long as required for
+                  operational, legal, contractual, and compliance purposes, then
+                  securely deleted or anonymized.
                 </p>
               </section>
 
               <section>
                 <h2 className="mb-4 text-2xl font-bold text-[#0A2540]">
-                  Governing Law
+                  Your Rights and Choices
                 </h2>
                 <p className="leading-relaxed">
-                  These terms are governed by and construed in accordance with
-                  the laws of Thailand, without regard to conflict of law
-                  principles.
+                  Subject to applicable laws, you may request access,
+                  correction, deletion, restriction, or objection to certain
+                  processing of your personal data.
+                </p>
+              </section>
+
+              <section>
+                <h2 className="mb-4 text-2xl font-bold text-[#0A2540]">
+                  International Transfers (if applicable)
+                </h2>
+                <p className="leading-relaxed">
+                  Where cross-border data transfers are necessary, we apply
+                  appropriate safeguards and contractual protections to maintain
+                  data security and legal compliance.
+                </p>
+              </section>
+
+              <section>
+                <h2 className="mb-4 text-2xl font-bold text-[#0A2540]">
+                  Children&apos;s Privacy
+                </h2>
+                <p className="leading-relaxed">
+                  Our services are not intended for children without lawful
+                  authorization. We do not knowingly collect personal data from
+                  children in violation of applicable law.
+                </p>
+              </section>
+
+              <section>
+                <h2 className="mb-4 text-2xl font-bold text-[#0A2540]">
+                  Changes to This Policy
+                </h2>
+                <p className="leading-relaxed">
+                  We may update this Privacy Policy periodically to reflect
+                  legal, operational, or technical changes. Updated versions
+                  become effective when published on this page.
                 </p>
               </section>
 
@@ -261,8 +274,8 @@ function Terms() {
                   Contact Information
                 </h2>
                 <p className="leading-relaxed">
-                  For legal inquiries regarding these terms, please contact Siam
-                  On Cloud using the details below.
+                  For privacy-related questions or data requests, please contact
+                  Siam On Cloud through the details below.
                 </p>
               </section>
             </article>
@@ -370,7 +383,7 @@ function Terms() {
                   <li>
                     <Link
                       to="/terms"
-                      className="text-cyan-400 focus:outline-none focus:underline"
+                      className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       Terms of Use
                     </Link>
@@ -378,7 +391,7 @@ function Terms() {
                   <li>
                     <Link
                       to="/privacy"
-                      className="hover:text-cyan-400 focus:outline-none focus:underline"
+                      className="text-cyan-400 focus:outline-none focus:underline"
                     >
                       Privacy Policy
                     </Link>
@@ -426,4 +439,4 @@ function Terms() {
   );
 }
 
-export default Terms;
+export default Privacy;

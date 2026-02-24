@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import Icon from "../ui/Icon";
 
-const SUPABASE_EDGE_FUNCTION_URL = "SUPABASE_EDGE_FUNCTION_URL";
-const SUPABASE_ANON_KEY = "SUPABASE_ANON_KEY";
+const SUPABASE_EDGE_FUNCTION_URL = import.meta.env
+  .VITE_SUPABASE_EDGE_FUNCTION_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 function Chatbot({ t }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,8 +30,7 @@ function Chatbot({ t }) {
     setIsLoading(true);
 
     const hasSupabaseConfig =
-      SUPABASE_EDGE_FUNCTION_URL !== "SUPABASE_EDGE_FUNCTION_URL" &&
-      SUPABASE_ANON_KEY !== "SUPABASE_ANON_KEY";
+      Boolean(SUPABASE_EDGE_FUNCTION_URL) && Boolean(SUPABASE_ANON_KEY);
 
     try {
       if (hasSupabaseConfig) {
