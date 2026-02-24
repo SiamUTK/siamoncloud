@@ -231,6 +231,13 @@ export default function Contact() {
               >
                 {t.nav.contact}
               </a>
+              <a
+                href="/terms"
+                className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
+                role="menuitem"
+              >
+                {t.footer.terms}
+              </a>
             </div>
 
             <div
@@ -635,7 +642,7 @@ export default function Contact() {
                 <ul className="space-y-4 text-sm">
                   <li>
                     <a
-                      href="#"
+                      href="/terms"
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.footer.terms}

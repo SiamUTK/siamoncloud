@@ -270,6 +270,13 @@ function About() {
               >
                 {t.nav.contact}
               </Link>
+              <Link
+                to="/terms"
+                className="hover:text-cyan-600 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-600 rounded px-1"
+                role="menuitem"
+              >
+                {t.footer.terms}
+              </Link>
             </div>
 
             <div
@@ -620,7 +627,7 @@ function About() {
                 <ul className="space-y-4 text-sm">
                   <li>
                     <a
-                      href="#"
+                      href="/terms"
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.footer.terms}
