@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Chatbot from "../components/chatbot/Chatbot";
 import Icon from "../components/ui/Icon";
+import { testSupabaseConnection } from "../utils/testSupabaseConnection";
 
 const translations = {
   en: {
@@ -242,7 +243,26 @@ const structuredData = {
 function Home() {
   const [lang, setLang] = useState("en");
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [testStatus, setTestStatus] = useState(null);
+  const [testLoading, setTestLoading] = useState(false);
   const t = translations[lang];
+
+  const handleTestConnection = async () => {
+    setTestLoading(true);
+    try {
+      const result = await testSupabaseConnection();
+      setTestStatus(result);
+      console.log("[Supabase Test]", result);
+    } catch (err) {
+      setTestStatus({
+        success: false,
+        message: "Failed to run test",
+        details: err,
+      });
+    } finally {
+      setTestLoading(false);
+    }
+  };
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -898,6 +918,46 @@ function Home() {
           </div>
         </div>
       </footer>
+
+      {/* DEV ONLY: Supabase Connection Test Button - Remove before production */}
+      {import.meta.env.DEV && (
+        <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2">
+          <button
+            onClick={handleTestConnection}
+            disabled={testLoading}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-cyan-600 ${
+              testLoading
+                ? 'bg-slate-300 text-slate-500 cursor-not-allowed'
+                : 'bg-cyan-600 text-white hover:bg-cyan-700 shadow-lg'
+            }`}
+            aria-label="Test Supabase Connection"
+            title="Test Supabase connectivity (dev only)"
+          >
+            {testLoading ? 'Testing...' : 'Test DB'}
+          </button>
+          
+          {testStatus && (
+            <div
+              className={`px-4 py-3 rounded-lg text-xs font-medium max-w-xs shadow-lg ${
+                testStatus.success
+                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                  : 'bg-red-50 text-red-800 border border-red-200'
+              }`}
+              role="alert"
+            >
+              <div className="font-bold mb-1">
+                {testStatus.success ? '✓ Connected' : '✗ Error'}
+              </div>
+              <div>{testStatus.message}</div>
+              {testStatus.details?.session?.user?.email && (
+                <div className="mt-1 text-xs opacity-75">
+                  User: {testStatus.details.session.user.email}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       <Chatbot t={t.chatbot} />
     </div>
