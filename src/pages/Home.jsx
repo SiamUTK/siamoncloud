@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Chatbot from "../components/chatbot/Chatbot";
 import Icon from "../components/ui/Icon";
 import { testSupabaseConnection } from "../utils/testSupabaseConnection";
+import { sendMessageToAI } from "../lib/aiClient";
 
 const translations = {
   en: {
@@ -245,6 +246,8 @@ function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [testStatus, setTestStatus] = useState(null);
   const [testLoading, setTestLoading] = useState(false);
+  const [aiTestStatus, setAiTestStatus] = useState(null);
+  const [aiTestLoading, setAiTestLoading] = useState(false);
   const t = translations[lang];
 
   const handleTestConnection = async () => {
@@ -261,6 +264,22 @@ function Home() {
       });
     } finally {
       setTestLoading(false);
+    }
+  };
+
+  const handleTestAI = async () => {
+    setAiTestLoading(true);
+    try {
+      const result = await sendMessageToAI("Hello! Say hello back in 3 words.");
+      setAiTestStatus(result);
+      console.log("[AI Test]", result);
+    } catch (err) {
+      setAiTestStatus({
+        success: false,
+        error: "Failed to run test",
+      });
+    } finally {
+      setAiTestLoading(false);
     }
   };
 
@@ -925,7 +944,7 @@ function Home() {
         </div>
       </footer>
 
-      {/* DEV ONLY: Supabase Connection Test Button - Remove before production */}
+      {/* DEV ONLY: Test Buttons - Remove before production */}
       {import.meta.env.DEV && (
         <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2">
           <button
@@ -942,6 +961,20 @@ function Home() {
             {testLoading ? "Testing..." : "Test DB"}
           </button>
 
+          <button
+            onClick={handleTestAI}
+            disabled={aiTestLoading}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-purple-600 ${
+              aiTestLoading
+                ? "bg-slate-300 text-slate-500 cursor-not-allowed"
+                : "bg-purple-600 text-white hover:bg-purple-700 shadow-lg"
+            }`}
+            aria-label="Test AI API"
+            title="Test OpenAI API connection (dev only)"
+          >
+            {aiTestLoading ? "Testing..." : "Test AI"}
+          </button>
+
           {testStatus && (
             <div
               className={`px-4 py-3 rounded-lg text-xs font-medium max-w-xs shadow-lg ${
@@ -952,7 +985,7 @@ function Home() {
               role="alert"
             >
               <div className="font-bold mb-1">
-                {testStatus.success ? "✓ Connected" : "✗ Error"}
+                {testStatus.success ? "✓ DB Connected" : "✗ DB Error"}
               </div>
               <div>{testStatus.message}</div>
               {testStatus.details?.session?.user?.email && (
@@ -960,6 +993,22 @@ function Home() {
                   User: {testStatus.details.session.user.email}
                 </div>
               )}
+            </div>
+          )}
+
+          {aiTestStatus && (
+            <div
+              className={`px-4 py-3 rounded-lg text-xs font-medium max-w-xs shadow-lg ${
+                aiTestStatus.success
+                  ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                  : "bg-red-50 text-red-800 border border-red-200"
+              }`}
+              role="alert"
+            >
+              <div className="font-bold mb-1">
+                {aiTestStatus.success ? "✓ AI Connected" : "✗ AI Error"}
+              </div>
+              <div>{aiTestStatus.success ? aiTestStatus.reply : aiTestStatus.error}</div>
             </div>
           )}
         </div>
