@@ -46,7 +46,7 @@ const translations = {
       hoursDetail: "Mon-Sat (09:00 - 18:00)",
       location: "Headquarters",
       address:
-        "14/89 Flat 2, 8th Fl., Soi Plookchit, Rama 4 Rd, Lumphini, Pathumwan, Bangkok 10330",
+        "319 Chamchuri Square Building, 24th Floor, Phayathai Road, Pathumwan District, Bangkok 10330, Thailand",
     },
     form: {
       title: "Direct Inquiry",

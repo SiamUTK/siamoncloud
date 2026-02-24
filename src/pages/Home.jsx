@@ -94,7 +94,7 @@ const translations = {
       terms: "Terms of Use",
       privacy: "Privacy Policy",
       address:
-        "14/89 Flat 2, 8th Fl., Soi Plookchit, Rama 4 Rd, Lumphini, Pathumwan, Bangkok 10330",
+        "319 Chamchuri Square Building, 24th Floor, Phayathai Road, Pathumwan District, Bangkok 10330, Thailand",
       links: {
         cloud: "Cloud Solution",
         airline: "Airline Partner",
