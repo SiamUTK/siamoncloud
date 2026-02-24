@@ -1008,7 +1008,9 @@ function Home() {
               <div className="font-bold mb-1">
                 {aiTestStatus.success ? "✓ AI Connected" : "✗ AI Error"}
               </div>
-              <div>{aiTestStatus.success ? aiTestStatus.reply : aiTestStatus.error}</div>
+              <div>
+                {aiTestStatus.success ? aiTestStatus.reply : aiTestStatus.error}
+              </div>
             </div>
           )}
         </div>

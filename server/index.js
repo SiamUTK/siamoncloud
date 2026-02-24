@@ -9,10 +9,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-if (!OPENAI_API_KEY) {
+if (!OPENAI_API_KEY || OPENAI_API_KEY.includes("your-openai")) {
   console.error(
-    "ERROR: OPENAI_API_KEY not set in server/.env. Please add your OpenAI API key."
+    "ERROR: OPENAI_API_KEY not set in server/.env. Please add your OpenAI API key.",
   );
+  console.error("See SETUP_OPENAI.md for instructions.");
   process.exit(1);
 }
 
@@ -37,7 +38,8 @@ app.post("/api/ai/chat", async (req, res) => {
     if (!message || typeof message !== "string") {
       return res.status(400).json({
         success: false,
-        error: "Invalid request. 'message' field is required and must be a string.",
+        error:
+          "Invalid request. 'message' field is required and must be a string.",
       });
     }
 
@@ -56,8 +58,7 @@ app.post("/api/ai/chat", async (req, res) => {
     });
 
     const reply =
-      response.choices[0]?.message?.content ||
-      "No response from AI model.";
+      response.choices[0]?.message?.content || "No response from AI model.";
 
     console.log("[AI] Response generated successfully");
 
@@ -69,8 +70,7 @@ app.post("/api/ai/chat", async (req, res) => {
     console.error("[AI Error]", error.message);
 
     const statusCode = error.status || 500;
-    const errorMessage =
-      error.message || "Internal server error";
+    const errorMessage = error.message || "Internal server error";
 
     res.status(statusCode).json({
       success: false,
@@ -90,5 +90,7 @@ app.use((req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`[Server] Running on http://localhost:${PORT}`);
-  console.log(`[Server] AI chat endpoint: POST http://localhost:${PORT}/api/ai/chat`);
+  console.log(
+    `[Server] AI chat endpoint: POST http://localhost:${PORT}/api/ai/chat`,
+  );
 });
