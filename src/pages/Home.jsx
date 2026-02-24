@@ -269,7 +269,7 @@ function Home() {
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
           <a
-            href="#"
+            href="/"
             className="flex cursor-pointer items-center gap-2 rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-cyan-600"
             aria-label="Siam On Cloud Home"
           >
@@ -288,28 +288,28 @@ function Home() {
               role="menubar"
             >
               <a
-                href="#"
+                href="/"
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.nav.home}
               </a>
               <a
-                href="#about"
+                href="/about"
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.nav.about}
               </a>
               <a
-                href="#services"
+                href="/services"
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.nav.services}
               </a>
               <a
-                href="#contact"
+                href="/contact"
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
@@ -412,14 +412,14 @@ function Home() {
               </p>
               <div className="flex flex-col gap-4 sm:flex-row">
                 <a
-                  href="#services"
+                  href="/services"
                   className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#0A2540] to-[#06B6D4] px-8 py-4 font-bold text-white shadow-xl focus:outline-none focus:ring-4 focus:ring-cyan-300"
                 >
                   <Icon name="Rocket" size={20} aria-hidden="true" />{" "}
                   {t.hero.btn1}
                 </a>
                 <a
-                  href="#contact"
+                  href="/contact"
                   className="flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/80 px-8 py-4 font-bold text-[#0A2540] shadow-md backdrop-blur-md focus:outline-none focus:ring-4 focus:ring-slate-300"
                 >
                   <Icon name="MessageSquare" size={20} aria-hidden="true" />{" "}
@@ -443,7 +443,7 @@ function Home() {
               >
                 {t.about.title}
               </h2>
-              <p className="text-lg leading-relaxed text-slate-500">
+                      href="/about"
                 {t.about.desc}
               </p>
             </div>
@@ -451,7 +451,7 @@ function Home() {
             <div className="grid gap-8 md:grid-cols-3">
               <article className="group rounded-[2.5rem] border border-slate-100 bg-slate-50 p-10 transition-all hover:bg-white hover:shadow-2xl">
                 <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0A2540] text-white transition-transform group-hover:scale-110">
-                  <Icon name="Briefcase" size={32} aria-hidden="true" />
+                      href="/services"
                 </div>
                 <h3 className="mb-4 text-2xl font-bold text-[#0A2540]">
                   {t.about.card1}
@@ -812,7 +812,7 @@ function Home() {
                 <ul className="space-y-4 text-sm">
                   <li>
                     <a
-                      href="#"
+                      href="/"
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.nav.home}
@@ -820,7 +820,7 @@ function Home() {
                   </li>
                   <li>
                     <a
-                      href="#about"
+                      href="/about"
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.nav.about}
@@ -828,7 +828,7 @@ function Home() {
                   </li>
                   <li>
                     <a
-                      href="#services"
+                      href="/services"
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.nav.services}
