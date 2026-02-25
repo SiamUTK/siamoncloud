@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
+  Plane,
   Target,
   Compass,
   Heart,
@@ -226,16 +227,13 @@ function About() {
             className="flex items-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-600 rounded-lg p-1"
             aria-label="Siam On Cloud Home"
           >
-            <div className="flex h-8 items-center sm:h-9 lg:h-11">
-              <img
-                src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-web.png"
-                alt="Siam On Cloud Logo"
-                width="320"
-                height="80"
-                className="block h-auto max-h-full w-auto max-w-full object-contain"
-                loading="eager"
-              />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#0A2540] to-[#06B6D4] flex items-center justify-center text-white shadow-lg">
+              <Plane size={24} aria-hidden="true" />
             </div>
+            <span className="font-bold text-xl tracking-tight hidden sm:block">
+              <span className="text-[#0A2540]">SIAM ON </span>
+              <span className="text-cyan-500">CLOUD</span>
+            </span>
           </Link>
 
           <div className="flex items-center gap-4 lg:gap-8">
@@ -558,16 +556,12 @@ function About() {
           <div className="grid lg:grid-cols-2 gap-20 mb-16">
             <div>
               <div className="flex items-center gap-2 mb-8">
-                <div className="flex h-8 items-center sm:h-9 lg:h-10">
-                  <img
-                    src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-web.png"
-                    alt="Siam On Cloud Logo"
-                    width="320"
-                    height="80"
-                    className="block h-auto max-h-full w-auto max-w-full object-contain"
-                    loading="lazy"
-                  />
+                <div className="w-10 h-10 rounded-xl bg-cyan-600 flex items-center justify-center text-white">
+                  <Plane size={24} aria-hidden="true" />
                 </div>
+                <span className="text-2xl font-bold text-white">
+                  SIAM ON CLOUD
+                </span>
               </div>
               <p className="max-w-md mb-8 leading-relaxed">
                 {t.footer.tagline}

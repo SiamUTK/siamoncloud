@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
-import { Facebook, Linkedin, Menu, Sparkles, Twitter } from "lucide-react";
+import {
+  Facebook,
+  Linkedin,
+  Menu,
+  Plane,
+  Sparkles,
+  Twitter,
+} from "lucide-react";
 import usePageMeta from "../hooks/usePageMeta";
 
 function Privacy() {
@@ -21,16 +28,13 @@ function Privacy() {
             className="flex cursor-pointer items-center gap-2 rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-cyan-600"
             aria-label="Siam On Cloud Home"
           >
-            <div className="flex h-8 items-center sm:h-9 lg:h-11">
-              <img
-                src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-web.png"
-                alt="Siam On Cloud Logo"
-                width="320"
-                height="80"
-                className="block h-auto max-h-full w-auto max-w-full object-contain"
-                loading="eager"
-              />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-[#0A2540] to-[#06B6D4] text-white shadow-lg">
+              <Plane size={24} aria-hidden="true" />
             </div>
+            <span className="hidden text-xl font-bold tracking-tight sm:block">
+              <span className="text-[#0A2540]">SIAM ON </span>
+              <span className="text-cyan-500">CLOUD</span>
+            </span>
           </Link>
 
           <div className="flex items-center gap-4 lg:gap-8">
@@ -308,16 +312,12 @@ function Privacy() {
           <div className="mb-16 grid gap-20 lg:grid-cols-2">
             <div>
               <div className="mb-8 flex items-center gap-2">
-                <div className="flex h-8 items-center sm:h-9 lg:h-10">
-                  <img
-                    src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-web.png"
-                    alt="Siam On Cloud Logo"
-                    width="320"
-                    height="80"
-                    className="block h-auto max-h-full w-auto max-w-full object-contain"
-                    loading="lazy"
-                  />
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-600 text-white">
+                  <Plane size={24} aria-hidden="true" />
                 </div>
+                <span className="text-2xl font-bold text-white">
+                  SIAM ON CLOUD
+                </span>
               </div>
               <p className="mb-8 max-w-md leading-relaxed">
                 SIAM ON CLOUD CO., LTD. Elevating Your Journey, Amplify Success
