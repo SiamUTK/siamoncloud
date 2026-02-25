@@ -9,37 +9,6 @@
       content="Siam On Cloud offers seamless business and travel solutions. Meet N' Bindee, your AI-powered travel assistant."
     />
 
-    <!-- Google Fonts - Outfit -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- FontAwesome for Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Siam On Cloud | Seamless Business and Travel Solutions</title>
-    <meta
-      name="description"
-      content="Siam On Cloud offers seamless business and travel solutions. Meet N' Bindee, your AI-powered travel assistant."
-    />
-
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -70,7 +39,7 @@
               "neon-cyan": "#4facfe",
             },
             spacing: {
-              11: "2.75rem", // Magic number 11!
+              11: "2.75rem",
               22: "5.5rem",
             },
             backgroundImage: {
@@ -200,13 +169,15 @@
         <!-- Desktop Menu -->
         <div class="hidden md:flex gap-8 text-sm font-medium text-gray-300">
           <a href="#" class="hover:text-neon-blue transition-colors">Home</a>
-          <a href="#" class="hover:text-neon-blue transition-colors"
+          <a href="#services" class="hover:text-neon-blue transition-colors"
             >Services</a
           >
-          <a href="#" class="hover:text-neon-blue transition-colors"
+          <a href="#corporate" class="hover:text-neon-blue transition-colors"
             >Corporate</a
           >
-          <a href="#" class="hover:text-neon-blue transition-colors">Contact</a>
+          <a href="#contact" class="hover:text-neon-blue transition-colors"
+            >Contact</a
+          >
         </div>
         <!-- Language / Mobile Menu -->
         <div class="flex items-center gap-4">
@@ -328,7 +299,7 @@
       </div>
 
       <!-- Services Section -->
-      <div class="text-center mb-16">
+      <div id="services" class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">
           Services to Make Your
           <span class="text-gradient">Journey Seamless</span>
@@ -423,6 +394,7 @@
 
       <!-- AI App Demo & Features -->
       <div
+        id="corporate"
         class="glass-panel p-8 md:p-11 mb-22 flex flex-col md:flex-row items-center gap-11 relative overflow-hidden"
       >
         <!-- Background Decoration -->
@@ -609,6 +581,7 @@
 
     <!-- ================= Standardized Footer ================= -->
     <footer
+      id="contact"
       class="relative z-10 w-full border-t border-white/10 bg-space-dark/80 backdrop-blur-md pt-16 pb-8"
     >
       <div class="max-w-7xl mx-auto px-6 sm:px-11">
@@ -636,7 +609,9 @@
             <!-- Social Links -->
             <div class="flex gap-4">
               <a
-                href="#"
+                href="https://www.facebook.com/siamoncloud"
+                target="_blank"
+                rel="noopener"
                 class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-neon-blue transition-colors group"
               >
                 <i
@@ -644,7 +619,9 @@
                 ></i>
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/siamoncloud"
+                target="_blank"
+                rel="noopener"
                 class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-gray-400 hover:text-neon-blue transition-colors group"
               >
                 <i

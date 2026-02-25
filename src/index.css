@@ -9,6 +9,7 @@
 body {
   margin: 0;
   font-family:
+    "Outfit",
     Inter,
     system-ui,
     -apple-system,
@@ -17,4 +18,88 @@ body {
     Helvetica,
     Arial,
     sans-serif;
+  background-color: #ffffff;
+  color: #1f2937;
+  overflow-x: hidden;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
+  border-radius: 16px;
+  transition: all 0.3s ease-in-out;
+}
+
+.glass-panel:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(59, 130, 246, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.15);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  backdrop-filter: blur(4px);
+  color: #1f2937;
+}
+
+.glass-input::placeholder {
+  color: #9ca3af;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #3b82f6 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-glow {
+  background: linear-gradient(to right, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.btn-glow:hover {
+  box-shadow: 0 6px 25px rgba(59, 130, 246, 0.6);
+  transform: scale(1.05);
+}
+
+.float-anim {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.bg-stars {
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, #3b82f630, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 40px 70px, #3b82f620, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 50px 160px, #3b82f630, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 90px 40px, #3b82f620, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 130px 80px, #3b82f630, rgba(0, 0, 0, 0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
 }
