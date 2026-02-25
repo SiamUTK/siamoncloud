@@ -45,13 +45,11 @@ function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg">
-                <Plane size={24} />
-              </div>
-              <span className="font-bold text-xl">
-                <span className="text-cyan-400">SIAM ON </span>
-                <span className="text-cyan-500">CLOUD</span>
-              </span>
+              <img
+                src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-online.png"
+                alt="Siam On Cloud Logo"
+                className="h-12 w-auto object-contain"
+              />
             </Link>
 
             {/* Desktop Menu */}
@@ -1029,12 +1027,11 @@ function HomePage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-cyan-600 flex items-center justify-center text-white">
-                  <Plane size={24} />
-                </div>
-                <span className="text-xl font-bold text-white">
-                  SIAM ON CLOUD
-                </span>
+                <img
+                  src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-online2.png"
+                  alt="Siam On Cloud Logo"
+                  className="h-12 w-auto object-contain"
+                />
               </div>
               <p className="text-sm leading-relaxed mb-6">
                 Elevating your journey with modern technology and global

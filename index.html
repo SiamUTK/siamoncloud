@@ -23,6 +23,8 @@
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./components/ai-chat.css" />
 
     <!-- Custom Config for Tailwind to match the dark sci-fi theme -->
     <script>
@@ -53,112 +55,6 @@
         },
       };
     </script>
-
-    <style>
-      /* Glassmorphism Essentials */
-      body {
-        background-color: #040b16;
-        color: #e2e8f0;
-        overflow-x: hidden;
-      }
-
-      .glass-panel {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-        border-radius: 16px;
-        transition: all 0.3s ease-in-out;
-      }
-
-      .glass-panel:hover {
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(0, 242, 254, 0.3);
-        transform: translateY(-5px);
-        box-shadow: 0 15px 45px -10px rgba(0, 242, 254, 0.2);
-      }
-
-      .glass-input {
-        background: rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(4px);
-        color: white;
-      }
-
-      .glass-input:focus {
-        outline: none;
-        border-color: #00f2fe;
-        box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
-      }
-
-      .text-gradient {
-        background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .btn-glow {
-        background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-        box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-        transition: all 0.3s ease;
-      }
-
-      .btn-glow:hover {
-        box-shadow: 0 0 30px rgba(0, 242, 254, 0.7);
-        transform: scale(1.05);
-      }
-
-      /* Robot Mascot Animations */
-      .float-anim {
-        animation: float 6s ease-in-out infinite;
-      }
-
-      @keyframes float {
-        0% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-20px);
-        }
-        100% {
-          transform: translateY(0px);
-        }
-      }
-
-      /* New: Glowing pulse for the mascot background */
-      .glow-pulse {
-        animation: pulse-glow 4s ease-in-out infinite;
-      }
-
-      @keyframes pulse-glow {
-        0% {
-          opacity: 0.5;
-          transform: scale(0.95) translate(-50%, -50%);
-        }
-        50% {
-          opacity: 0.8;
-          transform: scale(1.1) translate(-45%, -45%);
-        }
-        100% {
-          opacity: 0.5;
-          transform: scale(0.95) translate(-50%, -50%);
-        }
-      }
-
-      /* Subtle glowing dots background */
-      .bg-stars {
-        background-image:
-          radial-gradient(2px 2px at 20px 30px, #ffffff15, rgba(0, 0, 0, 0)),
-          radial-gradient(2px 2px at 40px 70px, #ffffff10, rgba(0, 0, 0, 0)),
-          radial-gradient(2px 2px at 50px 160px, #ffffff15, rgba(0, 0, 0, 0)),
-          radial-gradient(2px 2px at 90px 40px, #ffffff10, rgba(0, 0, 0, 0)),
-          radial-gradient(2px 2px at 130px 80px, #ffffff15, rgba(0, 0, 0, 0));
-        background-repeat: repeat;
-        background-size: 200px 200px;
-      }
-    </style>
   </head>
   <body
     class="bg-stars antialiased relative selection:bg-neon-blue selection:text-space-dark"
@@ -172,54 +68,110 @@
     <!-- Main Content Wrapper -->
     <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-11 pt-8 pb-22">
       <!-- Navbar -->
-      <nav class="flex justify-between items-center mb-16">
+      <nav class="flex justify-between items-center mb-10 sm:mb-16">
         <div
-          class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+          class="flex items-center cursor-pointer hover:opacity-80 transition-opacity"
         >
-          <!-- Upgraded Logo: Plane Icon -->
-          <div
-            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neon-cyan to-neon-blue flex items-center justify-center shadow-[0_0_15px_rgba(0,242,254,0.5)]"
-          >
-            <i class="fa-solid fa-plane-up text-space-dark text-xl"></i>
-          </div>
-          <div class="text-xl font-black tracking-tighter uppercase">
-            SIAM <span class="text-gradient">ON</span> CLOUD
-          </div>
+          <img
+            src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-online.png"
+            alt="Siam On Cloud Logo"
+            class="h-10 sm:h-12 lg:h-14 w-auto object-contain"
+          />
         </div>
         <!-- Desktop Menu -->
         <div class="hidden md:flex gap-8 text-sm font-medium text-gray-300">
-          <a href="#" class="hover:text-neon-blue transition-colors">Home</a>
-          <a href="#" class="hover:text-neon-blue transition-colors"
+          <a
+            href="#"
+            class="hover:text-neon-blue transition-colors"
+            data-i18n="nav.home"
+            >Home</a
+          >
+          <a
+            href="#"
+            class="hover:text-neon-blue transition-colors"
+            data-i18n="nav.services"
             >Services</a
           >
-          <a href="#" class="hover:text-neon-blue transition-colors"
+          <a
+            href="#"
+            class="hover:text-neon-blue transition-colors"
+            data-i18n="nav.corporate"
             >Corporate</a
           >
-          <a href="#" class="hover:text-neon-blue transition-colors">Contact</a>
+          <a
+            href="#"
+            class="hover:text-neon-blue transition-colors"
+            data-i18n="nav.contact"
+            >Contact</a
+          >
         </div>
         <!-- Language / Mobile Menu -->
         <div class="flex items-center gap-4">
           <div
-            class="text-xs font-semibold glass-panel px-3 py-1.5 cursor-pointer text-neon-cyan"
+            class="rounded-lg border border-white/10 bg-white/5 p-1 text-xs font-semibold text-neon-cyan"
           >
-            EN | TH
+            <button id="lang-en" class="rounded-md px-2 py-1">EN</button>
+            <button id="lang-th" class="rounded-md px-2 py-1">TH</button>
           </div>
+          <button
+            id="mobile-menu-btn"
+            aria-label="Toggle mobile menu"
+            aria-expanded="false"
+            class="md:hidden p-2 rounded-lg border border-white/10 bg-white/5 text-neon-cyan"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
         </div>
       </nav>
+      <div
+        id="mobile-menu"
+        class="mobile-menu mb-8 rounded-xl border border-white/10 bg-space-light/80 p-4 md:hidden"
+      >
+        <div class="flex flex-col gap-3 text-sm font-medium text-gray-300">
+          <a
+            href="#"
+            class="hover:text-neon-blue transition-colors"
+            data-i18n="nav.home"
+            >Home</a
+          >
+          <a
+            href="#"
+            class="hover:text-neon-blue transition-colors"
+            data-i18n="nav.services"
+            >Services</a
+          >
+          <a
+            href="#"
+            class="hover:text-neon-blue transition-colors"
+            data-i18n="nav.corporate"
+            >Corporate</a
+          >
+          <a
+            href="#"
+            class="hover:text-neon-blue transition-colors"
+            data-i18n="nav.contact"
+            >Contact</a
+          >
+        </div>
+      </div>
 
       <!-- Hero Section -->
       <div
-        class="flex flex-col-reverse lg:flex-row items-center justify-between gap-11 mb-22"
+        class="hero-mobile-space flex flex-col-reverse lg:flex-row items-center justify-between gap-8 lg:gap-11 mb-16 lg:mb-22"
       >
         <!-- Left: Text & CTA -->
         <div class="w-full lg:w-3/5 text-center lg:text-left z-20">
           <h1
-            class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+            id="hero-title"
+            class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+            data-i18n="hero.title"
           >
-            Welcome to <span class="text-gradient">Smarter Travel</span><br />
-            with SIAM ON CLOUD
+            Welcome to Smarter Travel with SIAM ON CLOUD
           </h1>
-          <p class="text-gray-400 text-lg mb-8 max-w-xl mx-auto lg:mx-0">
+          <p
+            class="text-gray-400 text-base sm:text-lg mb-8 max-w-xl mx-auto lg:mx-0"
+            data-i18n="hero.subtitle"
+          >
             N' Bindee, your AI-powered travel assistant, here to make your trips
             easier, seamless, and more enjoyable for your business or personal
             journey.
@@ -236,14 +188,16 @@
               <input
                 type="email"
                 placeholder="Enter Your Email Address"
+                data-i18n-placeholder="hero.emailPlaceholder"
                 class="w-full glass-input rounded-full py-4 pl-11 pr-6 text-sm transition-all"
               />
             </div>
             <button
-              onclick="startAiChat()"
+              id="hero-cta"
               class="btn-glow text-space-dark font-semibold rounded-full py-4 px-8 whitespace-nowrap flex items-center justify-center gap-2"
+              data-i18n="hero.cta"
             >
-              Plan Your Trip <i class="fa-solid fa-chevron-right text-xs"></i>
+              Plan Your Trip
             </button>
           </div>
 
@@ -252,15 +206,16 @@
             class="flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-gray-300 font-medium"
           >
             <div class="flex items-center gap-2">
-              <i class="fa-solid fa-paper-plane text-neon-blue"></i> Visa
-              Assistance
+              <i class="fa-solid fa-paper-plane text-neon-blue"></i>
+              <span data-i18n="hero.feature1">Visa Assistance</span>
             </div>
             <div class="flex items-center gap-2">
-              <i class="fa-solid fa-earth-asia text-neon-blue"></i> Global Tours
+              <i class="fa-solid fa-earth-asia text-neon-blue"></i>
+              <span data-i18n="hero.feature2">Global Tours</span>
             </div>
             <div class="flex items-center gap-2">
               <i class="fa-solid fa-suitcase-rolling text-neon-blue"></i>
-              Booking & Management
+              <span data-i18n="hero.feature3">Booking & Management</span>
             </div>
           </div>
         </div>
@@ -609,15 +564,13 @@
         >
           <!-- Col 1: Brand & About (Upgraded Logo) -->
           <div class="lg:col-span-4 flex flex-col items-start">
-            <div class="flex items-center gap-3 mb-6">
-              <div
-                class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neon-cyan to-neon-blue flex items-center justify-center shadow-[0_0_15px_rgba(0,242,254,0.5)]"
-              >
-                <i class="fa-solid fa-plane-up text-space-dark text-xl"></i>
-              </div>
-              <div class="text-xl font-black tracking-tighter uppercase">
-                SIAM <span class="text-gradient">ON</span> CLOUD
-              </div>
+            <div class="flex items-center mb-6">
+              <img
+                src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-online2.png"
+                alt="Siam On Cloud Logo"
+                class="h-12 sm:h-14 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                loading="lazy"
+              />
             </div>
             <p class="text-gray-400 text-sm leading-relaxed mb-6">
               Business Meets Travel | Elevate Your Journey, Amplify Success. We
@@ -657,7 +610,7 @@
             <h4
               class="text-white font-bold mb-6 text-lg relative inline-block uppercase"
             >
-              Services
+              <span data-i18n="footer.services">Services</span>
               <span
                 class="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-neon-blue rounded-full"
               ></span>
@@ -703,7 +656,7 @@
             <h4
               class="text-white font-bold mb-6 text-lg relative inline-block uppercase"
             >
-              Links
+              <span data-i18n="footer.links">Links</span>
               <span
                 class="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-neon-blue rounded-full"
               ></span>
@@ -746,7 +699,7 @@
             <h4
               class="text-white font-bold mb-6 text-lg relative inline-block uppercase"
             >
-              Contact
+              <span data-i18n="footer.contact">Contact</span>
               <span
                 class="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-neon-blue rounded-full"
               ></span>
@@ -787,11 +740,14 @@
         <div
           class="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
         >
-          <p class="text-gray-500 text-xs text-center md:text-left">
+          <p
+            class="text-gray-500 text-xs text-center md:text-left"
+            data-i18n="footer.rights"
+          >
             &copy; 2026 SIAM ON CLOUD CO., LTD. ALL RIGHTS RESERVED.
           </p>
           <div class="flex items-center gap-2 text-xs text-gray-500">
-            <span>Designed by</span>
+            <span data-i18n="footer.designedBy">Designed by</span>
             <span class="font-bold text-neon-blue tracking-widest uppercase"
               >AI</span
             >
@@ -800,46 +756,10 @@
       </div>
     </footer>
 
-    <!-- Alert Message -->
-    <div
-      id="ai-message"
-      class="fixed top-4 right-4 z-50 transform translate-x-full transition-transform duration-300"
-    >
-      <div
-        class="glass-panel p-4 flex items-center gap-4 bg-space-light/90 border-l-4 border-l-neon-blue"
-      >
-        <div
-          class="w-10 h-10 rounded-full bg-neon-blue/20 flex items-center justify-center"
-        >
-          <i class="fa-solid fa-robot text-neon-blue"></i>
-        </div>
-        <div>
-          <h4 class="font-bold text-white text-sm">N' Bindee Says:</h4>
-          <p class="text-xs text-gray-300">
-            Sawasdee khrab! New logo, same great service. ✈️
-          </p>
-        </div>
-        <button
-          onclick="closeAiChat()"
-          class="text-gray-500 hover:text-white ml-2"
-        >
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-    </div>
-
     <script>
-      function startAiChat() {
-        const msgBox = document.getElementById("ai-message");
-        msgBox.classList.remove("translate-x-full");
-        setTimeout(() => {
-          closeAiChat();
-        }, 5000);
-      }
-      function closeAiChat() {
-        const msgBox = document.getElementById("ai-message");
-        msgBox.classList.add("translate-x-full");
-      }
+      window.SUPABASE_URL = "SUPABASE_URL";
+      window.SUPABASE_ANON_KEY = "SUPABASE_ANON_KEY";
     </script>
+    <script type="module" src="./js/main.js"></script>
   </body>
 </html>

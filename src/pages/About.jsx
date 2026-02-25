@@ -227,13 +227,11 @@ function About() {
             className="flex items-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-600 rounded-lg p-1"
             aria-label="Siam On Cloud Home"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#0A2540] to-[#06B6D4] flex items-center justify-center text-white shadow-lg">
-              <Plane size={24} aria-hidden="true" />
-            </div>
-            <span className="font-bold text-xl tracking-tight hidden sm:block">
-              <span className="text-[#0A2540]">SIAM ON </span>
-              <span className="text-cyan-500">CLOUD</span>
-            </span>
+            <img
+              src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-online.png"
+              alt="Siam On Cloud Logo"
+              className="h-12 w-auto object-contain"
+            />
           </Link>
 
           <div className="flex items-center gap-4 lg:gap-8">
@@ -556,12 +554,11 @@ function About() {
           <div className="grid lg:grid-cols-2 gap-20 mb-16">
             <div>
               <div className="flex items-center gap-2 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-cyan-600 flex items-center justify-center text-white">
-                  <Plane size={24} aria-hidden="true" />
-                </div>
-                <span className="text-2xl font-bold text-white">
-                  SIAM ON CLOUD
-                </span>
+                <img
+                  src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-online2.png"
+                  alt="Siam On Cloud Logo"
+                  className="h-12 w-auto object-contain"
+                />
               </div>
               <p className="max-w-md mb-8 leading-relaxed">
                 {t.footer.tagline}

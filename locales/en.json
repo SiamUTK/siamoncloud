@@ -1,0 +1,31 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "corporate": "Corporate",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Welcome to Smarter Travel with SIAM ON CLOUD",
+    "subtitle": "N' Bindee, your AI-powered travel assistant, makes business and personal trips easier and seamless.",
+    "emailPlaceholder": "Enter Your Email Address",
+    "cta": "Plan Your Trip",
+    "feature1": "Visa Assistance",
+    "feature2": "Global Tours",
+    "feature3": "Booking & Management"
+  },
+  "footer": {
+    "services": "Services",
+    "links": "Links",
+    "contact": "Contact",
+    "rights": "© 2026 SIAM ON CLOUD CO., LTD. ALL RIGHTS RESERVED.",
+    "designedBy": "Designed by"
+  },
+  "chat": {
+    "title": "N' Bindee",
+    "status": "AI Assistant • Online",
+    "welcome": "Sawasdee! I am N' Bindee. How can I support your trip today?",
+    "placeholder": "Type your message...",
+    "typing": "AI is typing..."
+  }
+}
