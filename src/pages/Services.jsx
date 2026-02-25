@@ -686,7 +686,7 @@ function Services() {
                   </li>
                   <li>
                     <a
-                      href="#"
+                      href="/privacy"
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.footer.privacy}
