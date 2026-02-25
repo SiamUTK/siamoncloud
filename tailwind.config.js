@@ -13,12 +13,17 @@ export default {
           "50%": { transform: "translateY(-8px)" },
         },
         pulseGlow: {
-          "0%, 100%": { opacity: "1", boxShadow: "0 0 0 0 rgba(6, 182, 212, 0.4)" },
-          "50%": { opacity: "0.8", boxShadow: "0 0 0 8px rgba(6, 182, 212, 0)" },
+          "0%, 100%": {
+            opacity: "1",
+            boxShadow: "0 0 0 0 rgba(6, 182, 212, 0.4)",
+          },
+          "50%": {
+            opacity: "0.8",
+            boxShadow: "0 0 0 8px rgba(6, 182, 212, 0)",
+          },
         },
       },
     },
   },
   plugins: [],
 };
-

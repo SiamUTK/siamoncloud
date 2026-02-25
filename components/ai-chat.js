@@ -7,9 +7,12 @@ export function initAIChat({ t, getLang }) {
   shell.innerHTML = `
     <div id="soc-chat-window" class="soc-chat-window" role="dialog" aria-label="AI Chat Window">
       <div class="soc-chat-head">
-        <div>
-          <strong id="soc-chat-title">${t.chat.title}</strong><br />
-          <small id="soc-chat-status">${t.chat.status}</small>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/mascot/binnai-head.png" alt="Binnai" style="width:32px;height:32px;border-radius:50%;border:2px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;object-fit:contain;" />
+          <div>
+            <strong id="soc-chat-title">${t.chat.title}</strong><br />
+            <small id="soc-chat-status">${t.chat.status}</small>
+          </div>
         </div>
         <button id="soc-chat-close" aria-label="Close chat" style="background:transparent;color:white;font-size:20px;">×</button>
       </div>
@@ -19,7 +22,7 @@ export function initAIChat({ t, getLang }) {
         <button type="submit" aria-label="Send" style="border-radius:999px;padding:0 12px;background:#0a2540;color:white;">➤</button>
       </form>
     </div>
-    <button id="soc-chat-toggle" class="soc-chat-toggle" aria-label="Open chat">AI</button>
+    <button id="soc-chat-toggle" class="soc-chat-toggle" aria-label="Open chat" style="display:flex;align-items:center;justify-content:center;"><img src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/mascot/binnai-head.png" alt="Binnai AI" style="width:40px;height:40px;object-fit:contain;" /></button>
   `;
 
   document.body.appendChild(shell);
