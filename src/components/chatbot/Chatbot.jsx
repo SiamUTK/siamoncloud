@@ -79,13 +79,13 @@ function Chatbot({ t }) {
         >
           <div className="flex items-center justify-between bg-gradient-to-r from-[#0A2540] to-[#06B6D4] p-4 text-white shadow-md">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white/30 bg-white/20 backdrop-blur-sm">
+              <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border-2 border-white/40 bg-white/20 backdrop-blur-sm shadow-lg">
                 <img
                   src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/mascot/binnai-head.png"
-                  alt="Mascot"
-                  className="h-8 w-8 animate-pulse object-contain"
-                  width="32"
-                  height="32"
+                  alt="Binnai AI Assistant"
+                  className="h-10 w-10 object-contain drop-shadow-md"
+                  width="40"
+                  height="40"
                   loading="lazy"
                 />
               </div>
@@ -167,19 +167,19 @@ function Chatbot({ t }) {
 
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-white/20 bg-gradient-to-r from-[#0A2540] to-[#06B6D4] text-white shadow-xl transition-transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-cyan-300"
+        className="flex h-16 w-16 items-center justify-center rounded-full border-3 border-white/30 bg-gradient-to-r from-[#0A2540] to-[#06B6D4] text-white shadow-2xl transition-all hover:scale-110 hover:shadow-cyan-500/50 hover:border-white/50 focus:outline-none focus:ring-4 focus:ring-cyan-400 focus:ring-offset-2"
         aria-label={isOpen ? "Close Chatbot" : "Open Chatbot"}
         aria-expanded={isOpen}
       >
         {isOpen ? (
-          <Icon name="X" size={24} aria-hidden="true" />
+          <Icon name="X" size={28} aria-hidden="true" />
         ) : (
           <img
             src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/mascot/binnai-head.png"
-            alt="Open Chat"
-            className="h-10 w-10 object-contain"
-            width="40"
-            height="40"
+            alt="Binnai AI Assistant - Click to chat"
+            className="h-12 w-12 object-contain drop-shadow-lg"
+            width="48"
+            height="48"
             loading="lazy"
           />
         )}
