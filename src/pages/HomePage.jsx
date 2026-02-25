@@ -690,9 +690,9 @@ function HomePage() {
                 ))}
               </div>
               <p className="text-slate-700 mb-6 leading-relaxed">
-                "Siam On Cloud transformed our booking process completely. The
-                AI chatbot handles 80% of customer inquiries automatically. Our
-                efficiency increased by 300%."
+                &quot;Siam On Cloud transformed our booking process completely.
+                The AI chatbot handles 80% of customer inquiries automatically.
+                Our efficiency increased by 300%.&quot;
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white font-bold">
@@ -718,9 +718,9 @@ function HomePage() {
                 ))}
               </div>
               <p className="text-slate-700 mb-6 leading-relaxed">
-                "The GayBKK platform is incredible! Finally, a travel service
-                that understands our community's needs. Professional, safe, and
-                beautifully designed."
+                &quot;The GayBKK platform is incredible! Finally, a travel
+                service that understands our community&apos;s needs.
+                Professional, safe, and beautifully designed.&quot;
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold">
@@ -744,9 +744,9 @@ function HomePage() {
                 ))}
               </div>
               <p className="text-slate-700 mb-6 leading-relaxed">
-                "Outstanding technical support and custom development. They
+                &quot;Outstanding technical support and custom development. They
                 built our entire booking infrastructure in record time. Highly
-                recommended!"
+                recommended!&quot;
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-violet-400 to-indigo-500 flex items-center justify-center text-white font-bold">
