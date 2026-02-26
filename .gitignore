@@ -6,3 +6,5 @@ dist
 .env
 .env.*
 !.env.example
+deploy-static/
+siamoncloud-hostinger-static.zip
