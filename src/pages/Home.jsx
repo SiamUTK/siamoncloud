@@ -273,7 +273,7 @@ function Home() {
       const result = await sendMessageToAI("Hello! Say hello back in 3 words.");
       setAiTestStatus(result);
       console.log("[AI Test]", result);
-    } catch (err) {
+    } catch {
       setAiTestStatus({
         success: false,
         error: "Failed to run test",

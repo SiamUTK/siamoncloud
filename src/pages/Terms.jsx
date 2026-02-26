@@ -1,12 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  Facebook,
-  Linkedin,
-  Menu,
-  Plane,
-  Sparkles,
-  Twitter,
-} from "lucide-react";
+import { Facebook, Linkedin, Menu, Sparkles, Twitter } from "lucide-react";
 import usePageMeta from "../hooks/usePageMeta";
 
 function Terms() {

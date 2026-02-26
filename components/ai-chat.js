@@ -79,7 +79,9 @@ export function initAIChat({ t, getLang }) {
             created_at: new Date().toISOString(),
           },
         ]);
-      } catch {}
+      } catch (error) {
+        console.error("[AI Chat] Failed to store chat", error);
+      }
     }
   }
 
