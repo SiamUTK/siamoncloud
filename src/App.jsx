@@ -1,6 +1,8 @@
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import CookieConsent from "./components/ui/CookieConsent";
+import AppErrorBoundary from "./components/layout/AppErrorBoundary";
+import NotFound from "./pages/NotFound";
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
@@ -11,26 +13,61 @@ const Privacy = lazy(() => import("./pages/Privacy"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Login = lazy(() => import("./pages/Login"));
 
+const localizedPages = [
+  { path: "", element: <Home /> },
+  { path: "about", element: <About /> },
+  { path: "services", element: <Services /> },
+  { path: "contact", element: <Contact /> },
+  { path: "terms", element: <Terms /> },
+  { path: "privacy", element: <Privacy /> },
+  { path: "privacy-policy", element: <Privacy /> },
+  { path: "signup", element: <SignUp /> },
+  { path: "login", element: <Login /> },
+];
+
+const locales = ["en", "th"];
+
+function localizedPath(locale, path) {
+  return path ? `/${locale}/${path}` : `/${locale}`;
+}
+
+function defaultLocalePath(path) {
+  return path ? `/en/${path}` : "/en";
+}
+
 function App() {
   return (
     <BrowserRouter>
-      <Suspense
-        fallback={<div className="min-h-screen bg-white" aria-busy="true" />}
-      >
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/privacy-policy" element={<Privacy />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-        <CookieConsent />
-      </Suspense>
+      <AppErrorBoundary>
+        <Suspense
+          fallback={<div className="min-h-screen bg-white" aria-busy="true" />}
+        >
+          <Routes>
+            <Route path="/" element={<Navigate to="/en" replace />} />
+
+            {localizedPages.map((page) =>
+              locales.map((locale) => (
+                <Route
+                  key={`${locale}-${page.path || "home"}`}
+                  path={localizedPath(locale, page.path)}
+                  element={page.element}
+                />
+              )),
+            )}
+
+            {localizedPages.map((page) => (
+              <Route
+                key={`legacy-${page.path || "home"}`}
+                path={page.path ? `/${page.path}` : "/home"}
+                element={<Navigate to={defaultLocalePath(page.path)} replace />}
+              />
+            ))}
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <CookieConsent />
+        </Suspense>
+      </AppErrorBoundary>
     </BrowserRouter>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Plane,
   MapPin,
@@ -19,6 +20,8 @@ import {
   Globe,
   Headphones,
 } from "lucide-react";
+import usePageMeta from "../hooks/usePageMeta";
+import { useLocaleRouting } from "../lib/localeRouting";
 
 const translations = {
   en: {
@@ -162,13 +165,30 @@ const contactImages = {
 };
 
 export default function Contact() {
-  const [lang, setLang] = useState("en");
+  const { locale, withLocalePath, switchLocale } = useLocaleRouting();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const lang = locale;
   const t = translations[lang];
+
+  usePageMeta({
+    title:
+      lang === "th"
+        ? "Siam On Cloud | ติดต่อเรา"
+        : "Siam On Cloud | Contact Us",
+    description:
+      lang === "th"
+        ? "ติดต่อ Siam On Cloud เพื่อโซลูชันการเดินทางและเทคโนโลยีสำหรับธุรกิจ"
+        : "Contact Siam On Cloud for business travel and technology solutions.",
+    scrollToTop: false,
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("soc_locale", locale);
+  }, [locale]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -183,8 +203,8 @@ export default function Contact() {
         aria-label="Main Navigation"
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
-          <a
-            href="/"
+          <Link
+            to={withLocalePath("/")}
             className="flex cursor-pointer items-center gap-2 rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-cyan-600"
             aria-label="Siam On Cloud Home"
           >
@@ -193,49 +213,49 @@ export default function Contact() {
               alt="Siam On Cloud Logo"
               className="h-12 w-auto object-contain"
             />
-          </a>
+          </Link>
 
           <div className="flex items-center gap-4 lg:gap-8">
             <div
               className="hidden gap-6 text-sm font-medium text-slate-600 md:flex"
               role="menubar"
             >
-              <a
-                href="/"
+              <Link
+                to={withLocalePath("/")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.nav.home}
-              </a>
-              <a
-                href="/#about"
+              </Link>
+              <Link
+                to={withLocalePath("/#about")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.nav.about}
-              </a>
-              <a
-                href="/services"
+              </Link>
+              <Link
+                to={withLocalePath("/services")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.nav.services}
-              </a>
-              <a
-                href="/contact"
+              </Link>
+              <Link
+                to={withLocalePath("/contact")}
                 className="rounded px-1 font-bold text-cyan-600 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
                 aria-current="page"
               >
                 {t.nav.contact}
-              </a>
-              <a
-                href="/terms"
+              </Link>
+              <Link
+                to={withLocalePath("/terms")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.footer.terms}
-              </a>
+              </Link>
             </div>
 
             <div
@@ -243,7 +263,7 @@ export default function Contact() {
               aria-label="Language Selector"
             >
               <button
-                onClick={() => setLang("en")}
+                onClick={() => switchLocale("en")}
                 className={`rounded-md px-2 py-1 text-xs font-bold transition-all ${
                   lang === "en"
                     ? "bg-white text-slate-900 shadow-sm"
@@ -253,7 +273,7 @@ export default function Contact() {
                 EN
               </button>
               <button
-                onClick={() => setLang("th")}
+                onClick={() => switchLocale("th")}
                 className={`rounded-md px-2 py-1 text-xs font-bold transition-all ${
                   lang === "th"
                     ? "bg-white text-slate-900 shadow-sm"
@@ -609,28 +629,28 @@ export default function Contact() {
                 </h4>
                 <ul className="space-y-4 text-sm">
                   <li>
-                    <a
-                      href="/"
+                    <Link
+                      to={withLocalePath("/")}
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.nav.home}
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/#about"
+                    <Link
+                      to={withLocalePath("/#about")}
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.nav.about}
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/services"
+                    <Link
+                      to={withLocalePath("/services")}
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.nav.services}
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -638,20 +658,20 @@ export default function Contact() {
                 <h4 className="mb-6 font-bold text-white">{t.footer.legal}</h4>
                 <ul className="space-y-4 text-sm">
                   <li>
-                    <a
-                      href="/terms"
+                    <Link
+                      to={withLocalePath("/terms")}
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.footer.terms}
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/privacy"
+                    <Link
+                      to={withLocalePath("/privacy-policy")}
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.footer.privacy}
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Chatbot from "../components/chatbot/Chatbot";
 import Icon from "../components/ui/Icon";
 import { testSupabaseConnection } from "../utils/testSupabaseConnection";
 import { sendMessageToAI } from "../lib/aiClient";
+import { useLocaleRouting } from "../lib/localeRouting";
 
 const translations = {
   en: {
@@ -242,13 +244,18 @@ const structuredData = {
 };
 
 function Home() {
-  const [lang, setLang] = useState("en");
+  const { locale, withLocalePath, switchLocale } = useLocaleRouting();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [testStatus, setTestStatus] = useState(null);
   const [testLoading, setTestLoading] = useState(false);
   const [aiTestStatus, setAiTestStatus] = useState(null);
   const [aiTestLoading, setAiTestLoading] = useState(false);
+  const lang = locale;
   const t = translations[lang];
+
+  useEffect(() => {
+    window.localStorage.setItem("soc_locale", locale);
+  }, [locale]);
 
   const handleTestConnection = async () => {
     setTestLoading(true);
@@ -307,8 +314,8 @@ function Home() {
         aria-label="Main Navigation"
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4">
-          <a
-            href="/"
+          <Link
+            to={withLocalePath("/")}
             className="flex cursor-pointer items-center gap-2 rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-cyan-600"
             aria-label="Siam On Cloud Home"
           >
@@ -317,48 +324,48 @@ function Home() {
               alt="Siam On Cloud Logo"
               className="h-12 w-auto object-contain"
             />
-          </a>
+          </Link>
 
           <div className="flex items-center gap-4 lg:gap-8">
             <div
               className="hidden gap-6 text-sm font-medium text-slate-600 md:flex"
               role="menubar"
             >
-              <a
-                href="/"
+              <Link
+                to={withLocalePath("/")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.nav.home}
-              </a>
-              <a
-                href="/about"
+              </Link>
+              <Link
+                to={withLocalePath("/about")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.nav.about}
-              </a>
-              <a
-                href="/services"
+              </Link>
+              <Link
+                to={withLocalePath("/services")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.nav.services}
-              </a>
-              <a
-                href="/contact"
+              </Link>
+              <Link
+                to={withLocalePath("/contact")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.nav.contact}
-              </a>
-              <a
-                href="/terms"
+              </Link>
+              <Link
+                to={withLocalePath("/terms")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
                 {t.footer.terms}
-              </a>
+              </Link>
             </div>
 
             <div
@@ -366,7 +373,7 @@ function Home() {
               aria-label="Language Selector"
             >
               <button
-                onClick={() => setLang("en")}
+                onClick={() => switchLocale("en")}
                 className={`rounded-md px-2 py-1 text-xs font-bold transition-all focus:outline-none focus:ring-2 focus:ring-cyan-600 ${
                   lang === "en"
                     ? "bg-white text-slate-900 shadow-sm"
@@ -378,7 +385,7 @@ function Home() {
                 EN
               </button>
               <button
-                onClick={() => setLang("th")}
+                onClick={() => switchLocale("th")}
                 className={`rounded-md px-2 py-1 text-xs font-bold transition-all focus:outline-none focus:ring-2 focus:ring-cyan-600 ${
                   lang === "th"
                     ? "bg-white text-slate-900 shadow-sm"
@@ -392,18 +399,18 @@ function Home() {
             </div>
 
             <div className="hidden gap-3 sm:flex">
-              <a
-                href="/login"
+              <Link
+                to={withLocalePath("/login")}
                 className="rounded px-2 py-1 text-sm font-semibold text-[#0A2540] hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
               >
                 {t.nav.login}
-              </a>
-              <a
-                href="/signup"
+              </Link>
+              <Link
+                to={withLocalePath("/signup")}
                 className="rounded-full bg-gradient-to-r from-[#0A2540] to-[#06B6D4] px-5 py-2 text-sm font-semibold text-white shadow-md transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-offset-2"
               >
                 {t.nav.register}
-              </a>
+              </Link>
             </div>
 
             <button
@@ -461,20 +468,20 @@ function Home() {
                 {t.hero.desc}
               </p>
               <div className="flex flex-col gap-4 sm:flex-row">
-                <a
-                  href="/services"
+                <Link
+                  to={withLocalePath("/services")}
                   className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#0A2540] to-[#06B6D4] px-8 py-4 font-bold text-white shadow-xl focus:outline-none focus:ring-4 focus:ring-cyan-300"
                 >
                   <Icon name="Rocket" size={20} aria-hidden="true" />{" "}
                   {t.hero.btn1}
-                </a>
-                <a
-                  href="/contact"
+                </Link>
+                <Link
+                  to={withLocalePath("/contact")}
                   className="flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/80 px-8 py-4 font-bold text-[#0A2540] shadow-md backdrop-blur-md focus:outline-none focus:ring-4 focus:ring-slate-300"
                 >
                   <Icon name="MessageSquare" size={20} aria-hidden="true" />{" "}
                   {t.hero.btn2}
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -858,28 +865,28 @@ function Home() {
                 </h4>
                 <ul className="space-y-4 text-sm">
                   <li>
-                    <a
-                      href="/"
+                    <Link
+                      to={withLocalePath("/")}
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.nav.home}
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/about"
+                    <Link
+                      to={withLocalePath("/about")}
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.nav.about}
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/services"
+                    <Link
+                      to={withLocalePath("/services")}
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.nav.services}
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -887,20 +894,20 @@ function Home() {
                 <h4 className="mb-6 font-bold text-white">{t.footer.legal}</h4>
                 <ul className="space-y-4 text-sm">
                   <li>
-                    <a
-                      href="/terms"
+                    <Link
+                      to={withLocalePath("/terms")}
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.footer.terms}
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="/privacy"
+                    <Link
+                      to={withLocalePath("/privacy-policy")}
                       className="hover:text-cyan-400 focus:outline-none focus:underline"
                     >
                       {t.footer.privacy}
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
