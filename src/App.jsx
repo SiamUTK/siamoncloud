@@ -8,8 +8,9 @@ const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
 const Contact = lazy(() => import("./pages/Contact"));
-const Terms = lazy(() => import("./pages/Terms"));
-const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/legal/Terms"));
+const Privacy = lazy(() => import("./pages/legal/Privacy"));
+const Cookies = lazy(() => import("./pages/legal/Cookies"));
 const SignUp = lazy(() => import("./pages/SignUp"));
 const Login = lazy(() => import("./pages/Login"));
 
@@ -21,6 +22,7 @@ const localizedPages = [
   { path: "terms", element: <Terms /> },
   { path: "privacy", element: <Privacy /> },
   { path: "privacy-policy", element: <Privacy /> },
+  { path: "cookies", element: <Cookies /> },
   { path: "signup", element: <SignUp /> },
   { path: "login", element: <Login /> },
 ];
