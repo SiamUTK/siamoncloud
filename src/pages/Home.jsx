@@ -4,6 +4,7 @@ import Chatbot from "../components/chatbot/Chatbot";
 import Icon from "../components/ui/Icon";
 import { testSupabaseConnection } from "../utils/testSupabaseConnection";
 import { sendMessageToAI } from "../lib/aiClient";
+import { useTranslation } from "react-i18next";
 import { useLocaleRouting } from "../lib/localeRouting";
 
 const translations = {
@@ -244,18 +245,13 @@ const structuredData = {
 };
 
 function Home() {
-  const { locale, withLocalePath, switchLocale } = useLocaleRouting();
+  const { locale, withLocalePath } = useLocaleRouting();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [testStatus, setTestStatus] = useState(null);
   const [testLoading, setTestLoading] = useState(false);
   const [aiTestStatus, setAiTestStatus] = useState(null);
   const [aiTestLoading, setAiTestLoading] = useState(false);
-  const lang = locale;
-  const t = translations[lang];
-
-  useEffect(() => {
-    window.localStorage.setItem("soc_locale", locale);
-  }, [locale]);
+  const { t, i18n } = useTranslation();
 
   const handleTestConnection = async () => {
     setTestLoading(true);
@@ -307,6 +303,13 @@ function Home() {
     return () => clearInterval(timer);
   }, []);
 
+  // ...existing code...
+  // Language Switcher using i18next
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    console.log("Language switched to:", lng);
+  };
+
   return (
     <div className="min-h-screen overflow-x-hidden scroll-smooth bg-white font-sans text-slate-800">
       <nav
@@ -336,35 +339,35 @@ function Home() {
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
-                {t.nav.home}
+                {t("nav.home")}
               </Link>
               <Link
                 to={withLocalePath("/about")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
-                {t.nav.about}
+                {t("nav.about")}
               </Link>
               <Link
                 to={withLocalePath("/services")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
-                {t.nav.services}
+                {t("nav.services")}
               </Link>
               <Link
                 to={withLocalePath("/contact")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
-                {t.nav.contact}
+                {t("nav.contact")}
               </Link>
               <Link
                 to={withLocalePath("/terms")}
                 className="rounded px-1 transition-colors hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
                 role="menuitem"
               >
-                {t.footer.terms}
+                {t("footer.terms")}
               </Link>
             </div>
 
@@ -373,25 +376,25 @@ function Home() {
               aria-label="Language Selector"
             >
               <button
-                onClick={() => switchLocale("en")}
+                onClick={() => changeLanguage("en")}
                 className={`rounded-md px-2 py-1 text-xs font-bold transition-all focus:outline-none focus:ring-2 focus:ring-cyan-600 ${
-                  lang === "en"
+                  i18n.language === "en"
                     ? "bg-white text-slate-900 shadow-sm"
                     : "text-slate-400 hover:text-slate-700"
                 }`}
-                aria-pressed={lang === "en"}
+                aria-pressed={i18n.language === "en"}
                 aria-label="Switch to English"
               >
                 EN
               </button>
               <button
-                onClick={() => switchLocale("th")}
+                onClick={() => changeLanguage("th")}
                 className={`rounded-md px-2 py-1 text-xs font-bold transition-all focus:outline-none focus:ring-2 focus:ring-cyan-600 ${
-                  lang === "th"
+                  i18n.language === "th"
                     ? "bg-white text-slate-900 shadow-sm"
                     : "text-slate-400 hover:text-slate-700"
                 }`}
-                aria-pressed={lang === "th"}
+                aria-pressed={i18n.language === "th"}
                 aria-label="เปลี่ยนเป็นภาษาไทย"
               >
                 TH
@@ -403,13 +406,13 @@ function Home() {
                 to={withLocalePath("/login")}
                 className="rounded px-2 py-1 text-sm font-semibold text-[#0A2540] hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-600"
               >
-                {t.nav.login}
+                {t("nav.login")}
               </Link>
               <Link
                 to={withLocalePath("/signup")}
                 className="rounded-full bg-gradient-to-r from-[#0A2540] to-[#06B6D4] px-5 py-2 text-sm font-semibold text-white shadow-md transition-opacity hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-offset-2"
               >
-                {t.nav.register}
+                {t("nav.register")}
               </Link>
             </div>
 
