@@ -15,9 +15,9 @@ The AI test likely failed because the OpenAI API key is missing. Here's how to f
 
 ---
 
-## 2️⃣ Add API Key to server/.env
+## 2️⃣ Add API Key to root .env
 
-Edit `server/.env`:
+Edit `.env` (project root):
 
 ```
 OPENAI_API_KEY=sk-proj-your-actual-key-here
@@ -26,17 +26,17 @@ PORT=5000
 
 Replace `sk-proj-your-actual-key-here` with your actual key from step 1.
 
-**Important:** Never commit `server/.env` to git. It's already in `.gitignore`.
+**Important:** Never commit `.env` to git. It's already ignored.
 
 ---
 
-## 3️⃣ Start the Backend Server
+## 3️⃣ Start Full Node App
 
-Open a new terminal in the project root:
+Open terminal in project root:
 
 ```bash
-cd server
-npm start
+npm run build
+npm run start
 ```
 
 You should see:
@@ -48,9 +48,9 @@ You should see:
 
 ---
 
-## 4️⃣ Start the Frontend
+## 4️⃣ (Optional) Frontend Dev Mode
 
-In another terminal:
+In another terminal (for Vite HMR):
 
 ```bash
 npm run dev
@@ -84,8 +84,8 @@ Visit: `http://localhost:5173/`
 
 ### Error: `Failed to communicate with AI server`
 
-- Backend server not running
-- Start it with: `cd server && npm start`
+- Node app not running
+- Start it with: `npm run build && npm run start`
 - Verify output shows port 5000
 
 ### Error: `Server is not running on port 5000`
@@ -143,8 +143,8 @@ Should return:
 - [ ] OpenAI account created
 - [ ] API key generated and copied
 - [ ] `server/.env` updated with real API key
-- [ ] `cd server && npm install` completed
-- [ ] Backend running without errors
+- [ ] `npm install` completed in project root
+- [ ] Node app running without errors
 - [ ] Frontend running on port 5173
 - [ ] Test AI button visible in dev mode
 - [ ] Test button click shows response
