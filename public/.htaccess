@@ -2,6 +2,9 @@
   RewriteEngine On
   RewriteBase /
 
+  RewriteRule ^contact/?$ /contact.html [L,NC]
+  RewriteRule ^(en|th)/contact/?$ /contact.html [L,NC]
+
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
