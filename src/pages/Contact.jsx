@@ -170,17 +170,30 @@ export default function Contact() {
   const lang = locale;
   const t = translations[lang];
 
-  usePageMeta({
-    title:
-      lang === "th"
-        ? "Siam On Cloud | ติดต่อเรา"
-        : "Siam On Cloud | Contact Us",
-    description:
-      lang === "th"
-        ? "ติดต่อ Siam On Cloud เพื่อโซลูชันการเดินทางและเทคโนโลยีสำหรับธุรกิจ"
-        : "Contact Siam On Cloud for business travel and technology solutions.",
-    scrollToTop: false,
-  });
+    // SEO Meta
+    import PageMeta from "../components/seo/PageMeta";
+
+    const metaTitle = lang === "th"
+      ? "Siam On Cloud | ติดต่อเรา"
+      : "Siam On Cloud | Contact Us";
+    const metaDescription = lang === "th"
+      ? "ติดต่อ Siam On Cloud เพื่อโซลูชันการเดินทางและเทคโนโลยีสำหรับธุรกิจ"
+      : "Connect with Siam On Cloud for luxury travel and technology solutions for your business.";
+    const metaImage = "https://siamon.cloud/og-cover.jpg";
+    const metaCanonical = `https://siamon.cloud/contact${lang === "th" ? "?lang=th" : ""}`;
+
+    // ...existing code...
+
+    return (
+      <>
+        <PageMeta
+          title={metaTitle}
+          description={metaDescription}
+          image={metaImage}
+          canonical={metaCanonical}
+        />
+        {/* ...existing page content... */}
+      </>
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -190,10 +203,57 @@ export default function Contact() {
     window.localStorage.setItem("soc_locale", locale);
   }, [locale]);
 
+  // Form state
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+    company: "" // honeypot
+  });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  // Validation
+  const validate = () => {
+    const errs = {};
+    if (!form.name || form.name.trim().length < 2) {
+      errs.name = "Name must be at least 2 characters.";
+    }
+    if (!form.email || !/^\S+@\S+\.\S+$/.test(form.email.trim())) {
+      errs.email = "Please enter a valid email address.";
+    }
+    if (!form.message || form.message.trim().length < 10) {
+      errs.message = "Message must be at least 10 characters.";
+    }
+    // Honeypot
+    if (form.company) {
+      errs.company = "Spam detected.";
+    }
+    return errs;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setErrors({});
+    const errs = validate();
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      return;
+    }
+    setLoading(true);
+    // Simulate async submit
+    setTimeout(() => {
+      setLoading(false);
+      setIsSubmitted(true);
+      setTimeout(() => setIsSubmitted(false), 5000);
+      setForm({ name: "", email: "", subject: "", message: "", company: "" });
+    }, 1500);
   };
 
   return (
@@ -467,7 +527,7 @@ export default function Contact() {
                         <p className="text-xl font-bold">{t.form.success}</p>
                       </div>
                     ) : (
-                      <form onSubmit={handleSubmit} className="space-y-6">
+                      <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
                         <div className="grid gap-6 sm:grid-cols-2">
                           <div className="space-y-2">
                             <label className="ml-2 text-sm font-bold text-[#0A2540]">
@@ -475,10 +535,17 @@ export default function Contact() {
                             </label>
                             <input
                               type="text"
+                              name="name"
+                              value={form.name}
+                              onChange={handleChange}
+                              minLength={2}
                               required
                               placeholder={t.form.namePlaceholder}
-                              className="w-full rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-sm transition-all focus:border-cyan-500 focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                              className={`w-full rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-sm transition-all focus:border-cyan-500 focus:outline-none focus:ring-4 focus:ring-cyan-100 ${errors.name ? "border-red-400" : ""}`}
+                              aria-invalid={!!errors.name}
+                              aria-describedby="name-error"
                             />
+                            {errors.name && <div id="name-error" className="text-red-500 text-xs mt-1">{errors.name}</div>}
                           </div>
                           <div className="space-y-2">
                             <label className="ml-2 text-sm font-bold text-[#0A2540]">
@@ -486,10 +553,16 @@ export default function Contact() {
                             </label>
                             <input
                               type="email"
+                              name="email"
+                              value={form.email}
+                              onChange={handleChange}
                               required
                               placeholder={t.form.emailPlaceholder}
-                              className="w-full rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-sm transition-all focus:border-cyan-500 focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                              className={`w-full rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-sm transition-all focus:border-cyan-500 focus:outline-none focus:ring-4 focus:ring-cyan-100 ${errors.email ? "border-red-400" : ""}`}
+                              aria-invalid={!!errors.email}
+                              aria-describedby="email-error"
                             />
+                            {errors.email && <div id="email-error" className="text-red-500 text-xs mt-1">{errors.email}</div>}
                           </div>
                         </div>
                         <div className="space-y-2">
@@ -498,6 +571,9 @@ export default function Contact() {
                           </label>
                           <input
                             type="text"
+                            name="subject"
+                            value={form.subject}
+                            onChange={handleChange}
                             required
                             placeholder={t.form.subjectPlaceholder}
                             className="w-full rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-sm transition-all focus:border-cyan-500 focus:outline-none focus:ring-4 focus:ring-cyan-100"
@@ -509,14 +585,36 @@ export default function Contact() {
                           </label>
                           <textarea
                             rows="5"
+                            name="message"
+                            value={form.message}
+                            onChange={handleChange}
                             required
+                            minLength={10}
                             placeholder={t.form.messagePlaceholder}
-                            className="w-full resize-none rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-sm transition-all focus:border-cyan-500 focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                            className={`w-full resize-none rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-sm transition-all focus:border-cyan-500 focus:outline-none focus:ring-4 focus:ring-cyan-100 ${errors.message ? "border-red-400" : ""}`}
+                            aria-invalid={!!errors.message}
+                            aria-describedby="message-error"
                           ></textarea>
+                          {errors.message && <div id="message-error" className="text-red-500 text-xs mt-1">{errors.message}</div>}
                         </div>
+                        {/* Honeypot field: visually hidden, offscreen */}
+                        <div style={{position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden'}} aria-hidden="true">
+                          <label htmlFor="company">Company</label>
+                          <input
+                            type="text"
+                            name="company"
+                            id="company"
+                            tabIndex="-1"
+                            autoComplete="off"
+                            value={form.company}
+                            onChange={handleChange}
+                          />
+                        </div>
+                        {errors.company && <div className="text-red-500 text-xs mt-1">{errors.company}</div>}
                         <button
                           type="submit"
-                          className="flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#0A2540] to-[#06B6D4] py-5 text-lg font-bold text-white shadow-xl transition-opacity hover:opacity-95"
+                          className="flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#0A2540] to-[#06B6D4] py-5 text-lg font-bold text-white shadow-xl transition-opacity hover:opacity-95 disabled:opacity-60"
+                          disabled={loading}
                         >
                           <Send size={20} /> {t.form.submit}
                         </button>

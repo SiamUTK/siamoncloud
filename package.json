@@ -11,7 +11,9 @@
     "start": "node server/index.js",
     "start:node": "node server/index.js",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "notify": "node scripts/notify.cjs",
+    "build:notify": "npm run build && npm run notify"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.97.0",
