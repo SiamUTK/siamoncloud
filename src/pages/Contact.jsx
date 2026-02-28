@@ -1,3 +1,5 @@
+    import { computeInitialStage, computePriority, computeFollowupDue } from "../lib/leadLifecycle";
+  import { trackEvent } from "../lib/analytics";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -204,13 +206,44 @@ export default function Contact() {
   }, [locale]);
 
   // Form state
+  // Prefill, attribution, scoring, metadata
+  import { useEffect } from "react";
+  import { captureAttribution, getAttribution } from "../lib/attribution";
+  import { leadScoring } from "../lib/leadScoring";
+  import { leadTagger } from "../lib/leadTagger";
+
   const [form, setForm] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
-    company: "" // honeypot
+    company: "", // honeypot
+    intent: "",
+    route: "",
+    departure_date: "",
+    return_date: "",
+    adults: "",
+    children: "",
+    source: "",
+    campaign: "",
   });
+  const [meta, setMeta] = useState({ attribution: {}, returningVisitor: false });
+
+  // Prefill from query params
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const updates = {};
+    ["intent", "route", "departure_date", "return_date", "adults", "children", "source", "campaign"].forEach((key) => {
+      const val = params.get(key);
+      if (val) updates[key] = val;
+    });
+    setForm((prev) => ({ ...prev, ...updates }));
+    setMeta((prev) => ({ ...prev, attribution: captureAttribution() }));
+    // Returning visitor check
+    if (localStorage.getItem("siam_attribution")) {
+      setMeta((prev) => ({ ...prev, returningVisitor: true }));
+    }
+  }, []);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -238,22 +271,79 @@ export default function Contact() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  // Supabase + leadTagger
+  import getSupabaseClient from "../lib/supabaseClient";
+  import { leadTagger } from "../lib/leadTagger";
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors({});
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
+      trackEvent("contact_error", { ...form, errors: errs });
       return;
     }
     setLoading(true);
-    // Simulate async submit
-    setTimeout(() => {
+    trackEvent("contact_submit", { ...form });
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      setLoading(false);
+      setErrors({ form: "Supabase client not configured." });
+      return;
+    }
+    // Sanitize/trim
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
+    const phone = form.subject.trim();
+    const source = form.source || "contact_form";
+    const route = form.route || "";
+    const intentRaw = form.intent || "";
+    const { intent, tags } = leadTagger(message || intentRaw);
+    const attribution = getAttribution();
+    const { lead_score, priority } = leadScoring({ intent, route, message, phone, returningVisitor: meta.returningVisitor });
+    // Prepare payload with lifecycle
+    const conversion_stage = computeInitialStage({ intent });
+    const priorityFinal = computePriority({ lead_score });
+    const followup_due_at = computeFollowupDue({ lead_score });
+    const payload = {
+      name,
+      email,
+      phone,
+      message,
+      source,
+      intent,
+      tags,
+      route,
+      lead_score,
+      priority: priorityFinal,
+      conversion_stage,
+      followup_due_at,
+      utm_source: attribution.utm_source || null,
+      utm_medium: attribution.utm_medium || null,
+      utm_campaign: attribution.utm_campaign || null,
+      referrer: attribution.referrer || null,
+    };
+    try {
+      const { error } = await supabase.from("leads").insert([payload]);
+      if (error) {
+        setLoading(false);
+        setErrors({ form: "Failed to submit. Please try again later." });
+        trackEvent("contact_error", { ...form, error });
+        return;
+      }
       setLoading(false);
       setIsSubmitted(true);
+      trackEvent("contact_success", { ...form });
+      if (intent === "quote") trackEvent("quote_intent_detected", { ...form });
+      if (priority === "high") trackEvent("high_intent_lead", { ...form, lead_score, priority });
       setTimeout(() => setIsSubmitted(false), 5000);
-      setForm({ name: "", email: "", subject: "", message: "", company: "" });
-    }, 1500);
+      setForm({ name: "", email: "", subject: "", message: "", company: "", intent: "", route: "", departure_date: "", return_date: "", adults: "", children: "", source: "", campaign: "" });
+    } catch (e) {
+      setLoading(false);
+      setErrors({ form: "Unexpected error. Please try again." });
+    }
   };
 
   return (

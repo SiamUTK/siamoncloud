@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import CookieConsent from "./components/ui/CookieConsent";
 import AppErrorBoundary from "./components/layout/AppErrorBoundary";
@@ -37,7 +37,16 @@ function defaultLocalePath(path) {
   return path ? `/en/${path}` : "/en";
 }
 
-function App() {
+  // Analytics lazy init and SPA pageview tracking
+  import { useLocation } from "react-router-dom";
+  import { initAnalytics, trackPageView } from "./lib/analytics";
+  const location = useLocation();
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+  useEffect(() => {
+    trackPageView(location.pathname + location.search);
+  }, [location]);
   return (
     <BrowserRouter>
       <AppErrorBoundary>
@@ -46,7 +55,6 @@ function App() {
         >
           <Routes>
             <Route path="/" element={<Navigate to="/en" replace />} />
-
             {localizedPages.map((page) =>
               locales.map((locale) => (
                 <Route
@@ -56,7 +64,6 @@ function App() {
                 />
               )),
             )}
-
             {localizedPages.map((page) => (
               <Route
                 key={`legacy-${page.path || "home"}`}
@@ -64,7 +71,6 @@ function App() {
                 element={<Navigate to={defaultLocalePath(page.path)} replace />}
               />
             ))}
-
             <Route path="*" element={<NotFound />} />
           </Routes>
           <CookieConsent />
