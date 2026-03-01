@@ -1,0 +1,24 @@
+{
+  "seo": {
+    "title": "Siam On Cloud | AI-Powered Travel & Technology Solutions",
+    "description": "Transform your travel business with AI-powered booking systems, LGBTQ+ travel expertise, digital transformation, and automation solutions built for modern growth."
+  },
+  "nav_home": "Home",
+  "nav_about": "About",
+  "nav_services": "Services",
+  "nav_contact": "Contact",
+  "nav_get_started": "Get Started",
+  "hero_badge": "AI-Powered Travel Technology",
+  "hero_title_1": "Transform Your Travel Business",
+  "hero_title_2": "with Smart Solutions",
+  "hero_desc": "From AI-powered booking systems to LGBTQ+ travel experiences. We deliver premium end-to-end solutions for modern travel businesses with 20+ years of expertise.",
+  "btn_explore": "Explore Services",
+  "btn_expert": "Talk to Expert",
+  "stats_years": "Years Experience",
+  "stats_clients": "Happy Clients",
+  "stats_bookings": "Bookings Processed",
+  "stats_support": "Support Available",
+  "loading_label": "Loading localized experience...",
+  "switcher_en": "EN",
+  "switcher_th": "TH"
+}

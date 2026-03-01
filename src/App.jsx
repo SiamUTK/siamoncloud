@@ -1,9 +1,11 @@
 import { Suspense, lazy, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 import CookieConsent from "./components/ui/CookieConsent";
 import AppErrorBoundary from "./components/layout/AppErrorBoundary";
+import LocalizedLayout, {
+  RootLanguageRedirect,
+} from "./components/layout/LocalizedLayout";
 import NotFound from "./pages/NotFound";
 import { initAnalytics, trackPageView } from "./lib/analytics";
 
@@ -20,65 +22,45 @@ const Login = lazy(() => import("./pages/Login"));
 
 function App() {
   const location = useLocation();
-  const { i18n } = useTranslation();
 
-  // analytics init
   useEffect(() => {
     initAnalytics();
   }, []);
 
-  // track SPA navigation
   useEffect(() => {
     trackPageView(location.pathname + location.search);
   }, [location]);
 
-  // update html lang
-  useEffect(() => {
-    document.documentElement.lang = i18n.language || "en";
-  }, [i18n.language]);
-
   return (
     <AppErrorBoundary>
       <Suspense
-        fallback={<div className="min-h-screen bg-white dark:bg-neutral-950" />}
+        fallback={
+          <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+        }
       >
         <Routes>
-          {/* root */}
-          <Route path="/" element={<Navigate to="/en" replace />} />
+          <Route path="/" element={<RootLanguageRedirect />} />
 
-          {/* EN routes */}
-          <Route path="/en" element={<Home />} />
-          <Route path="/en/about" element={<About />} />
-          <Route path="/en/services" element={<Services />} />
-          <Route path="/en/contact" element={<Contact />} />
-          <Route path="/en/terms" element={<Terms />} />
-          <Route path="/en/privacy" element={<Privacy />} />
-          <Route path="/en/privacy-policy" element={<Privacy />} />
-          <Route path="/en/cookies" element={<Cookies />} />
-          <Route path="/en/signup" element={<SignUp />} />
-          <Route path="/en/login" element={<Login />} />
+          <Route path="/:lang/*" element={<LocalizedLayout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="services" element={<Services />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="terms" element={<Terms />} />
+            <Route path="privacy" element={<Privacy />} />
+            <Route path="privacy-policy" element={<Privacy />} />
+            <Route path="cookies" element={<Cookies />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
 
-          {/* TH routes */}
-          <Route path="/th" element={<Home />} />
-          <Route path="/th/about" element={<About />} />
-          <Route path="/th/services" element={<Services />} />
-          <Route path="/th/contact" element={<Contact />} />
-          <Route path="/th/terms" element={<Terms />} />
-          <Route path="/th/privacy" element={<Privacy />} />
-          <Route path="/th/privacy-policy" element={<Privacy />} />
-          <Route path="/th/cookies" element={<Cookies />} />
-          <Route path="/th/signup" element={<SignUp />} />
-          <Route path="/th/login" element={<Login />} />
-
-          {/* legacy redirects */}
           <Route path="/terms" element={<Navigate to="/en/terms" replace />} />
           <Route
             path="/privacy"
             element={<Navigate to="/en/privacy" replace />}
           />
-
-          {/* 404 */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
 
         <CookieConsent />

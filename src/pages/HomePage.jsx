@@ -23,15 +23,17 @@ import {
   ChevronDown,
 } from "lucide-react";
 import usePageMeta from "../hooks/usePageMeta";
+import Navbar from "../components/layout/Navbar";
+import Hero from "../components/home/Hero";
+import useLanguage from "@/i18n/useLanguage";
 
 function HomePage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
+  const { t, lang } = useLanguage();
 
   usePageMeta({
-    title: "Siam On Cloud | AI-Powered Travel & Technology Solutions",
-    description:
-      "Transform your travel business with our comprehensive solutions: Airline ticketing, LGBTQ+ travel experiences, digital transformation, and AI automation. 20+ years of expertise.",
+    title: t("seo.title"),
+    description: t("seo.description"),
   });
 
   useEffect(() => {
@@ -40,165 +42,8 @@ function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-      {/* Navigation */}
-      <nav className="fixed w-full z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center gap-2">
-              <img
-                src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-online.png"
-                alt="Siam On Cloud Logo"
-                className="h-12 w-auto object-contain"
-              />
-            </Link>
-
-            {/* Desktop Menu */}
-            <div className="hidden md:flex items-center gap-8">
-              <Link
-                to="/"
-                className="text-slate-300 hover:text-cyan-400 transition-colors font-medium"
-              >
-                Home
-              </Link>
-              <Link
-                to="/about"
-                className="text-slate-300 hover:text-cyan-400 transition-colors font-medium"
-              >
-                About
-              </Link>
-              <Link
-                to="/services"
-                className="text-slate-300 hover:text-cyan-400 transition-colors font-medium"
-              >
-                Services
-              </Link>
-              <Link
-                to="/contact"
-                className="text-slate-300 hover:text-cyan-400 transition-colors font-medium"
-              >
-                Contact
-              </Link>
-              <Link
-                to="/login"
-                className="px-6 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium hover:shadow-lg transition-all"
-              >
-                Get Started
-              </Link>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-slate-800 text-slate-300"
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-800 bg-slate-950 px-4 py-4 space-y-3">
-            <Link
-              to="/"
-              className="block py-2 text-slate-300 hover:text-cyan-400 font-medium"
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="block py-2 text-slate-300 hover:text-cyan-400 font-medium"
-            >
-              About
-            </Link>
-            <Link
-              to="/services"
-              className="block py-2 text-slate-300 hover:text-cyan-400 font-medium"
-            >
-              Services
-            </Link>
-            <Link
-              to="/contact"
-              className="block py-2 text-slate-300 hover:text-cyan-400 font-medium"
-            >
-              Contact
-            </Link>
-            <Link
-              to="/login"
-              className="block text-center px-6 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium"
-            >
-              Get Started
-            </Link>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-950 text-cyan-300 text-sm font-semibold mb-6">
-              <Sparkles size={16} />
-              AI-Powered Travel Technology
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-50 mb-6 leading-tight">
-              Transform Your Travel Business with{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600">
-                Smart Solutions
-              </span>
-            </h1>
-            <p className="text-lg sm:text-xl text-slate-400 mb-8 leading-relaxed">
-              From AI-powered booking systems to LGBTQ+ travel experiences. We
-              provide comprehensive solutions for modern travel businesses with
-              20+ years of expertise.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/services"
-                className="px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:shadow-xl transform hover:scale-105 transition-all inline-flex items-center justify-center gap-2"
-              >
-                Explore Services
-                <ArrowRight size={20} />
-              </Link>
-              <Link
-                to="/contact"
-                className="px-8 py-4 rounded-xl border-2 border-slate-300 text-slate-700 font-semibold hover:border-cyan-500 hover:text-cyan-600 transition-all inline-flex items-center justify-center gap-2"
-              >
-                <Headphones size={20} />
-                Talk to Expert
-              </Link>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-20">
-            <div className="text-center p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
-              <div className="text-3xl font-bold text-cyan-600 mb-2">20+</div>
-              <div className="text-slate-600 text-sm font-medium">
-                Years Experience
-              </div>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
-              <div className="text-3xl font-bold text-cyan-600 mb-2">10K+</div>
-              <div className="text-slate-600 text-sm font-medium">
-                Happy Clients
-              </div>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
-              <div className="text-3xl font-bold text-cyan-600 mb-2">50K+</div>
-              <div className="text-slate-600 text-sm font-medium">
-                Bookings Processed
-              </div>
-            </div>
-            <div className="text-center p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
-              <div className="text-3xl font-bold text-cyan-600 mb-2">24/7</div>
-              <div className="text-slate-600 text-sm font-medium">
-                Support Available
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Navbar />
+      <Hero key={lang} />
 
       {/* Core Services */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900/50">
@@ -527,7 +372,7 @@ function HomePage() {
                 </li>
               </ul>
               <Link
-                to="/contact"
+                to={`/${lang}/contact`}
                 className="block w-full text-center px-6 py-3 rounded-xl border-2 border-slate-700 text-slate-300 font-semibold hover:border-cyan-500 hover:text-cyan-400 transition-all"
               >
                 Get Started
@@ -582,7 +427,7 @@ function HomePage() {
                 </li>
               </ul>
               <Link
-                to="/contact"
+                to={`/${lang}/contact`}
                 className="block w-full text-center px-6 py-3 rounded-xl bg-white text-cyan-600 font-semibold hover:bg-cyan-50 transition-all"
               >
                 Get Started
@@ -654,7 +499,7 @@ function HomePage() {
                 </li>
               </ul>
               <Link
-                to="/contact"
+                to={`/${lang}/contact`}
                 className="block w-full text-center px-6 py-3 rounded-xl border-2 border-slate-700 text-slate-300 font-semibold hover:border-cyan-500 hover:text-cyan-400 transition-all"
               >
                 Contact Sales
@@ -908,7 +753,7 @@ function HomePage() {
 
           <div className="mt-12 text-center">
             <Link
-              to="/services"
+              to={`/${lang}/services`}
               className="inline-flex items-center gap-2 text-cyan-600 font-semibold hover:gap-3 transition-all"
             >
               View All Services
@@ -1003,14 +848,14 @@ function HomePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  to="/contact"
+                  to={`/${lang}/contact`}
                   className="px-8 py-4 rounded-xl bg-white text-cyan-600 font-semibold hover:bg-cyan-50 transition-all inline-flex items-center justify-center gap-2 shadow-xl"
                 >
                   Schedule a Demo
                   <ArrowRight size={20} />
                 </Link>
                 <Link
-                  to="/services"
+                  to={`/${lang}/services`}
                   className="px-8 py-4 rounded-xl border-2 border-white text-white font-semibold hover:bg-white/10 transition-all inline-flex items-center justify-center gap-2"
                 >
                   View Pricing
@@ -1058,7 +903,7 @@ function HomePage() {
               <ul className="space-y-3 text-sm">
                 <li>
                   <Link
-                    to="/about"
+                    to={`/${lang}/about`}
                     className="hover:text-cyan-400 transition-colors"
                   >
                     About Us
@@ -1066,7 +911,7 @@ function HomePage() {
                 </li>
                 <li>
                   <Link
-                    to="/services"
+                    to={`/${lang}/services`}
                     className="hover:text-cyan-400 transition-colors"
                   >
                     Services
@@ -1074,7 +919,7 @@ function HomePage() {
                 </li>
                 <li>
                   <Link
-                    to="/contact"
+                    to={`/${lang}/contact`}
                     className="hover:text-cyan-400 transition-colors"
                   >
                     Contact
@@ -1126,13 +971,13 @@ function HomePage() {
             </p>
             <div className="flex gap-6">
               <Link
-                to="/privacy"
+                to={`/${lang}/privacy`}
                 className="hover:text-cyan-400 transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
-                to="/terms"
+                to={`/${lang}/terms`}
                 className="hover:text-cyan-400 transition-colors"
               >
                 Terms of Use
