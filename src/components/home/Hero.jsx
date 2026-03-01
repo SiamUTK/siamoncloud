@@ -56,6 +56,13 @@ function Hero() {
             </Link>
           </div>
 
+          <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-300">
+            {t("home_cta_micro_trust")}
+          </p>
+          <p className="mx-auto mt-1 max-w-2xl text-xs font-medium tracking-wide text-slate-400">
+            {t("home_cta_no_obligation")}
+          </p>
+
           {/* 🛡️ Trust bar (NEW — conversion booster) */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400">
             <div className="flex items-center gap-2">
