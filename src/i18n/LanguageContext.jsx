@@ -6,6 +6,7 @@ import detectLanguage, {
   STORAGE_KEY,
 } from "./detectLanguage";
 const translationCache = new Map();
+const missingWarnings = new Set();
 
 async function loadMessages(lang) {
   if (translationCache.has(lang)) {
@@ -50,6 +51,9 @@ export function LanguageProvider({ children }) {
   const [messages, setMessages] = useState(
     () => translationCache.get(lang) || null,
   );
+  const [defaultMessages, setDefaultMessages] = useState(
+    () => translationCache.get(DEFAULT_LANG) || null,
+  );
   const [loading, setLoading] = useState(() => !translationCache.has(lang));
 
   useEffect(() => {
@@ -85,6 +89,29 @@ export function LanguageProvider({ children }) {
     };
   }, [lang]);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const run = async () => {
+      try {
+        const fallbackMessages = await loadMessages(DEFAULT_LANG);
+        if (!cancelled) {
+          setDefaultMessages(fallbackMessages);
+        }
+      } catch {
+        if (!cancelled) {
+          setDefaultMessages(null);
+        }
+      }
+    };
+
+    run();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const setLang = useCallback((nextLang) => {
     const safeLang = isSupportedLanguage(nextLang) ? nextLang : DEFAULT_LANG;
     setLangState((previous) => (previous === safeLang ? previous : safeLang));
@@ -106,18 +133,38 @@ export function LanguageProvider({ children }) {
       }
 
       const value = resolveTranslation(messages, key);
+      const fallbackValue = resolveTranslation(defaultMessages, key);
 
       if (value === undefined || value === null) {
-        return fallback;
+        if (fallbackValue !== undefined && fallbackValue !== null) {
+          if (typeof fallbackValue === "string") {
+            return interpolate(fallbackValue, variables) || fallback || key;
+          }
+
+          return fallbackValue;
+        }
+
+        if (
+          import.meta.env.DEV &&
+          key &&
+          !missingWarnings.has(`${lang}:${String(key)}`)
+        ) {
+          missingWarnings.add(`${lang}:${String(key)}`);
+          console.warn(
+            `[i18n] Missing translation key "${String(key)}" for language "${lang}"`,
+          );
+        }
+
+        return fallback || key;
       }
 
       if (typeof value !== "string") {
         return value;
       }
 
-      return interpolate(value, variables);
+      return interpolate(value, variables) || fallback || key;
     },
-    [messages],
+    [defaultMessages, lang, messages],
   );
 
   const contextValue = useMemo(

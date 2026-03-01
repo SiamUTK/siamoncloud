@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import useLanguage from "@/i18n/useLanguage";
 import "./cookie-consent.css";
 
 const CONSENT_KEY = "soc_cookie_consent";
@@ -116,6 +117,7 @@ function applyConsent(consent) {
 }
 
 function CookieConsent() {
+  const { t, lang } = useLanguage();
   const [isReady, setIsReady] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -215,16 +217,15 @@ function CookieConsent() {
       <section
         className={`soc-cookie-banner ${showBanner ? "is-visible" : ""}`}
         role="dialog"
-        aria-label="Cookie consent banner"
+        aria-label={t("cookie_banner_aria")}
         aria-modal="false"
       >
         <div className="soc-cookie-row">
           <div className="soc-cookie-text">
-            <h3>🍪 Siam On Cloud uses cookies to enhance your journey.</h3>
+            <h3>{t("cookie_banner_title")}</h3>
             <p>
-              We use essential cookies to keep the site secure and functional.
-              Optional analytics and marketing cookies are used only with your
-              consent. <a href="/privacy-policy">Privacy Policy</a>
+              {t("cookie_banner_desc")}{" "}
+              <a href={`/${lang}/privacy`}>{t("cookie_privacy_link")}</a>
             </p>
           </div>
           <div className="soc-cookie-actions">
@@ -233,21 +234,21 @@ function CookieConsent() {
               className="soc-btn soc-btn-primary"
               onClick={acceptAll}
             >
-              Accept All
+              {t("cookie_accept_all")}
             </button>
             <button
               type="button"
               className="soc-btn soc-btn-ghost"
               onClick={rejectAll}
             >
-              Reject
+              {t("cookie_reject")}
             </button>
             <button
               type="button"
               className="soc-btn soc-btn-link"
               onClick={() => setShowModal(true)}
             >
-              Manage Preferences
+              {t("cookie_manage")}
             </button>
           </div>
         </div>
@@ -268,11 +269,11 @@ function CookieConsent() {
         hidden={!showModal}
       >
         <header className="soc-modal-head">
-          <h4 id="socCookieModalTitle">Cookie Preferences</h4>
+          <h4 id="socCookieModalTitle">{t("cookie_modal_title")}</h4>
           <button
             type="button"
             className="soc-close"
-            aria-label="Close preferences"
+            aria-label={t("cookie_close")}
             onClick={() => setShowModal(false)}
           >
             ×
@@ -280,21 +281,16 @@ function CookieConsent() {
         </header>
 
         <div className="soc-modal-body">
-          <p className="soc-modal-note">
-            Necessary cookies are always enabled. You can choose optional
-            categories below.
-          </p>
+          <p className="soc-modal-note">{t("cookie_modal_note")}</p>
 
           <article className="soc-cookie-group">
             <div>
-              <h5>Necessary (always on)</h5>
-              <p>
-                Required for security, session integrity, and core features.
-              </p>
+              <h5>{t("cookie_necessary_title")}</h5>
+              <p>{t("cookie_necessary_desc")}</p>
             </div>
             <label
               className="soc-switch"
-              aria-label="Necessary cookies always enabled"
+              aria-label={t("cookie_necessary_aria")}
             >
               <input type="checkbox" checked disabled />
               <span className="soc-slider" />
@@ -303,8 +299,8 @@ function CookieConsent() {
 
           <article className="soc-cookie-group">
             <div>
-              <h5>Analytics</h5>
-              <p>Helps improve performance and service quality.</p>
+              <h5>{t("cookie_analytics_title")}</h5>
+              <p>{t("cookie_analytics_desc")}</p>
             </div>
             <label className="soc-switch" htmlFor="socAnalyticsToggle">
               <input
@@ -319,8 +315,8 @@ function CookieConsent() {
 
           <article className="soc-cookie-group">
             <div>
-              <h5>Marketing</h5>
-              <p>Enables campaign measurement and personalized outreach.</p>
+              <h5>{t("cookie_marketing_title")}</h5>
+              <p>{t("cookie_marketing_desc")}</p>
             </div>
             <label className="soc-switch" htmlFor="socMarketingToggle">
               <input
@@ -340,14 +336,14 @@ function CookieConsent() {
             className="soc-btn soc-btn-ghost"
             onClick={savePreferences}
           >
-            Save Preferences
+            {t("cookie_save")}
           </button>
           <button
             type="button"
             className="soc-btn soc-btn-primary"
             onClick={acceptAll}
           >
-            Accept All
+            {t("cookie_accept_all")}
           </button>
         </footer>
       </section>

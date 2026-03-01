@@ -8,6 +8,7 @@ import LocalizedLayout, {
 } from "./components/layout/LocalizedLayout";
 import NotFound from "./pages/NotFound";
 import { initAnalytics, trackPageView } from "./lib/analytics";
+import useLanguage from "@/i18n/useLanguage";
 
 // Lazy pages
 const Home = lazy(() => import("./pages/HomePage"));
@@ -22,6 +23,7 @@ const Login = lazy(() => import("./pages/Login"));
 
 function App() {
   const location = useLocation();
+  const { lang } = useLanguage();
 
   useEffect(() => {
     initAnalytics();
@@ -32,10 +34,17 @@ function App() {
   }, [location]);
 
   return (
-    <AppErrorBoundary>
+    <AppErrorBoundary key={lang}>
       <Suspense
         fallback={
-          <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
+          <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-6">
+            <div className="w-full max-w-2xl rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md shadow-lg">
+              <div className="h-5 w-44 rounded-full bg-white/10 animate-pulse" />
+              <div className="mt-4 h-3 w-full rounded bg-white/10 animate-pulse" />
+              <div className="mt-2 h-3 w-5/6 rounded bg-white/10 animate-pulse" />
+              <div className="mt-2 h-3 w-2/3 rounded bg-white/10 animate-pulse" />
+            </div>
+          </div>
         }
       >
         <Routes>

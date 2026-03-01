@@ -8,5 +8,8 @@ export default function useLanguage() {
     throw new Error("useLanguage must be used within LanguageProvider");
   }
 
-  return context;
+  return {
+    ...context,
+    t: (key, ...rest) => context.t(key, ...rest) || key,
+  };
 }

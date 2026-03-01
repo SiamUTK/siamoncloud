@@ -1,6 +1,9 @@
 import { Component } from "react";
+import LanguageContext from "@/i18n/languageContextInstance";
 
 class AppErrorBoundary extends Component {
+  static contextType = LanguageContext;
+
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -15,14 +18,19 @@ class AppErrorBoundary extends Component {
   }
 
   render() {
+    const t = this.context?.t;
+
     if (this.state.hasError) {
       return (
         <div className="flex min-h-screen items-center justify-center bg-slate-950 px-6 text-center text-white">
           <div>
-            <h1 className="mb-3 text-2xl font-bold">Something went wrong</h1>
+            <h1 className="mb-3 text-2xl font-bold">
+              {t ? t("error_boundary_title") : "Something went wrong"}
+            </h1>
             <p className="text-slate-300">
-              Please refresh the page. If the issue persists, contact Siam On
-              Cloud support.
+              {t
+                ? t("error_boundary_desc")
+                : "Please refresh the page. If the issue persists, contact support."}
             </p>
           </div>
         </div>

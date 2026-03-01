@@ -53,33 +53,44 @@ function LanguageSwitcher({ className = "" }) {
   };
 
   const switcherBase =
-    "inline-flex items-center gap-1 rounded-full border border-slate-700 bg-slate-900/80 p-1";
+    "relative inline-flex h-10 w-[116px] items-center rounded-full border border-white/20 bg-white/10 p-1 backdrop-blur shadow-lg";
+  const indicatorClass = lang === "en" ? "translate-x-0" : "translate-x-[54px]";
 
   return (
-    <div className={`${switcherBase} ${className}`}>
+    <div
+      className={`${switcherBase} ${className}`}
+      role="group"
+      aria-label={t("switcher_aria")}
+    >
+      <span
+        aria-hidden="true"
+        className={`pointer-events-none absolute left-1 top-1 h-8 w-[52px] rounded-full bg-gradient-to-r from-cyan-500/40 to-blue-500/40 shadow-[0_0_18px_rgba(34,211,238,0.35)] transition-all duration-300 ${indicatorClass}`}
+      />
       <button
         type="button"
         onClick={() => onSwitchLanguage("en")}
-        className={`rounded-full px-3 py-1.5 text-xs sm:text-sm font-semibold transition-all duration-200 ${
+        className={`relative z-10 inline-flex h-8 w-[52px] items-center justify-center rounded-full px-3 py-1 text-xs sm:text-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 ${
           lang === "en"
-            ? "bg-cyan-500/20 text-cyan-300 shadow-[0_0_0_1px_rgba(34,211,238,0.35)]"
-            : "text-slate-300 hover:text-cyan-300"
+            ? "font-bold text-white"
+            : "font-semibold text-slate-200 hover:bg-white/20 hover:text-white"
         }`}
         aria-pressed={lang === "en"}
+        aria-label={t("switcher_to_en")}
       >
-        🇬🇧 {t("switcher_en")}
+        {t("switcher_en")}
       </button>
       <button
         type="button"
         onClick={() => onSwitchLanguage("th")}
-        className={`rounded-full px-3 py-1.5 text-xs sm:text-sm font-semibold transition-all duration-200 ${
+        className={`relative z-10 inline-flex h-8 w-[52px] items-center justify-center rounded-full px-3 py-1 text-xs sm:text-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 ${
           lang === "th"
-            ? "bg-cyan-500/20 text-cyan-300 shadow-[0_0_0_1px_rgba(34,211,238,0.35)]"
-            : "text-slate-300 hover:text-cyan-300"
+            ? "font-bold text-white"
+            : "font-semibold text-slate-200 hover:bg-white/20 hover:text-white"
         }`}
         aria-pressed={lang === "th"}
+        aria-label={t("switcher_to_th")}
       >
-        🇹🇭 {t("switcher_th")}
+        {t("switcher_th")}
       </button>
     </div>
   );
@@ -102,7 +113,7 @@ function Navbar() {
           <Link to={homePath} className="flex items-center gap-2">
             <img
               src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-online.png"
-              alt="Siam On Cloud Logo"
+              alt={t("brand_logo_alt")}
               className="h-12 w-auto object-contain"
             />
           </Link>
@@ -126,7 +137,7 @@ function Navbar() {
             <button
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               className="p-2 rounded-lg hover:bg-slate-800 text-slate-300 transition-colors"
-              aria-label="Toggle menu"
+              aria-label={t("nav_toggle_menu")}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
