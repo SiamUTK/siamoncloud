@@ -17,11 +17,37 @@ function HomePage() {
 
   const serviceKeys = ["travel", "lgbtq", "digital", "automation"];
   const whyKeys = ["expertise", "security", "speed"];
+  const trustedLogoKeys = [
+    "airlines",
+    "agencies",
+    "operators",
+    "hotels",
+    "otas",
+    "dmc",
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100">
       <Navbar />
       <Hero key={lang} />
+
+      <section className="px-4 pb-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl rounded-2xl border border-slate-800/80 bg-slate-900/40 px-6 py-6 backdrop-blur">
+          <p className="text-center text-sm font-medium text-slate-400">
+            {t("home_trusted_title")}
+          </p>
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {trustedLogoKeys.map((key) => (
+              <div
+                key={`trusted-placeholder-${key}`}
+                className="flex h-12 items-center justify-center rounded-xl border border-slate-700/70 bg-slate-800/60 px-2 text-center text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400/80 opacity-80"
+              >
+                {t(`home_trusted_${key}`)}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
@@ -38,26 +64,66 @@ function HomePage() {
             {serviceKeys.map((key) => (
               <article
                 key={key}
-                className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 backdrop-blur transition-all duration-300 hover:border-cyan-500/50 hover:shadow-lg"
+                className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-500/40 via-blue-500/30 to-cyan-400/40 p-[1px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(34,211,238,0.18)]"
               >
-                <h3 className="text-lg font-semibold text-slate-50">
-                  {t(`home_services_${key}_title`)}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-400">
-                  {t(`home_services_${key}_desc`)}
-                </p>
-                <ul className="mt-4 space-y-2 text-sm text-slate-300">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 text-cyan-400" />
-                    <span>{t(`home_services_${key}_point_1`)}</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 text-cyan-400" />
-                    <span>{t(`home_services_${key}_point_2`)}</span>
-                  </li>
-                </ul>
+                <div className="relative h-full rounded-3xl border border-slate-800/80 bg-slate-900/80 p-6 backdrop-blur-xl transition-all duration-300 group-hover:border-cyan-300/40">
+                  <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div className="absolute top-0 -left-full h-full w-1/2 skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-700 ease-out group-hover:left-[150%]" />
+                  </div>
+
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-br from-cyan-400/10 via-transparent to-blue-500/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  />
+
+                  <div className="relative">
+                    <h3 className="text-xl font-bold tracking-tight text-slate-50">
+                      {t(`home_services_${key}_title`)}
+                    </h3>
+                    <p className="mt-3.5 text-sm leading-relaxed text-slate-300/90">
+                      {t(`home_services_${key}_desc`)}
+                    </p>
+
+                    <ul className="mt-5 space-y-2.5 text-sm text-slate-200">
+                      <li className="flex items-start gap-2.5">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" />
+                        <span>{t(`home_services_${key}_point_1`)}</span>
+                      </li>
+                      <li className="flex items-start gap-2.5">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" />
+                        <span>{t(`home_services_${key}_point_2`)}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl rounded-3xl border border-cyan-400/20 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-cyan-500/5 p-8 text-center backdrop-blur sm:p-10">
+          <h2 className="text-3xl font-bold text-slate-50">
+            {t("home_mid_cta_title")}
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-slate-300">
+            {t("home_mid_cta_desc")}
+          </p>
+          <div className="mt-8 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
+            <Link
+              to={`/${lang}/contact`}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-7 py-3 font-semibold text-white transition-all duration-300 hover:shadow-xl sm:w-auto"
+            >
+              {t("home_mid_cta_primary")}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              to={`/${lang}/services`}
+              className="inline-flex w-full items-center justify-center rounded-xl border border-slate-600 px-7 py-3 font-semibold text-slate-200 transition-colors hover:border-cyan-400 hover:text-cyan-300 sm:w-auto"
+            >
+              {t("home_mid_cta_secondary")}
+            </Link>
           </div>
         </div>
       </section>
