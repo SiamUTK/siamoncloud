@@ -1,3 +1,4 @@
+{
   "legal": {
     "terms": {
       "short": "Terms of Use",
@@ -95,7 +96,6 @@
       }
     }
   },
-{
   "nav": {
     "home": "Home",
     "services": "Services",

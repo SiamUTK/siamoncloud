@@ -1,10 +1,12 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
+import { fileURLToPath, URL } from "node:url";
 
 const isBuild = process.env.npm_lifecycle_event === "build";
 
 export default defineConfig({
+  base: "/",
   plugins: [
     react(),
     isBuild &&
@@ -15,6 +17,11 @@ export default defineConfig({
         brotliSize: true,
       }),
   ].filter(Boolean),
+  resolve: {
+    alias: {
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
   build: {
     target: "es2017",
     sourcemap: false,

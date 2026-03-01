@@ -1,5 +1,9 @@
-    import { computeInitialStage, computePriority, computeFollowupDue } from "../lib/leadLifecycle";
-  import { trackEvent } from "../lib/analytics";
+import {
+  computeInitialStage,
+  computePriority,
+  computeFollowupDue,
+} from "../lib/leadLifecycle";
+import { trackEvent } from "../lib/analytics";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -22,8 +26,11 @@ import {
   Globe,
   Headphones,
 } from "lucide-react";
-import usePageMeta from "../hooks/usePageMeta";
 import { useLocaleRouting } from "../lib/localeRouting";
+import { captureAttribution, getAttribution } from "../lib/attribution";
+import { leadScoring } from "../lib/leadScoring";
+import { leadTagger } from "../lib/leadTagger";
+import getSupabaseClient from "../lib/supabaseClient";
 
 const translations = {
   en: {
@@ -172,31 +179,6 @@ export default function Contact() {
   const lang = locale;
   const t = translations[lang];
 
-    // SEO Meta
-    import PageMeta from "../components/seo/PageMeta";
-
-    const metaTitle = lang === "th"
-      ? "Siam On Cloud | ติดต่อเรา"
-      : "Siam On Cloud | Contact Us";
-    const metaDescription = lang === "th"
-      ? "ติดต่อ Siam On Cloud เพื่อโซลูชันการเดินทางและเทคโนโลยีสำหรับธุรกิจ"
-      : "Connect with Siam On Cloud for luxury travel and technology solutions for your business.";
-    const metaImage = "https://siamon.cloud/og-cover.jpg";
-    const metaCanonical = `https://siamon.cloud/contact${lang === "th" ? "?lang=th" : ""}`;
-
-    // ...existing code...
-
-    return (
-      <>
-        <PageMeta
-          title={metaTitle}
-          description={metaDescription}
-          image={metaImage}
-          canonical={metaCanonical}
-        />
-        {/* ...existing page content... */}
-      </>
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -207,10 +189,6 @@ export default function Contact() {
 
   // Form state
   // Prefill, attribution, scoring, metadata
-  import { useEffect } from "react";
-  import { captureAttribution, getAttribution } from "../lib/attribution";
-  import { leadScoring } from "../lib/leadScoring";
-  import { leadTagger } from "../lib/leadTagger";
 
   const [form, setForm] = useState({
     name: "",
@@ -227,13 +205,25 @@ export default function Contact() {
     source: "",
     campaign: "",
   });
-  const [meta, setMeta] = useState({ attribution: {}, returningVisitor: false });
+  const [meta, setMeta] = useState({
+    attribution: {},
+    returningVisitor: false,
+  });
 
   // Prefill from query params
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const updates = {};
-    ["intent", "route", "departure_date", "return_date", "adults", "children", "source", "campaign"].forEach((key) => {
+    [
+      "intent",
+      "route",
+      "departure_date",
+      "return_date",
+      "adults",
+      "children",
+      "source",
+      "campaign",
+    ].forEach((key) => {
       const val = params.get(key);
       if (val) updates[key] = val;
     });
@@ -272,8 +262,6 @@ export default function Contact() {
   };
 
   // Supabase + leadTagger
-  import getSupabaseClient from "../lib/supabaseClient";
-  import { leadTagger } from "../lib/leadTagger";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -302,7 +290,13 @@ export default function Contact() {
     const intentRaw = form.intent || "";
     const { intent, tags } = leadTagger(message || intentRaw);
     const attribution = getAttribution();
-    const { lead_score, priority } = leadScoring({ intent, route, message, phone, returningVisitor: meta.returningVisitor });
+    const { lead_score, priority } = leadScoring({
+      intent,
+      route,
+      message,
+      phone,
+      returningVisitor: meta.returningVisitor,
+    });
     // Prepare payload with lifecycle
     const conversion_stage = computeInitialStage({ intent });
     const priorityFinal = computePriority({ lead_score });
@@ -337,9 +331,24 @@ export default function Contact() {
       setIsSubmitted(true);
       trackEvent("contact_success", { ...form });
       if (intent === "quote") trackEvent("quote_intent_detected", { ...form });
-      if (priority === "high") trackEvent("high_intent_lead", { ...form, lead_score, priority });
+      if (priority === "high")
+        trackEvent("high_intent_lead", { ...form, lead_score, priority });
       setTimeout(() => setIsSubmitted(false), 5000);
-      setForm({ name: "", email: "", subject: "", message: "", company: "", intent: "", route: "", departure_date: "", return_date: "", adults: "", children: "", source: "", campaign: "" });
+      setForm({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+        company: "",
+        intent: "",
+        route: "",
+        departure_date: "",
+        return_date: "",
+        adults: "",
+        children: "",
+        source: "",
+        campaign: "",
+      });
     } catch (e) {
       setLoading(false);
       setErrors({ form: "Unexpected error. Please try again." });
@@ -617,7 +626,11 @@ export default function Contact() {
                         <p className="text-xl font-bold">{t.form.success}</p>
                       </div>
                     ) : (
-                      <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
+                      <form
+                        onSubmit={handleSubmit}
+                        className="space-y-6"
+                        autoComplete="off"
+                      >
                         <div className="grid gap-6 sm:grid-cols-2">
                           <div className="space-y-2">
                             <label className="ml-2 text-sm font-bold text-[#0A2540]">
@@ -635,7 +648,14 @@ export default function Contact() {
                               aria-invalid={!!errors.name}
                               aria-describedby="name-error"
                             />
-                            {errors.name && <div id="name-error" className="text-red-500 text-xs mt-1">{errors.name}</div>}
+                            {errors.name && (
+                              <div
+                                id="name-error"
+                                className="text-red-500 text-xs mt-1"
+                              >
+                                {errors.name}
+                              </div>
+                            )}
                           </div>
                           <div className="space-y-2">
                             <label className="ml-2 text-sm font-bold text-[#0A2540]">
@@ -652,7 +672,14 @@ export default function Contact() {
                               aria-invalid={!!errors.email}
                               aria-describedby="email-error"
                             />
-                            {errors.email && <div id="email-error" className="text-red-500 text-xs mt-1">{errors.email}</div>}
+                            {errors.email && (
+                              <div
+                                id="email-error"
+                                className="text-red-500 text-xs mt-1"
+                              >
+                                {errors.email}
+                              </div>
+                            )}
                           </div>
                         </div>
                         <div className="space-y-2">
@@ -685,10 +712,26 @@ export default function Contact() {
                             aria-invalid={!!errors.message}
                             aria-describedby="message-error"
                           ></textarea>
-                          {errors.message && <div id="message-error" className="text-red-500 text-xs mt-1">{errors.message}</div>}
+                          {errors.message && (
+                            <div
+                              id="message-error"
+                              className="text-red-500 text-xs mt-1"
+                            >
+                              {errors.message}
+                            </div>
+                          )}
                         </div>
                         {/* Honeypot field: visually hidden, offscreen */}
-                        <div style={{position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden'}} aria-hidden="true">
+                        <div
+                          style={{
+                            position: "absolute",
+                            left: "-9999px",
+                            width: "1px",
+                            height: "1px",
+                            overflow: "hidden",
+                          }}
+                          aria-hidden="true"
+                        >
                           <label htmlFor="company">Company</label>
                           <input
                             type="text"
@@ -700,7 +743,11 @@ export default function Contact() {
                             onChange={handleChange}
                           />
                         </div>
-                        {errors.company && <div className="text-red-500 text-xs mt-1">{errors.company}</div>}
+                        {errors.company && (
+                          <div className="text-red-500 text-xs mt-1">
+                            {errors.company}
+                          </div>
+                        )}
                         <button
                           type="submit"
                           className="flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#0A2540] to-[#06B6D4] py-5 text-lg font-bold text-white shadow-xl transition-opacity hover:opacity-95 disabled:opacity-60"
