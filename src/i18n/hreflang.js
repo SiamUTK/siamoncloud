@@ -21,7 +21,7 @@ function makeAlternateUrl(lang, pathname, origin) {
   return rest === "/" ? `${origin}/${lang}` : `${origin}/${lang}${rest}`;
 }
 
-export function syncHreflangLinks({ lang, pathname }) {
+export function syncHreflangLinks({ lang, pathname, search = "" }) {
   const safeLang = SUPPORTED_LANGS.includes(lang) ? lang : DEFAULT_LANG;
   const origin = window.location.origin;
   const head = document.head;
@@ -31,15 +31,15 @@ export function syncHreflangLinks({ lang, pathname }) {
   const alternates = [
     {
       hreflang: "en",
-      href: makeAlternateUrl("en", pathname, origin),
+      href: `${makeAlternateUrl("en", pathname, origin)}${search}`,
     },
     {
       hreflang: "th",
-      href: makeAlternateUrl("th", pathname, origin),
+      href: `${makeAlternateUrl("th", pathname, origin)}${search}`,
     },
     {
       hreflang: "x-default",
-      href: makeAlternateUrl(DEFAULT_LANG, pathname, origin),
+      href: `${makeAlternateUrl(DEFAULT_LANG, pathname, origin)}${search}`,
     },
   ];
 

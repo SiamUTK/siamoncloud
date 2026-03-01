@@ -63,6 +63,8 @@ export function LanguageProvider({ children }) {
       const safeLang = isSupportedLanguage(lang) ? lang : DEFAULT_LANG;
       const hasCachedMessages = translationCache.has(safeLang);
 
+      document.documentElement.lang = safeLang;
+
       setLoading(!hasCachedMessages);
 
       try {
@@ -73,7 +75,9 @@ export function LanguageProvider({ children }) {
         }
 
         setMessages(nextMessages);
-        window.localStorage.setItem(STORAGE_KEY, safeLang);
+        try {
+          window.localStorage.setItem(STORAGE_KEY, safeLang);
+        } catch {}
         document.documentElement.lang = safeLang;
       } finally {
         if (!cancelled) {

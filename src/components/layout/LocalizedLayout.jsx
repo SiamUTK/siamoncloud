@@ -32,7 +32,7 @@ function LocalizedLayout() {
   const { lang: routeLang = "" } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const { lang, setLang, t, loading } = useLanguage();
+  const { lang, setLang, loading } = useLanguage();
 
   const safeRouteLang = useMemo(
     () => (SUPPORTED_LANGS.includes(routeLang) ? routeLang : null),
@@ -71,8 +71,12 @@ function LocalizedLayout() {
       return;
     }
 
-    syncHreflangLinks({ lang: safeRouteLang, pathname: location.pathname });
-  }, [safeRouteLang, location.pathname]);
+    syncHreflangLinks({
+      lang: safeRouteLang,
+      pathname: location.pathname,
+      search: location.search,
+    });
+  }, [safeRouteLang, location.pathname, location.search]);
 
   if (!safeRouteLang) {
     return null;
@@ -81,11 +85,16 @@ function LocalizedLayout() {
   if (loading || safeRouteLang !== lang) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-6">
-        <div className="w-full max-w-lg rounded-2xl border border-slate-800 bg-slate-900/70 p-6 backdrop-blur-sm">
-          <div className="h-4 w-36 rounded bg-slate-800 animate-pulse" />
-          <div className="mt-4 h-3 w-full rounded bg-slate-800/80 animate-pulse" />
-          <div className="mt-2 h-3 w-5/6 rounded bg-slate-800/70 animate-pulse" />
-          <p className="mt-6 text-sm text-slate-400">{t("loading_label")}</p>
+        <div className="w-full max-w-xl rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md shadow-2xl">
+          <div className="h-5 w-56 rounded-full bg-gradient-to-r from-slate-700/70 via-slate-500/80 to-slate-700/70 animate-pulse" />
+          <div className="mt-5 h-3 w-full rounded bg-gradient-to-r from-slate-700/70 via-slate-500/70 to-slate-700/70 animate-pulse" />
+          <div className="mt-3 h-3 w-11/12 rounded bg-gradient-to-r from-slate-700/70 via-slate-500/70 to-slate-700/70 animate-pulse" />
+          <div className="mt-3 h-3 w-9/12 rounded bg-gradient-to-r from-slate-700/70 via-slate-500/70 to-slate-700/70 animate-pulse" />
+          <div className="mt-6 grid grid-cols-3 gap-3">
+            <div className="h-20 rounded-2xl bg-gradient-to-r from-slate-700/60 via-slate-500/60 to-slate-700/60 animate-pulse" />
+            <div className="h-20 rounded-2xl bg-gradient-to-r from-slate-700/60 via-slate-500/60 to-slate-700/60 animate-pulse" />
+            <div className="h-20 rounded-2xl bg-gradient-to-r from-slate-700/60 via-slate-500/60 to-slate-700/60 animate-pulse" />
+          </div>
         </div>
       </div>
     );

@@ -240,5 +240,20 @@
   "cookie_analytics_desc": "ช่วยปรับปรุงประสิทธิภาพและคุณภาพการให้บริการ",
   "cookie_marketing_title": "คุกกี้การตลาด",
   "cookie_marketing_desc": "ใช้สำหรับวัดผลแคมเปญและการสื่อสารเฉพาะบุคคล",
-  "cookie_save": "บันทึกการตั้งค่า"
+  "cookie_save": "บันทึกการตั้งค่า",
+  "chatbot_greeting": "สวัสดีครับ ผมบินนาย พร้อมช่วยธุรกิจของคุณวันนี้ครับ",
+  "chatbot_response": "ขอบคุณสำหรับข้อความของคุณ ทีมงานจะติดต่อกลับโดยเร็วที่สุด",
+  "chatbot_title": "ผู้ช่วย AI บินนาย",
+  "chatbot_status": "ออนไลน์อยู่",
+  "chatbot_placeholder": "พิมพ์ข้อความของคุณ...",
+  "chatbot_aria_assistant": "ผู้ช่วยแชตบอต",
+  "chatbot_aria_dialog": "แชตกับผู้ช่วย AI",
+  "chatbot_avatar_alt": "อวาตาร์ผู้ช่วย AI บินนาย",
+  "chatbot_close_chat": "ปิดหน้าต่างแชต",
+  "chatbot_typing": "AI กำลังพิมพ์",
+  "chatbot_type_message": "พิมพ์ข้อความ",
+  "chatbot_send_message": "ส่งข้อความ",
+  "chatbot_open": "เปิดแชตบอต",
+  "chatbot_close": "ปิดแชตบอต",
+  "chatbot_trigger_alt": "ผู้ช่วย AI บินนาย กดเพื่อเริ่มแชต"
 }

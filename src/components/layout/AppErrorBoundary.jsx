@@ -25,13 +25,9 @@ class AppErrorBoundary extends Component {
         <div className="flex min-h-screen items-center justify-center bg-slate-950 px-6 text-center text-white">
           <div>
             <h1 className="mb-3 text-2xl font-bold">
-              {t ? t("error_boundary_title") : "Something went wrong"}
+              {t?.("error_boundary_title")}
             </h1>
-            <p className="text-slate-300">
-              {t
-                ? t("error_boundary_desc")
-                : "Please refresh the page. If the issue persists, contact support."}
-            </p>
+            <p className="text-slate-300">{t?.("error_boundary_desc")}</p>
           </div>
         </div>
       );

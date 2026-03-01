@@ -1,23 +1,8 @@
-import { useMemo, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import useLanguage from "@/i18n/useLanguage";
-
-const SUPPORTED_LANGS = ["en", "th"];
-
-function getPathWithoutLocale(pathname = "/") {
-  const segments = pathname.split("/").filter(Boolean);
-
-  if (segments.length === 0) {
-    return "/";
-  }
-
-  const withoutLocale = SUPPORTED_LANGS.includes(segments[0])
-    ? segments.slice(1)
-    : segments;
-
-  return withoutLocale.length ? `/${withoutLocale.join("/")}` : "/";
-}
+import { useLocaleRouting } from "@/lib/localeRouting";
 
 function NavLinkItem({ to, children, onClick }) {
   return (
@@ -32,28 +17,29 @@ function NavLinkItem({ to, children, onClick }) {
 }
 
 function LanguageSwitcher({ className = "" }) {
-  const { lang, setLang, t } = useLanguage();
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const restPath = useMemo(
-    () => getPathWithoutLocale(location.pathname),
-    [location.pathname],
-  );
+  const { lang, t } = useLanguage();
+  const { switchLocale } = useLocaleRouting();
 
   const onSwitchLanguage = (nextLang) => {
     if (nextLang === lang) {
       return;
     }
 
-    setLang(nextLang);
-    const nextPath =
-      restPath === "/" ? `/${nextLang}` : `/${nextLang}${restPath}`;
-    navigate(`${nextPath}${location.search}${location.hash}`);
+    switchLocale(nextLang);
+  };
+
+  const onKeyDown = (event) => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+      return;
+    }
+
+    const nextLang = event.key === "ArrowLeft" ? "en" : "th";
+
+    onSwitchLanguage(nextLang);
   };
 
   const switcherBase =
-    "relative inline-flex h-10 w-[116px] items-center rounded-full border border-white/20 bg-white/10 p-1 backdrop-blur shadow-lg";
+    "relative inline-flex h-11 w-[122px] items-center rounded-full border border-white/15 bg-slate-900/70 p-1 backdrop-blur-xl shadow-[0_0_22px_rgba(34,211,238,0.16)]";
   const indicatorClass = lang === "en" ? "translate-x-0" : "translate-x-[54px]";
 
   return (
@@ -61,18 +47,19 @@ function LanguageSwitcher({ className = "" }) {
       className={`${switcherBase} ${className}`}
       role="group"
       aria-label={t("switcher_aria")}
+      onKeyDown={onKeyDown}
     >
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute left-1 top-1 h-8 w-[52px] rounded-full bg-gradient-to-r from-cyan-500/40 to-blue-500/40 shadow-[0_0_18px_rgba(34,211,238,0.35)] transition-all duration-300 ${indicatorClass}`}
+        className={`pointer-events-none absolute left-1 top-1 h-9 w-[58px] rounded-full bg-gradient-to-r from-cyan-400/50 via-cyan-500/40 to-blue-500/50 shadow-[0_0_18px_rgba(34,211,238,0.45)] transition-all duration-300 ${indicatorClass}`}
       />
       <button
         type="button"
         onClick={() => onSwitchLanguage("en")}
-        className={`relative z-10 inline-flex h-8 w-[52px] items-center justify-center rounded-full px-3 py-1 text-xs sm:text-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 ${
+        className={`relative z-10 inline-flex h-9 w-[58px] items-center justify-center rounded-full px-3 py-1 text-xs sm:text-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/90 ${
           lang === "en"
             ? "font-bold text-white"
-            : "font-semibold text-slate-200 hover:bg-white/20 hover:text-white"
+            : "font-semibold text-slate-200 hover:bg-white/10 hover:text-white"
         }`}
         aria-pressed={lang === "en"}
         aria-label={t("switcher_to_en")}
@@ -82,10 +69,10 @@ function LanguageSwitcher({ className = "" }) {
       <button
         type="button"
         onClick={() => onSwitchLanguage("th")}
-        className={`relative z-10 inline-flex h-8 w-[52px] items-center justify-center rounded-full px-3 py-1 text-xs sm:text-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/80 ${
+        className={`relative z-10 inline-flex h-9 w-[58px] items-center justify-center rounded-full px-3 py-1 text-xs sm:text-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/90 ${
           lang === "th"
             ? "font-bold text-white"
-            : "font-semibold text-slate-200 hover:bg-white/20 hover:text-white"
+            : "font-semibold text-slate-200 hover:bg-white/10 hover:text-white"
         }`}
         aria-pressed={lang === "th"}
         aria-label={t("switcher_to_th")}

@@ -240,5 +240,20 @@
   "cookie_analytics_desc": "Helps improve performance and service quality.",
   "cookie_marketing_title": "Marketing",
   "cookie_marketing_desc": "Enables campaign measurement and personalized outreach.",
-  "cookie_save": "Save Preferences"
+  "cookie_save": "Save Preferences",
+  "chatbot_greeting": "Hi! I’m Binnai. How can I support your business today?",
+  "chatbot_response": "Thanks for your message. Our team will get back to you shortly.",
+  "chatbot_title": "Binnai AI Assistant",
+  "chatbot_status": "Online now",
+  "chatbot_placeholder": "Type your message...",
+  "chatbot_aria_assistant": "Chatbot assistant",
+  "chatbot_aria_dialog": "Chat with AI assistant",
+  "chatbot_avatar_alt": "Binnai AI assistant avatar",
+  "chatbot_close_chat": "Close chat",
+  "chatbot_typing": "AI is typing",
+  "chatbot_type_message": "Type a message",
+  "chatbot_send_message": "Send message",
+  "chatbot_open": "Open chatbot",
+  "chatbot_close": "Close chatbot",
+  "chatbot_trigger_alt": "Binnai AI assistant, click to chat"
 }

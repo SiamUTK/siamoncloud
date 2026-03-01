@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { STORAGE_KEY } from "@/i18n/detectLanguage";
 
 export const SUPPORTED_LOCALES = ["en", "th"];
 export const DEFAULT_LOCALE = "en";
@@ -31,7 +32,7 @@ export function buildLocalizedPath(path, locale = DEFAULT_LOCALE) {
   }
 
   if (path.startsWith("#")) {
-    return `/${safeLocale}/${path}`;
+    return `/${safeLocale}${path}`;
   }
 
   const [basePath, hash = ""] = path.split("#");
@@ -59,7 +60,7 @@ export function useLocaleRouting() {
     const basePath = stripLocale(location.pathname);
     const nextPath = buildLocalizedPath(basePath, targetLocale);
 
-    window.localStorage.setItem("soc_locale", targetLocale);
+    window.localStorage.setItem(STORAGE_KEY, targetLocale);
     navigate(`${nextPath}${location.search}${location.hash}`);
   };
 

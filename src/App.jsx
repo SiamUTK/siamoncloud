@@ -50,7 +50,7 @@ function App() {
         <Routes>
           <Route path="/" element={<RootLanguageRedirect />} />
 
-          <Route path="/:lang/*" element={<LocalizedLayout />}>
+          <Route path="/:lang/*" element={<LocalizedLayout key={lang} />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="services" element={<Services />} />
