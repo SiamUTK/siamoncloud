@@ -55,6 +55,38 @@ VITE_API_BASE_URL=
 - `npm run build` - Build frontend to `dist`
 - `npm run start` - Start full Node app (`server/index.js`)
 - `npm run lint` - Run ESLint
+- `npm run git:advisor` - Start advisory-only Git helper (no auto-commit/push)
+
+## Git Advisor (Advisory Only)
+
+`Git Advisor` monitors working tree changes and suggests one of:
+
+- Commit now
+- Wait before committing
+- Push to remote
+- Warning for large uncommitted diff
+
+It does **not** execute git actions automatically.
+
+### Run
+
+```bash
+npm run git:advisor
+```
+
+### VS Code Task
+
+Use task label `Git Advisor` (from `.vscode/tasks.json`) to run it in the editor.
+
+### Tunable Settings
+
+Edit top-level `CONFIG` in `scripts/git-advisor.cjs` to tune:
+
+- debounce timing
+- polling interval
+- commit threshold
+- push reminder interval
+- warning threshold
 
 ## Hostinger Node Deployment
 

@@ -13,6 +13,7 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "notify": "node scripts/notify.cjs",
+    "git:advisor": "node scripts/git-advisor.cjs",
     "build:notify": "npm run build && npm run notify"
   },
   "dependencies": {
