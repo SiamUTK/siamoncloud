@@ -5,17 +5,16 @@ import useLanguage from "@/i18n/useLanguage";
 import usePageMeta from "@/hooks/usePageMeta";
 
 const TRUST_ITEMS = [
-  "Aviation Expertise",
-  "GDS Specialists",
-  "Bangkok-Based",
-  "AI Automation Ready",
+  "home_trusted_airlines",
+  "home_trusted_agencies",
+  "home_trusted_operators",
+  "home_trusted_otas",
 ];
 
 const SERVICES = [
   {
-    title: "Air Ticketing & Complex Routing",
-    description:
-      "Design and manage multi-sector itineraries with fare precision, risk controls, and operational speed.",
+    title: "home_services_travel_title",
+    description: "home_services_travel_desc",
     to: "services",
     icon: (
       <svg
@@ -32,9 +31,8 @@ const SERVICES = [
     ),
   },
   {
-    title: "AI & Workflow Automation",
-    description:
-      "Automate repetitive tasks, reduce response times, and create reliable workflows for growing teams.",
+    title: "home_services_automation_title",
+    description: "home_services_automation_desc",
     to: "services",
     icon: (
       <svg
@@ -51,9 +49,8 @@ const SERVICES = [
     ),
   },
   {
-    title: "LGBTQ+ Travel Solutions",
-    description:
-      "Build inclusive travel experiences with trusted recommendations, respectful service design, and confidence.",
+    title: "home_services_lgbtq_title",
+    description: "home_services_lgbtq_desc",
     to: "services",
     icon: (
       <svg
@@ -70,9 +67,8 @@ const SERVICES = [
     ),
   },
   {
-    title: "Travel Technology Consulting",
-    description:
-      "Align systems, data, and execution with practical architecture that supports measurable business outcomes.",
+    title: "home_services_digital_title",
+    description: "home_services_digital_desc",
     to: "services",
     icon: (
       <svg
@@ -92,54 +88,47 @@ const SERVICES = [
 
 const WHY_ITEMS = [
   {
-    title: "Built by Aviation Experts",
-    description:
-      "Our solutions are shaped by real-world airline, ticketing, and operations experience.",
+    title: "home_why_expertise_title",
+    description: "home_why_expertise_desc",
   },
   {
-    title: "Precision-First Operations",
-    description:
-      "We prioritize accuracy at every step to reduce leakage, rework, and customer friction.",
+    title: "home_why_security_title",
+    description: "home_why_security_desc",
   },
   {
-    title: "AI That Solves Real Problems",
-    description:
-      "Automation is applied where it matters most: speed, consistency, and service quality.",
+    title: "home_why_speed_title",
+    description: "home_why_speed_desc",
   },
   {
-    title: "Enterprise-Ready Systems",
-    description:
-      "Scalable architecture and dependable processes support teams from startup to enterprise.",
+    title: "home_services_automation_title",
+    description: "home_services_automation_desc",
   },
 ];
 
 const STEPS = [
   {
     number: "1",
-    title: "Assess Your Workflow",
-    description:
-      "We audit your ticketing flow, data handoffs, and pain points to define clear priorities.",
+    title: "home_how_step1_title",
+    description: "home_how_step1_desc",
   },
   {
     number: "2",
-    title: "Implement Smart Automation",
-    description:
-      "We deploy practical automation and process improvements with minimal operational disruption.",
+    title: "home_how_step2_title",
+    description: "home_how_step2_desc",
   },
   {
     number: "3",
-    title: "Scale with Confidence",
-    description:
-      "You gain repeatable systems, stronger performance visibility, and room to grow securely.",
+    title: "home_how_step3_title",
+    description: "home_how_step3_desc",
   },
 ];
 
 const AUDIENCE = [
-  "Travel Agencies",
-  "Tour Operators",
-  "Online Travel Businesses",
-  "Aviation Service Teams",
-  "Travel Startups",
+  "home_who_agencies",
+  "home_who_operators",
+  "home_who_otas",
+  "home_who_corporate",
+  "footer_link_operators",
 ];
 
 const sectionClass = "py-16 md:py-20";
@@ -153,12 +142,11 @@ const secondaryLinkClass =
   "inline-flex items-center font-semibold text-slate-700 transition-colors hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-slate-200 dark:hover:text-cyan-300 dark:focus-visible:ring-offset-slate-950";
 
 function HomePage() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
 
   usePageMeta({
-    title: "Siam On Cloud | AI-Powered Travel & Aviation Solutions",
-    description:
-      "Siam On Cloud helps travel businesses streamline ticketing, automate workflows, and scale with precision-driven travel technology.",
+    title: t("seo.title"),
+    description: t("seo.description"),
     scrollToTop: true,
   });
 
@@ -172,26 +160,25 @@ function HomePage() {
           >
             <div className="max-w-2xl">
               <h1 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white">
-                AI-Powered Travel &amp; Aviation Solutions for Modern Operators
+                {t("hero_title_1")} <br className="hidden md:block" />
+                {t("hero_title_2")}
               </h1>
               <p className={`mt-6 text-lg leading-relaxed ${bodyTextClass}`}>
-                We help travel businesses streamline ticketing, automate
-                operations, and scale with confidence through precision-driven
-                technology and real aviation expertise.
+                {t("hero_desc")}
               </p>
               <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
                 <Link
                   to={`/${lang}/contact`}
-                  aria-label="Book a Strategy Call"
+                  aria-label={t("btn_expert")}
                   className={primaryButtonClass}
                 >
-                  Book a Strategy Call
+                  {t("btn_expert")}
                 </Link>
                 <Link
                   to={`/${lang}/services`}
                   className={`${secondaryLinkClass} rounded-lg px-2 py-1`}
                 >
-                  Explore Services
+                  {t("btn_explore")}
                   <span className="ml-1" aria-hidden="true">
                     →
                   </span>
@@ -205,27 +192,26 @@ function HomePage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 dark:border-slate-800 dark:bg-slate-900/80">
                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                      Ticketing Precision
+                      {t("hero_trust_experience")}
                     </p>
                     <p className="mt-2 text-xl font-semibold text-slate-900 dark:text-white">
-                      99.9% Accuracy
+                      {t("stats_years")}
                     </p>
                   </div>
                   <div className="rounded-2xl border border-slate-200 bg-white/90 p-4 dark:border-slate-800 dark:bg-slate-900/80">
                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                      Workflow Speed
+                      {t("hero_trust_clients")}
                     </p>
                     <p className="mt-2 text-xl font-semibold text-slate-900 dark:text-white">
-                      Faster Operations
+                      {t("stats_clients")}
                     </p>
                   </div>
                   <div className="sm:col-span-2 rounded-2xl border border-slate-200 bg-white/90 p-4 dark:border-slate-800 dark:bg-slate-900/80">
                     <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-                      Built for Growth
+                      {t("hero_trust_support")}
                     </p>
                     <p className="mt-2 text-base font-medium text-slate-700 dark:text-slate-200">
-                      Modular travel technology that scales from daily
-                      operations to enterprise transformation.
+                      {t("hero_micro_proof")}
                     </p>
                   </div>
                 </div>
@@ -239,14 +225,14 @@ function HomePage() {
             <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-5 dark:border-slate-800 dark:bg-slate-900">
               <ul
                 className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4"
-                aria-label="Trust indicators"
+                aria-label={t("home_trusted_title")}
               >
                 {TRUST_ITEMS.map((item) => (
                   <li
                     key={item}
                     className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-600 dark:text-slate-300"
                   >
-                    {item}
+                    {t(item)}
                   </li>
                 ))}
               </ul>
@@ -261,11 +247,10 @@ function HomePage() {
                 id="core-services-title"
                 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white"
               >
-                Core Services for High-Performance Travel Teams
+                {t("home_services_title")}
               </h2>
               <p className={`mt-4 ${bodyTextClass}`}>
-                Practical solutions designed to improve margins, reduce manual
-                work, and strengthen service quality across your operation.
+                {t("home_services_desc")}
               </p>
             </div>
 
@@ -276,18 +261,18 @@ function HomePage() {
                     {service.icon}
                   </div>
                   <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
-                    {service.title}
+                    {t(service.title)}
                   </h3>
                   <p
                     className={`mt-2 text-sm leading-relaxed ${bodyTextClass}`}
                   >
-                    {service.description}
+                    {t(service.description)}
                   </p>
                   <Link
                     to={`/${lang}/${service.to}`}
                     className="mt-4 inline-flex items-center text-sm font-semibold text-blue-700 hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-cyan-300 dark:hover:text-cyan-200 dark:focus-visible:ring-offset-slate-950"
                   >
-                    Learn more
+                    {t("home_cta_primary", "Learn more")}
                     <span className="ml-1" aria-hidden="true">
                       →
                     </span>
@@ -305,7 +290,7 @@ function HomePage() {
                 id="why-title"
                 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white"
               >
-                Why Siam On Cloud
+                {t("home_why_title")}
               </h2>
             </div>
 
@@ -313,9 +298,11 @@ function HomePage() {
               {WHY_ITEMS.map((item) => (
                 <article key={item.title} className={`${cardClass} p-6`}>
                   <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
-                    {item.title}
+                    {t(item.title)}
                   </h3>
-                  <p className={`mt-3 ${bodyTextClass}`}>{item.description}</p>
+                  <p className={`mt-3 ${bodyTextClass}`}>
+                    {t(item.description)}
+                  </p>
                 </article>
               ))}
             </div>
@@ -329,8 +316,9 @@ function HomePage() {
                 id="how-title"
                 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white"
               >
-                How It Works
+                {t("home_how_title")}
               </h2>
+              <p className={`mt-4 ${bodyTextClass}`}>{t("home_how_desc")}</p>
             </div>
 
             <div className="relative mt-10 grid gap-6 md:grid-cols-3">
@@ -344,9 +332,11 @@ function HomePage() {
                     {step.number}
                   </div>
                   <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
-                    {step.title}
+                    {t(step.title)}
                   </h3>
-                  <p className={`mt-3 ${bodyTextClass}`}>{step.description}</p>
+                  <p className={`mt-3 ${bodyTextClass}`}>
+                    {t(step.description)}
+                  </p>
                 </article>
               ))}
             </div>
@@ -360,12 +350,9 @@ function HomePage() {
                 id="serve-title"
                 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white"
               >
-                Who We Serve
+                {t("home_who_title")}
               </h2>
-              <p className={`mt-4 ${bodyTextClass}`}>
-                We partner with ambitious travel and aviation-focused teams that
-                need scalable systems and dependable execution.
-              </p>
+              <p className={`mt-4 ${bodyTextClass}`}>{t("home_who_desc")}</p>
               <ul className="mt-6 space-y-3">
                 {AUDIENCE.map((item) => (
                   <li key={item} className="flex items-start gap-3">
@@ -374,7 +361,7 @@ function HomePage() {
                       aria-hidden="true"
                     />
                     <span className="text-base text-slate-700 dark:text-slate-200">
-                      {item}
+                      {t(item)}
                     </span>
                   </li>
                 ))}
@@ -387,15 +374,18 @@ function HomePage() {
           <div className={containerClass}>
             <div className="rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-8 text-center shadow-sm dark:border-slate-800 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900">
               <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
-                Ready to optimize your travel operations?
+                {t("home_mid_cta_title")}
               </h2>
+              <p className={`mt-4 ${bodyTextClass}`}>
+                {t("home_mid_cta_desc")}
+              </p>
               <div className="mt-6">
                 <Link
                   to={`/${lang}/contact`}
-                  aria-label="Book a Strategy Call"
+                  aria-label={t("home_mid_cta_primary")}
                   className={primaryButtonClass}
                 >
-                  Book a Strategy Call
+                  {t("home_mid_cta_primary")}
                 </Link>
               </div>
             </div>
@@ -407,25 +397,22 @@ function HomePage() {
             <div className="rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-100 p-8 md:p-12 dark:border-slate-800 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800">
               <div className="mx-auto max-w-3xl text-center">
                 <h2 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white">
-                  Let&apos;s Build Smarter Travel Operations
+                  {t("home_cta_title")}
                 </h2>
-                <p className={`mt-4 ${bodyTextClass}`}>
-                  Siam On Cloud is ready to help you modernize, automate, and
-                  scale with confidence.
-                </p>
+                <p className={`mt-4 ${bodyTextClass}`}>{t("home_cta_desc")}</p>
                 <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                   <Link
                     to={`/${lang}/contact`}
-                    aria-label="Book a Strategy Call"
+                    aria-label={t("home_cta_secondary")}
                     className={primaryButtonClass}
                   >
-                    Book a Strategy Call
+                    {t("home_cta_secondary")}
                   </Link>
                   <Link
                     to={`/${lang}/contact`}
                     className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-800 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800 dark:focus-visible:ring-offset-slate-950"
                   >
-                    Contact Us
+                    {t("nav_contact")}
                   </Link>
                 </div>
               </div>

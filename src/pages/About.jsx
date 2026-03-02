@@ -14,60 +14,54 @@ const primaryButtonClass =
   "inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950";
 
 const visionItems = [
-  "travel workflows run intelligently",
-  "ticketing errors are dramatically reduced",
-  "automation handles repetitive work",
-  "customer journeys feel truly personalized",
-  "travel businesses scale without operational chaos",
+  "home_how_step1_desc",
+  "home_how_step2_desc",
+  "home_how_step3_desc",
+  "home_why_speed_desc",
+  "home_why_expertise_desc",
 ];
 
 const whyItems = [
   {
-    title: "Built by Real Aviation Experts",
-    description:
-      "Our foundation comes from practical aviation and ticketing experience, not generic software assumptions.",
+    title: "home_why_expertise_title",
+    description: "home_why_expertise_desc",
   },
   {
-    title: "AI That Solves Real Problems",
-    description:
-      "We apply AI where it creates measurable impact across speed, consistency, and operational quality.",
+    title: "services_ai_title",
+    description: "services_ai_desc",
   },
   {
-    title: "Precision-First Culture",
-    description:
-      "From itinerary accuracy to process control, we design systems that protect trust and margin.",
+    title: "home_why_security_title",
+    description: "home_why_security_desc",
   },
   {
-    title: "Inclusive Travel Innovation",
-    description:
-      "We build inclusive travel solutions that respect diverse travelers while supporting strong business outcomes.",
+    title: "services_lgbtq_title",
+    description: "services_lgbtq_desc",
   },
 ];
 
 const solutionItems = [
-  "Air Ticketing & Complex Routing",
-  "Travel Technology Consulting",
-  "AI & Workflow Automation",
-  "LGBTQ+ Travel Experience Design",
-  "Digital Infrastructure for Travel Businesses",
+  "services_ticketing_title",
+  "services_digital_title",
+  "services_ai_title",
+  "services_lgbtq_title",
+  "home_services_digital_title",
 ];
 
 const audienceItems = [
-  "Travel Agencies",
-  "Tour Operators",
-  "Online Travel Businesses",
-  "Aviation Service Teams",
-  "Travel Startups",
+  "home_who_agencies",
+  "home_who_operators",
+  "home_who_otas",
+  "home_who_corporate",
+  "footer_link_operators",
 ];
 
 function About() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
 
   usePageMeta({
-    title:
-      "About Siam On Cloud | AI-Powered Travel Technology & Aviation Solutions",
-    description:
-      "Learn how Siam On Cloud helps travel businesses streamline ticketing, automate workflows, and scale with precision-driven travel technology.",
+    title: t("about_seo_title"),
+    description: t("about_seo_desc"),
     scrollToTop: true,
   });
 
@@ -78,21 +72,17 @@ function About() {
       <main>
         <section className={sectionClass}>
           <div className={`${containerClass} text-center`}>
-            <h1 className={headlineClass}>
-              AI-Powered Travel &amp; Aviation Solutions for Modern Operators
-            </h1>
+            <h1 className={headlineClass}>{t("about_title")}</h1>
             <p className={`mx-auto mt-6 max-w-3xl text-lg ${bodyClass}`}>
-              We help travel businesses streamline ticketing, automate
-              operations, and scale with confidence through precision-driven
-              technology and real aviation expertise.
+              {t("about_desc")}
             </p>
             <div className="mt-8">
               <Link
                 to={`/${lang}/contact`}
-                aria-label="Book a Strategy Call"
+                aria-label={t("footer_cta_button")}
                 className={primaryButtonClass}
               >
-                Book a Strategy Call
+                {t("footer_cta_button")}
               </Link>
             </div>
           </div>
@@ -102,20 +92,13 @@ function About() {
           <div className={containerClass}>
             <div className="mx-auto max-w-3xl text-center">
               <h2 id="who-we-are-title" className={headlineClass}>
-                Who We Are
+                {t("about_badge")}
               </h2>
               <div
                 className={`mt-6 space-y-5 text-left text-base ${bodyClass}`}
               >
-                <p>
-                  Siam On Cloud combines premium travel expertise with modern
-                  technology to deliver global business impact.
-                </p>
-                <p>
-                  We partner with travel operators that need reliable systems,
-                  clear execution, and scalable infrastructure to compete in a
-                  fast-moving market.
-                </p>
+                <p>{t("about_desc")}</p>
+                <p>{t("home_who_desc")}</p>
               </div>
             </div>
           </div>
@@ -131,13 +114,10 @@ function About() {
                 Mission
               </h2>
               <p className="mt-4 text-xl font-semibold text-slate-800 dark:text-slate-100 md:text-2xl">
-                To elevate travel operations through intelligent systems,
-                precision service, and human-centered innovation.
+                {t("about_mission_title")}
               </p>
               <p className={`mx-auto mt-5 max-w-3xl ${bodyClass}`}>
-                We translate strategy into practical systems that reduce
-                operational friction, improve service quality, and support
-                sustainable long-term growth.
+                {t("about_mission_desc")}
               </p>
             </div>
           </div>
@@ -147,7 +127,7 @@ function About() {
           <div className={containerClass}>
             <div className="mx-auto max-w-4xl">
               <h2 id="vision-title" className={`${headlineClass} text-center`}>
-                Vision
+                {t("about_vision_title")}
               </h2>
               <ul
                 className="mx-auto mt-8 max-w-3xl space-y-4"
@@ -161,7 +141,7 @@ function About() {
                     >
                       ✓
                     </span>
-                    <span className={`text-base ${bodyClass}`}>{item}</span>
+                    <span className={`text-base ${bodyClass}`}>{t(item)}</span>
                   </li>
                 ))}
               </ul>
@@ -172,7 +152,7 @@ function About() {
         <section className={sectionClass} aria-labelledby="why-title">
           <div className={containerClass}>
             <h2 id="why-title" className={`${headlineClass} text-center`}>
-              Why Siam On Cloud
+              {t("home_why_title")}
             </h2>
             <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               {whyItems.map((item) => (
@@ -191,10 +171,10 @@ function About() {
                     </svg>
                   </div>
                   <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
-                    {item.title}
+                    {t(item.title)}
                   </h3>
                   <p className={`mt-3 text-sm ${bodyClass}`}>
-                    {item.description}
+                    {t(item.description)}
                   </p>
                 </article>
               ))}
@@ -209,7 +189,7 @@ function About() {
                 id="solutions-title"
                 className={`${headlineClass} text-center`}
               >
-                Core Solutions
+                {t("home_services_title")}
               </h2>
               <ul className="mt-8 grid gap-4 md:grid-cols-2">
                 {solutionItems.map((item) => (
@@ -219,15 +199,13 @@ function About() {
                       aria-hidden="true"
                     />
                     <span className="text-base text-slate-700 dark:text-slate-200">
-                      {item}
+                      {t(item)}
                     </span>
                   </li>
                 ))}
               </ul>
               <p className={`mt-8 text-center ${bodyClass}`}>
-                Every solution is engineered to improve operational control,
-                service consistency, and growth readiness for modern travel
-                businesses.
+                {t("home_why_desc")}
               </p>
             </div>
           </div>
@@ -237,7 +215,7 @@ function About() {
           <div className={containerClass}>
             <div className="mx-auto max-w-4xl">
               <h2 id="serve-title" className={`${headlineClass} text-center`}>
-                Who We Serve
+                {t("home_who_title")}
               </h2>
               <ul className="mx-auto mt-8 max-w-2xl space-y-3">
                 {audienceItems.map((item) => (
@@ -247,7 +225,7 @@ function About() {
                       aria-hidden="true"
                     />
                     <span className="text-base text-slate-700 dark:text-slate-200">
-                      {item}
+                      {t(item)}
                     </span>
                   </li>
                 ))}
@@ -260,12 +238,10 @@ function About() {
           <div className={containerClass}>
             <div className="mx-auto max-w-4xl text-center">
               <h2 id="location-title" className={headlineClass}>
-                Based in Bangkok. Built for Global Travel.
+                {t("footer_location")}
               </h2>
               <p className={`mx-auto mt-5 max-w-3xl ${bodyClass}`}>
-                From Bangkok, we support travel organizations across markets
-                with precision-driven systems, responsive execution, and a
-                global perspective on aviation and travel operations.
+                {t("footer_global_presence")}
               </p>
             </div>
           </div>
@@ -275,19 +251,18 @@ function About() {
           <div className={containerClass}>
             <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 text-center dark:border-slate-800 dark:bg-slate-900 md:p-12">
               <h2 className="text-4xl font-bold tracking-tight md:text-5xl">
-                Let&apos;s Build Smarter Travel Operations
+                {t("home_cta_title")}
               </h2>
               <p className={`mx-auto mt-4 max-w-3xl ${bodyClass}`}>
-                Siam On Cloud is ready to help you modernize, automate, and
-                scale with confidence.
+                {t("home_cta_desc")}
               </p>
               <div className="mt-8">
                 <Link
                   to={`/${lang}/contact`}
-                  aria-label="Book a Strategy Call"
+                  aria-label={t("footer_cta_button")}
                   className={primaryButtonClass}
                 >
-                  Book a Strategy Call
+                  {t("footer_cta_button")}
                 </Link>
               </div>
             </div>

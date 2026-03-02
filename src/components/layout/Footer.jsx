@@ -5,33 +5,53 @@ import Container from "./PageContainer";
 
 const SOLUTION_LINKS = [
   {
-    label: "All Services",
+    label: "footer_link_services",
     path: "/services",
     ariaLabel: "Navigate to all services",
   },
   {
-    label: "Air Ticketing",
+    label: "footer_link_ticketing",
     path: "/services/air-ticketing",
     ariaLabel: "Navigate to Air Ticketing service",
   },
   {
-    label: "LGBTQ+ Travel",
+    label: "footer_link_lgbtq",
     path: "/services/lgbtq-travel",
     ariaLabel: "Navigate to LGBTQ+ Travel service",
   },
   {
-    label: "AI & Automation",
+    label: "footer_link_ai",
     path: "/services/ai-automation",
     ariaLabel: "Navigate to AI and Automation service",
   },
 ];
 
 const COMPANY_LINKS = [
-  { label: "About", path: "/about", ariaLabel: "Navigate to About page" },
-  { label: "Contact", path: "/contact", ariaLabel: "Navigate to Contact page" },
-  { label: "Privacy", path: "/privacy", ariaLabel: "Navigate to Privacy page" },
-  { label: "Terms", path: "/terms", ariaLabel: "Navigate to Terms page" },
-  { label: "Cookies", path: "/cookies", ariaLabel: "Navigate to Cookies page" },
+  {
+    label: "footer_link_about",
+    path: "/about",
+    ariaLabel: "Navigate to About page",
+  },
+  {
+    label: "footer_link_contact",
+    path: "/contact",
+    ariaLabel: "Navigate to Contact page",
+  },
+  {
+    label: "footer_link_privacy",
+    path: "/privacy",
+    ariaLabel: "Navigate to Privacy page",
+  },
+  {
+    label: "footer_link_terms",
+    path: "/terms",
+    ariaLabel: "Navigate to Terms page",
+  },
+  {
+    label: "footer_link_cookies",
+    path: "/cookies",
+    ariaLabel: "Navigate to Cookies page",
+  },
 ];
 
 const SOCIAL_LINKS = [
@@ -62,9 +82,9 @@ const SOCIAL_LINKS = [
 ];
 
 function Footer() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const localize = (path) => `/${lang}${path}`;
-  const logoAlt = "Siam On Cloud";
+  const logoAlt = t("brand_logo_alt");
 
   return (
     <footer className="mt-20 border-t border-slate-200 bg-slate-50 text-slate-800 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200">
@@ -89,8 +109,7 @@ function Footer() {
             </Link>
 
             <p className="mx-auto max-w-xs text-sm leading-relaxed text-slate-600 md:mx-0 dark:text-slate-300">
-              Enterprise travel-tech solutions for growth-focused operators and
-              modern digital teams.
+              {t("footer_tagline")}
             </p>
 
             <div className="flex items-center justify-center gap-2 md:justify-start">
@@ -116,7 +135,7 @@ function Footer() {
             </div>
 
             <p className="text-sm text-slate-600 dark:text-slate-300">
-              Bangkok, Thailand
+              {t("footer_location")}
             </p>
             <a
               href="mailto:info@siamon.cloud"
@@ -141,7 +160,7 @@ function Footer() {
               id="footer-solutions-title"
               className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 dark:text-slate-100"
             >
-              SOLUTIONS
+              {t("footer_solutions")}
             </h2>
             <nav
               className="mt-4 flex flex-col gap-1.5 text-sm text-slate-600 dark:text-slate-300"
@@ -154,7 +173,7 @@ function Footer() {
                   aria-label={link.ariaLabel}
                   className="inline-flex min-h-11 items-center py-2 underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
                 >
-                  {link.label}
+                  {t(link.label)}
                 </Link>
               ))}
             </nav>
@@ -165,7 +184,7 @@ function Footer() {
               id="footer-company-title"
               className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 dark:text-slate-100"
             >
-              COMPANY
+              {t("footer_company")}
             </h2>
             <nav
               className="mt-4 flex flex-col gap-1.5 text-sm text-slate-600 dark:text-slate-300"
@@ -178,7 +197,7 @@ function Footer() {
                   aria-label={link.ariaLabel}
                   className="inline-flex min-h-11 items-center py-2 underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
                 >
-                  {link.label}
+                  {t(link.label)}
                 </Link>
               ))}
             </nav>
@@ -186,13 +205,13 @@ function Footer() {
 
           <aside className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift dark:border-slate-800 dark:bg-slate-900 dark:shadow-none dark:hover:shadow-none">
             <h2 className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 dark:text-slate-100">
-              SUPPORT
+              {t("footer_support_email_label")}
             </h2>
 
             <div className="mt-4 space-y-4 text-sm">
               <div className="border-b border-slate-200 pb-4 dark:border-slate-700">
                 <p className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400">
-                  Book by Phone
+                  {t("contact_card_phone_title")}
                 </p>
                 <a
                   href={`tel:${SITE_CONFIG.phoneTel}`}
@@ -202,13 +221,13 @@ function Footer() {
                   {SITE_CONFIG.phoneDisplay}
                 </a>
                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                  Bangkok business hours
+                  {t("footer_location")}
                 </p>
               </div>
 
               <div className="border-b border-slate-200 pb-4 dark:border-slate-700">
                 <p className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400">
-                  Email Support
+                  {t("contact_card_email_title")}
                 </p>
                 <a
                   href="mailto:info@siamon.cloud"
@@ -218,23 +237,23 @@ function Footer() {
                   info@siamon.cloud
                 </a>
                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                  We reply within 24 hours
+                  {t("footer_cta_desc")}
                 </p>
               </div>
 
               <div className="pb-1">
                 <p className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400">
-                  Support Centre
+                  {t("footer_link_contact")}
                 </p>
                 <Link
                   to={localize("/contact")}
                   aria-label="Go to contact page"
                   className="mt-1 inline-flex text-slate-900 underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-slate-100 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-900"
                 >
-                  Contact Page
+                  {t("footer_link_contact")}
                 </Link>
                 <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                  Get your doubts cleared
+                  {t("footer_newsletter_reassurance")}
                 </p>
               </div>
             </div>
@@ -254,7 +273,7 @@ function Footer() {
                 to={localize("")}
                 className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
               >
-                Home
+                {t("nav_home")}
               </Link>
               <span
                 className="text-slate-300 dark:text-slate-700"
@@ -266,7 +285,7 @@ function Footer() {
                 to={localize("/about")}
                 className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
               >
-                About
+                {t("nav_about")}
               </Link>
               <span
                 className="text-slate-300 dark:text-slate-700"
@@ -278,7 +297,7 @@ function Footer() {
                 to={localize("/contact")}
                 className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
               >
-                Contact
+                {t("nav_contact")}
               </Link>
               <span
                 className="text-slate-300 dark:text-slate-700"
@@ -290,12 +309,12 @@ function Footer() {
                 to={localize("/contact")}
                 className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
               >
-                Book Now
+                {t("footer_cta_button")}
               </Link>
             </nav>
 
             <p className="text-center sm:text-right">
-              Your trusted partner for travel technology
+              {t("footer_brand_tagline")}
             </p>
           </div>
         </section>
@@ -305,7 +324,7 @@ function Footer() {
           aria-label="Footer legal bar"
         >
           <div className="flex flex-col gap-3 text-center text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:text-left dark:text-slate-400">
-            <p>© 2026 Siam On Cloud</p>
+            <p>{t("footer_copyright")}</p>
 
             <nav
               className="flex items-center justify-center gap-3 sm:justify-end"
@@ -315,7 +334,7 @@ function Footer() {
                 to={localize("/privacy")}
                 className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
               >
-                Privacy
+                {t("legal_privacy_short")}
               </Link>
               <span
                 className="text-slate-300 dark:text-slate-700"
@@ -327,7 +346,7 @@ function Footer() {
                 to={localize("/terms")}
                 className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
               >
-                Terms
+                {t("legal_terms_short")}
               </Link>
               <span
                 className="text-slate-300 dark:text-slate-700"
@@ -339,7 +358,7 @@ function Footer() {
                 to={localize("/cookies")}
                 className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
               >
-                Cookies
+                {t("legal_cookies_short")}
               </Link>
             </nav>
           </div>

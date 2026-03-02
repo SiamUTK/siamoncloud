@@ -27,43 +27,41 @@ const labelClass = "text-sm font-medium text-slate-700 dark:text-slate-200";
 const primaryButtonClass =
   "inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 font-semibold text-white transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950 disabled:cursor-not-allowed disabled:opacity-60";
 
-const serviceOptions = [
-  "Air Ticketing",
-  "AI & Automation",
-  "LGBTQ+ Travel",
-  "Travel Technology",
-  "General Inquiry",
-];
-
-const contactBlocks = [
-  {
-    key: "phone",
-    label: "📞 Phone",
-    value: SITE_CONFIG.phoneDisplay,
-    subtext: "Bangkok business hours",
-  },
-  {
-    key: "email",
-    label: "✉️ Email",
-    value: "info@siamon.cloud",
-    subtext: "Primary support channel",
-  },
-  {
-    key: "location",
-    label: "📍 Location",
-    value: "Bangkok, Thailand",
-    subtext: "Serving clients globally",
-  },
-  {
-    key: "response",
-    label: "⏱ Response Time",
-    value: "Within 24 hours",
-    subtext: "Business days",
-  },
-];
-
 function Contact() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
+  const localizedServiceOptions = [
+    t("services_ticketing_title"),
+    t("services_ai_title"),
+    t("services_lgbtq_title"),
+    t("services_digital_title"),
+    t("contact_subject_placeholder", "General Inquiry"),
+  ];
+  const localizedContactBlocks = [
+    {
+      key: "phone",
+      label: `${t("contact_card_phone_title")}`,
+      value: SITE_CONFIG.phoneDisplay,
+      subtext: t("footer_location"),
+    },
+    {
+      key: "email",
+      label: `${t("contact_card_email_title")}`,
+      value: "info@siamon.cloud",
+      subtext: t("footer_support_email_label"),
+    },
+    {
+      key: "location",
+      label: `${t("contact_card_address_title")}`,
+      value: t("contact_card_address_value"),
+      subtext: t("footer_global_presence"),
+    },
+    {
+      key: "response",
+      label: t("contact_submit_loading", "Response Time"),
+      value: t("home_cta_no_obligation", "Within 24 hours"),
+      subtext: t("loading_label", "Business days"),
+    },
+  ];
 
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -78,9 +76,8 @@ function Contact() {
   });
 
   usePageMeta({
-    title: "Contact Siam On Cloud | Travel Technology & Aviation Support",
-    description:
-      "Get in touch with Siam On Cloud for air ticketing, travel technology, and AI automation solutions. Our team is ready to assist your business.",
+    title: t("contact_seo_title"),
+    description: t("contact_seo_desc"),
     scrollToTop: true,
   });
 
@@ -88,22 +85,22 @@ function Contact() {
     const next = {};
 
     if (!form.fullName || form.fullName.trim().length < 2) {
-      next.fullName = "Please enter your full name.";
+      next.fullName = t("contact_error_name");
     }
 
     if (
       !form.businessEmail ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.businessEmail.trim())
     ) {
-      next.businessEmail = "Please enter a valid business email.";
+      next.businessEmail = t("contact_error_email");
     }
 
     if (!form.message || form.message.trim().length < 10) {
-      next.message = "Please provide a message with at least 10 characters.";
+      next.message = t("contact_error_message");
     }
 
     if (form.company) {
-      next.company = "Spam check failed.";
+      next.company = t("contact_error_spam");
     }
 
     return next;
@@ -132,7 +129,7 @@ function Contact() {
     const supabase = getSupabaseClient();
     if (!supabase) {
       setErrors({
-        form: "Contact service is temporarily unavailable. Please try again later.",
+        form: t("contact_error_supabase"),
       });
       return;
     }
@@ -174,7 +171,7 @@ function Contact() {
       const { error } = await supabase.from("leads").insert([payload]);
 
       if (error) {
-        setErrors({ form: "Submission failed. Please try again later." });
+        setErrors({ form: t("contact_error_submit") });
         trackEvent("contact_error", { ...form, error: error.message || error });
         return;
       }
@@ -192,7 +189,7 @@ function Contact() {
       });
     } catch {
       setErrors({
-        form: "Unexpected error occurred. Please try again in a few minutes.",
+        form: t("contact_error_unexpected"),
       });
     } finally {
       setLoading(false);
@@ -207,11 +204,10 @@ function Contact() {
         <section className={sectionClass}>
           <div className={`${containerClass} text-center`}>
             <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-              Contact Siam On Cloud
+              {t("contact_title")}
             </h1>
             <p className="mx-auto mt-4 max-w-3xl leading-relaxed text-slate-600 dark:text-slate-300">
-              Speak with our travel technology and aviation specialists. We
-              respond quickly and precisely.
+              {t("contact_desc")}
             </p>
           </div>
         </section>
@@ -228,17 +224,16 @@ function Contact() {
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
               <section className={`${cardClass} p-6 md:p-8`}>
                 <h3 className="text-2xl font-semibold tracking-tight">
-                  Send us a message
+                  {t("contact_form_title")}
                 </h3>
                 <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-                  Tell us about your goals and we will provide a focused
-                  response.
+                  {t("contact_form_desc")}
                 </p>
 
                 <div aria-live="polite" className="mt-4 space-y-3">
                   {isSubmitted && (
                     <p className="rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-200">
-                      Message sent successfully. Our team will contact you soon.
+                      {t("contact_success")}
                     </p>
                   )}
                   {errors.form && (
@@ -266,7 +261,7 @@ function Contact() {
 
                   <div>
                     <label htmlFor="fullName" className={labelClass}>
-                      Full Name <span aria-hidden="true">*</span>
+                      {t("contact_name")} <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="fullName"
@@ -294,7 +289,7 @@ function Contact() {
 
                   <div>
                     <label htmlFor="businessEmail" className={labelClass}>
-                      Business Email <span aria-hidden="true">*</span>
+                      {t("contact_email")} <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="businessEmail"
@@ -322,7 +317,7 @@ function Contact() {
 
                   <div>
                     <label htmlFor="companyName" className={labelClass}>
-                      Company Name
+                      {t("footer_company_name")}
                     </label>
                     <input
                       id="companyName"
@@ -337,7 +332,7 @@ function Contact() {
 
                   <div>
                     <label htmlFor="serviceInterest" className={labelClass}>
-                      Service Interest
+                      {t("services_title")}
                     </label>
                     <select
                       id="serviceInterest"
@@ -346,7 +341,7 @@ function Contact() {
                       onChange={handleChange}
                       className={inputClass}
                     >
-                      {serviceOptions.map((option) => (
+                      {localizedServiceOptions.map((option) => (
                         <option key={option} value={option}>
                           {option}
                         </option>
@@ -356,7 +351,7 @@ function Contact() {
 
                   <div>
                     <label htmlFor="message" className={labelClass}>
-                      Message <span aria-hidden="true">*</span>
+                      {t("contact_message")} <span aria-hidden="true">*</span>
                     </label>
                     <textarea
                       id="message"
@@ -385,13 +380,15 @@ function Contact() {
                     <button
                       type="submit"
                       disabled={loading}
-                      aria-label="Send Message"
+                      aria-label={t("contact_submit")}
                       className={primaryButtonClass}
                     >
-                      {loading ? "Sending..." : "Send Message"}
+                      {loading
+                        ? t("contact_submit_loading")
+                        : t("contact_submit")}
                     </button>
                     <p className="text-xs text-slate-500 dark:text-slate-400">
-                      We typically respond within 24 hours.
+                      {t("footer_newsletter_reassurance")}
                     </p>
                   </div>
                 </form>
@@ -402,10 +399,10 @@ function Contact() {
                 aria-label="Contact information"
               >
                 <h3 className="text-2xl font-semibold tracking-tight">
-                  Support Information
+                  {t("footer_support_email_label")}
                 </h3>
                 <div className="mt-6 divide-y divide-slate-200 dark:divide-slate-800">
-                  {contactBlocks.map((block) => (
+                  {localizedContactBlocks.map((block) => (
                     <div key={block.key} className="py-5 first:pt-0 last:pb-0">
                       <p className="text-sm font-semibold tracking-wide text-slate-700 dark:text-slate-200">
                         {block.label}
@@ -434,7 +431,7 @@ function Contact() {
           <div className={containerClass}>
             <div className="rounded-2xl border border-blue-100 bg-blue-50 px-6 py-4 text-center dark:border-blue-900/40 dark:bg-blue-950/30">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-800 dark:text-blue-200">
-                Trusted by modern travel operators across Southeast Asia.
+                {t("home_trusted_title")}
               </p>
             </div>
           </div>
@@ -453,9 +450,7 @@ function Contact() {
                 Based in Bangkok. Supporting Global Clients.
               </h2>
               <p className="mt-4 max-w-3xl leading-relaxed text-slate-600 dark:text-slate-300">
-                Our Bangkok team supports travel businesses across regions with
-                practical implementation, clear communication, and dependable
-                turnaround for mission-critical operations.
+                {t("footer_global_presence")}
               </p>
               <div
                 className="mt-6 h-56 rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-950"
@@ -472,22 +467,21 @@ function Contact() {
                 Ready to streamline your travel operations?
               </h2>
               <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-slate-600 dark:text-slate-300">
-                Book a focused strategy call and get a practical roadmap for
-                your business.
+                {t("footer_cta_desc")}
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Link
                   to={`/${lang}/contact`}
-                  aria-label="Book a Strategy Call"
+                  aria-label={t("footer_cta_button")}
                   className={primaryButtonClass}
                 >
-                  Book a Strategy Call
+                  {t("footer_cta_button")}
                 </Link>
                 <Link
                   to={`/${lang}`}
                   className="text-sm font-semibold text-slate-700 underline decoration-slate-300 underline-offset-4 transition-colors hover:text-blue-700 dark:text-slate-200 dark:decoration-slate-600 dark:hover:text-cyan-300"
                 >
-                  Back to Home
+                  {t("notfound_cta")}
                 </Link>
               </div>
             </div>

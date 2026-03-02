@@ -14,16 +14,14 @@ const primaryButtonClass =
 const services = [
   {
     id: "air-ticketing",
-    title: "Air Ticketing & Complex Routing",
-    short:
-      "Handle complex itineraries with stronger fare precision, route logic, and execution consistency.",
-    details:
-      "Our ticketing services support high-complexity journeys, business-critical reservations, and operational precision at scale.",
+    title: "services_ticketing_title",
+    short: "services_ticketing_desc",
+    details: "services_ticketing_desc",
     capabilities: [
-      "complex routing expertise",
-      "GDS precision",
-      "fare optimization",
-      "group and corporate handling",
+      "services_ticketing_point_1",
+      "services_ticketing_point_2",
+      "services_ticketing_point_3",
+      "home_who_corporate",
     ],
     icon: (
       <svg
@@ -41,16 +39,14 @@ const services = [
   },
   {
     id: "ai-automation",
-    title: "AI & Workflow Automation",
-    short:
-      "Automate repetitive operations and increase team speed while keeping control and reliability.",
-    details:
-      "We design automation systems that remove repetitive load, improve service consistency, and support sustainable team growth.",
+    title: "services_ai_title",
+    short: "services_ai_desc",
+    details: "services_ai_desc",
     capabilities: [
-      "workflow automation",
-      "operational efficiency",
-      "error reduction",
-      "scalable systems",
+      "services_ai_point_1",
+      "services_ai_point_2",
+      "services_ai_point_3",
+      "home_why_speed_title",
     ],
     icon: (
       <svg
@@ -68,16 +64,14 @@ const services = [
   },
   {
     id: "lgbtq-travel",
-    title: "LGBTQ+ Travel Solutions",
-    short:
-      "Create inclusive, personalized travel experiences for modern travelers and evolving markets.",
-    details:
-      "We help teams deliver inclusive travel programs that balance personalization, safety, and quality at every touchpoint.",
+    title: "services_lgbtq_title",
+    short: "services_lgbtq_desc",
+    details: "services_lgbtq_desc",
     capabilities: [
-      "inclusive travel design",
-      "personalized journeys",
-      "partner-friendly planning",
-      "modern traveler focus",
+      "services_lgbtq_point_1",
+      "services_lgbtq_point_2",
+      "services_lgbtq_point_3",
+      "home_who_operators",
     ],
     icon: (
       <svg
@@ -95,16 +89,14 @@ const services = [
   },
   {
     id: "travel-tech-consulting",
-    title: "Travel Technology Consulting",
-    short:
-      "Build practical technology foundations that support performance, governance, and long-term scale.",
-    details:
-      "Our consulting aligns people, process, and platform decisions to accelerate digital outcomes for travel organizations.",
+    title: "services_digital_title",
+    short: "services_digital_desc",
+    details: "services_digital_desc",
     capabilities: [
-      "system architecture",
-      "process optimization",
-      "digital transformation",
-      "platform strategy",
+      "services_digital_point_1",
+      "services_digital_point_2",
+      "services_digital_point_3",
+      "home_why_expertise_title",
     ],
     icon: (
       <svg
@@ -125,39 +117,35 @@ const services = [
 const processSteps = [
   {
     number: "1",
-    title: "Assess & Understand",
-    description:
-      "We review your workflows, pain points, and business goals to identify high-impact priorities.",
+    title: "home_how_step1_title",
+    description: "home_how_step1_desc",
   },
   {
     number: "2",
-    title: "Design & Implement",
-    description:
-      "We implement practical service and automation solutions aligned with your team structure.",
+    title: "home_how_step2_title",
+    description: "home_how_step2_desc",
   },
   {
     number: "3",
-    title: "Optimize & Scale",
-    description:
-      "We refine operations continuously to improve performance and support long-term growth.",
+    title: "home_how_step3_title",
+    description: "home_how_step3_desc",
   },
 ];
 
 const audience = [
-  "Travel Agencies",
-  "Tour Operators",
-  "Online Travel Businesses",
-  "Aviation Teams",
-  "Travel Startups",
+  "home_who_agencies",
+  "home_who_operators",
+  "home_who_otas",
+  "home_who_corporate",
+  "footer_link_operators",
 ];
 
 function Services() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
 
   usePageMeta({
-    title: "Siam On Cloud Services | Travel Technology & Aviation Solutions",
-    description:
-      "Explore Siam On Cloud services including air ticketing, AI automation, LGBTQ+ travel solutions, and travel technology consulting.",
+    title: t("services_seo_title"),
+    description: t("services_seo_desc"),
     scrollToTop: true,
   });
 
@@ -169,25 +157,24 @@ function Services() {
         <section className={sectionClass}>
           <div className={`${containerClass} text-center`}>
             <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-              Enterprise Travel &amp; Aviation Solutions
+              {t("services_title")}
             </h1>
             <p className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-              Precision-driven services designed to help travel businesses
-              operate smarter, faster, and with greater confidence.
+              {t("services_desc")}
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 to={`/${lang}/contact`}
-                aria-label="Book a Strategy Call"
+                aria-label={t("footer_cta_button")}
                 className={primaryButtonClass}
               >
-                Book a Strategy Call
+                {t("footer_cta_button")}
               </Link>
               <Link
                 to={`/${lang}/contact`}
                 className="inline-flex items-center justify-center rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-700 transition-colors hover:border-blue-600 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-slate-700 dark:text-slate-200 dark:hover:border-cyan-300 dark:hover:text-cyan-300 dark:focus-visible:ring-offset-slate-950"
               >
-                Contact Us
+                {t("nav_contact")}
               </Link>
             </div>
           </div>
@@ -206,20 +193,20 @@ function Services() {
                 <a
                   key={service.id}
                   href={`#${service.id}`}
-                  aria-label={`View details for ${service.title}`}
+                  aria-label={`${t("btn_explore")} ${t(service.title)}`}
                   className={`${cardClass} group block p-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950`}
                 >
                   <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-blue-200 bg-blue-50 text-blue-600 dark:border-blue-900 dark:bg-blue-950/40 dark:text-cyan-300">
                     {service.icon}
                   </div>
                   <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">
-                    {service.title}
+                    {t(service.title)}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                    {service.short}
+                    {t(service.short)}
                   </p>
                   <span className="mt-4 inline-flex items-center text-sm font-semibold text-blue-700 transition-transform group-hover:translate-x-0.5 dark:text-cyan-300">
-                    Explore
+                    {t("btn_explore")}
                     <span className="ml-1" aria-hidden="true">
                       →
                     </span>
@@ -239,7 +226,7 @@ function Services() {
               id="deep-explanation-title"
               className="text-3xl font-bold tracking-tight md:text-4xl"
             >
-              Deep Service Explanation
+              {t("services_title")}
             </h2>
 
             <div className="mt-8 space-y-6">
@@ -254,10 +241,10 @@ function Services() {
                   }`}
                 >
                   <h3 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
-                    {service.title}
+                    {t(service.title)}
                   </h3>
                   <p className="mt-3 max-w-3xl leading-relaxed text-slate-600 dark:text-slate-300">
-                    {service.details}
+                    {t(service.details)}
                   </p>
                   <ul className="mt-5 grid gap-3 sm:grid-cols-2">
                     {service.capabilities.map((capability) => (
@@ -267,7 +254,7 @@ function Services() {
                           aria-hidden="true"
                         />
                         <span className="text-sm text-slate-700 dark:text-slate-200">
-                          {capability}
+                          {t(capability)}
                         </span>
                       </li>
                     ))}
@@ -284,7 +271,7 @@ function Services() {
               id="process-title"
               className="text-3xl font-bold tracking-tight md:text-4xl"
             >
-              Process / How We Work
+              {t("home_how_title")}
             </h2>
 
             <div className="relative mt-8 grid gap-6 md:grid-cols-3">
@@ -298,10 +285,10 @@ function Services() {
                     {step.number}
                   </div>
                   <h3 className="mt-4 text-xl font-semibold text-slate-900 dark:text-white">
-                    {step.title}
+                    {t(step.title)}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                    {step.description}
+                    {t(step.description)}
                   </p>
                 </article>
               ))}
@@ -316,11 +303,10 @@ function Services() {
                 id="audience-title"
                 className="text-3xl font-bold tracking-tight md:text-4xl"
               >
-                Built for Growth-Focused Travel Operators
+                {t("home_who_title")}
               </h2>
               <p className="mt-4 leading-relaxed text-slate-600 dark:text-slate-300">
-                Our services are designed for organizations that need reliable
-                operations, faster execution, and scalable infrastructure.
+                {t("home_who_desc")}
               </p>
               <ul className="mt-6 space-y-3">
                 {audience.map((item) => (
@@ -330,7 +316,7 @@ function Services() {
                       aria-hidden="true"
                     />
                     <span className="text-base text-slate-700 dark:text-slate-200">
-                      {item}
+                      {t(item)}
                     </span>
                   </li>
                 ))}
@@ -343,25 +329,24 @@ function Services() {
           <div className={containerClass}>
             <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 text-center dark:border-slate-800 dark:bg-slate-900 md:p-12">
               <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                Ready to modernize your travel operations?
+                {t("footer_cta_title")}
               </h2>
               <p className="mx-auto mt-4 max-w-3xl leading-relaxed text-slate-600 dark:text-slate-300">
-                Partner with Siam On Cloud to streamline workflows, reduce
-                operational friction, and scale with confidence.
+                {t("footer_cta_desc")}
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Link
                   to={`/${lang}/contact`}
-                  aria-label="Book a Strategy Call"
+                  aria-label={t("footer_cta_button")}
                   className={primaryButtonClass}
                 >
-                  Book a Strategy Call
+                  {t("footer_cta_button")}
                 </Link>
                 <Link
                   to={`/${lang}/contact`}
                   className="text-sm font-semibold text-slate-700 underline decoration-slate-300 underline-offset-4 transition-colors hover:text-blue-700 dark:text-slate-200 dark:decoration-slate-600 dark:hover:text-cyan-300"
                 >
-                  Contact Our Team
+                  {t("nav_contact")}
                 </Link>
               </div>
             </div>
