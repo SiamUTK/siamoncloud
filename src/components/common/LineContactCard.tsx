@@ -35,14 +35,14 @@ function LineContactCard() {
         Chat on LINE
       </a>
 
-      <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800">
+      <div className="mt-4 flex justify-center overflow-hidden rounded-xl border border-slate-200 p-3 dark:border-slate-800">
         <img
           src={SITE_CONFIG.lineQr}
           alt="LINE Official Account QR code for Siam On Cloud"
-          width="320"
-          height="320"
+          width="240"
+          height="240"
           loading="lazy"
-          className="h-auto w-full max-w-full"
+          className="h-auto w-36 max-w-full sm:w-40"
         />
       </div>
     </section>
