@@ -1,15 +1,8 @@
+import { createPortal } from "react-dom";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AI_CONFIG } from "@/config/site";
 
-type ChatRole = "assistant" | "user";
-
-type ChatMessage = {
-  id: string;
-  role: ChatRole;
-  text: string;
-};
-
-const INITIAL_MESSAGE: ChatMessage = {
+const INITIAL_MESSAGE = {
   id: "welcome",
   role: "assistant",
   text: "Hello! I'm N' Bindee, your Siam On Cloud assistant. How can I help optimize your travel operations today?",
@@ -20,17 +13,35 @@ const QUICK_ACTIONS = [
   "AI & Automation",
   "Contact Our Team",
   "Book Strategy Call",
-] as const;
+];
+
+function getAssistantPortalRoot() {
+  if (typeof window === "undefined" || typeof document === "undefined") {
+    return null;
+  }
+
+  let root = document.getElementById("ai-assistant-root");
+  if (!root) {
+    root = document.createElement("div");
+    root.id = "ai-assistant-root";
+    document.body.appendChild(root);
+  }
+
+  return root;
+}
 
 function AIAssistant() {
+  const [isMounted, setIsMounted] = useState(false);
+  const [portalRoot, setPortalRoot] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [messages, setMessages] = useState<ChatMessage[]>([INITIAL_MESSAGE]);
+  const [mascotSrc, setMascotSrc] = useState(AI_CONFIG.mascot);
+  const [messages, setMessages] = useState([INITIAL_MESSAGE]);
 
-  const dialogRef = useRef<HTMLDivElement | null>(null);
-  const launcherRef = useRef<HTMLButtonElement | null>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const messagesRef = useRef<HTMLDivElement | null>(null);
+  const dialogRef = useRef(null);
+  const launcherRef = useRef(null);
+  const inputRef = useRef(null);
+  const messagesRef = useRef(null);
 
   const panelId = "ai-assistant-panel";
 
@@ -40,13 +51,6 @@ function AIAssistant() {
     setIsOpen(false);
     requestAnimationFrame(() => {
       launcherRef.current?.focus();
-    });
-  }, []);
-
-  const openPanel = useCallback(() => {
-    setIsOpen(true);
-    requestAnimationFrame(() => {
-      inputRef.current?.focus();
     });
   }, []);
 
@@ -64,17 +68,17 @@ function AIAssistant() {
     });
   }, []);
 
-  const sendMessage = useCallback((rawMessage: string) => {
+  const sendMessage = useCallback((rawMessage) => {
     const trimmedMessage = rawMessage.trim();
     if (!trimmedMessage) return;
 
-    const userMessage: ChatMessage = {
+    const userMessage = {
       id: `user-${Date.now()}`,
       role: "user",
       text: trimmedMessage,
     };
 
-    const assistantReply: ChatMessage = {
+    const assistantReply = {
       id: `assistant-${Date.now() + 1}`,
       role: "assistant",
       text: "Thanks for sharing. I can guide you to the right Siam On Cloud service path and next best step.",
@@ -85,9 +89,17 @@ function AIAssistant() {
   }, []);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    setIsMounted(true);
+    setPortalRoot(getAssistantPortalRoot());
+    console.warn("[AI Assistant] mounted");
+  }, []);
+
+  useEffect(() => {
     if (!isOpen) return;
 
-    const handleEscape = (event: KeyboardEvent) => {
+    const handleEscape = (event) => {
       if (event.key === "Escape") {
         event.preventDefault();
         closePanel();
@@ -104,10 +116,10 @@ function AIAssistant() {
     const node = dialogRef.current;
     if (!node) return;
 
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyDown = (event) => {
       if (event.key !== "Tab") return;
 
-      const focusable = node.querySelectorAll<HTMLElement>(
+      const focusable = node.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       );
 
@@ -135,15 +147,23 @@ function AIAssistant() {
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
   }, [messages, isOpen]);
 
-  return (
-    <div className="pointer-events-none fixed bottom-4 right-4 z-50 md:bottom-6 md:right-6">
+  if (!isMounted || !portalRoot) {
+    return null;
+  }
+
+  const assistantUi = (
+    <div className="fixed bottom-6 right-6 z-[9999] pointer-events-auto">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        aria-hidden="true"
+      />
       <div
         ref={dialogRef}
         role="dialog"
         aria-modal="false"
         aria-label="N' Bindee AI Assistant"
         id={panelId}
-        className={`pointer-events-auto absolute bottom-14 right-0 flex max-h-[70vh] w-[92vw] max-w-[380px] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl transition-all duration-300 ease-out dark:border-slate-800 dark:bg-slate-900 md:bottom-16 ${
+        className={`pointer-events-auto absolute bottom-16 right-0 flex max-h-[70vh] w-[92vw] max-w-[380px] origin-bottom-right flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl transition-all duration-300 ease-out dark:border-slate-800 dark:bg-slate-900 ${
           isOpen
             ? "translate-y-0 scale-100 opacity-100"
             : "pointer-events-none translate-y-3 scale-95 opacity-0"
@@ -152,12 +172,13 @@ function AIAssistant() {
         <header className="flex items-center justify-between border-b border-slate-200 px-4 py-3 dark:border-slate-800">
           <div className="flex items-center gap-3">
             <img
-              src={AI_CONFIG.mascot}
+              src={mascotSrc}
               alt={`${AI_CONFIG.assistantName} avatar`}
               width="36"
               height="36"
               loading="lazy"
               decoding="async"
+              onError={() => setMascotSrc("/images/AI-Mascot/bindee-head.png")}
               className="h-9 w-9 rounded-full border border-slate-200 object-cover dark:border-slate-700"
             />
             <div>
@@ -254,21 +275,24 @@ function AIAssistant() {
         aria-label={isOpen ? "Close AI Assistant" : "Open AI Assistant"}
         aria-expanded={isOpen}
         aria-controls={panelId}
-        className="group pointer-events-auto ml-auto inline-flex h-12 w-12 transform-gpu items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 shadow-lg transition-all duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950 md:h-14 md:w-14"
+        className="group ml-auto inline-flex h-12 w-12 transform-gpu items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 shadow-lg transition-all duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950 md:h-14 md:w-14"
       >
         <span className="absolute -inset-1 rounded-full bg-cyan-400/30 blur-md transition-opacity duration-300 group-hover:opacity-100" />
         <img
-          src={AI_CONFIG.mascot}
+          src={mascotSrc}
           alt="N' Bindee mascot"
           width="40"
           height="40"
           loading="lazy"
           decoding="async"
+          onError={() => setMascotSrc("/images/AI-Mascot/bindee-head.png")}
           className="relative h-9 w-9 rounded-full object-cover md:h-10 md:w-10"
         />
       </button>
     </div>
   );
+
+  return createPortal(assistantUi, portalRoot);
 }
 
 export default AIAssistant;

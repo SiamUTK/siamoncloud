@@ -76,8 +76,8 @@ function App() {
         </Routes>
 
         <CookieConsent />
-        <AIAssistant />
       </Suspense>
+      <AIAssistant />
     </AppErrorBoundary>
   );
 }
