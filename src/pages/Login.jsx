@@ -77,13 +77,15 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100">
+    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-slate-100">
       <Navbar />
 
       <main className="px-4 pb-20 pt-32 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-md rounded-3xl border border-slate-800 bg-slate-900/70 p-8 backdrop-blur">
+        <div className="mx-auto max-w-md rounded-3xl border border-slate-200 bg-white p-8 shadow-soft dark:border-slate-800 dark:bg-slate-900/70 dark:backdrop-blur dark:shadow-none">
           <h1 className="text-3xl font-bold">{t("login_title")}</h1>
-          <p className="mt-2 text-sm text-slate-400">{t("login_desc")}</p>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            {t("login_desc")}
+          </p>
 
           {success && (
             <div className="mt-6 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300">
@@ -111,7 +113,7 @@ function Login() {
                 }}
                 placeholder={t("login_email_placeholder")}
                 disabled={loading}
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm outline-none transition-all focus:border-cyan-400 disabled:opacity-70"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-all focus:border-cyan-500 disabled:opacity-70 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:border-cyan-400"
               />
             </div>
 
@@ -128,23 +130,23 @@ function Login() {
                 }}
                 placeholder={t("login_password_placeholder")}
                 disabled={loading}
-                className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm outline-none transition-all focus:border-cyan-400 disabled:opacity-70"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition-all focus:border-cyan-500 disabled:opacity-70 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:border-cyan-400"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white transition-all hover:shadow-xl disabled:opacity-70"
+              className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-sm font-semibold text-white shadow-soft transition-all hover:shadow-lift disabled:opacity-70"
             >
               {loading ? t("login_loading") : t("login_submit")}
             </button>
           </form>
 
-          <p className="mt-6 text-sm text-slate-400">
+          <p className="mt-6 text-sm text-slate-600 dark:text-slate-400">
             {t("login_no_account")}{" "}
             <Link
-              className="font-semibold text-cyan-300 hover:text-cyan-200"
+              className="font-semibold text-blue-600 hover:text-blue-700 dark:text-cyan-300 dark:hover:text-cyan-200"
               to={`/${lang}/signup`}
             >
               {t("login_signup_link")}

@@ -22,12 +22,14 @@ class AppErrorBoundary extends Component {
 
     if (this.state.hasError) {
       return (
-        <div className="flex min-h-screen items-center justify-center bg-slate-950 px-6 text-center text-white">
+        <div className="flex min-h-screen items-center justify-center bg-slate-50 px-6 text-center text-slate-900 dark:bg-slate-950 dark:text-white">
           <div>
             <h1 className="mb-3 text-2xl font-bold">
               {t?.("error_boundary_title")}
             </h1>
-            <p className="text-slate-300">{t?.("error_boundary_desc")}</p>
+            <p className="text-slate-600 dark:text-slate-300">
+              {t?.("error_boundary_desc")}
+            </p>
           </div>
         </div>
       );

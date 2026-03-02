@@ -1,9 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
       colors: {
+        surface: {
+          page: "#f8fafc",
+          muted: "#f1f5f9",
+          card: "#ffffff",
+          dark: "#0b1f3a",
+        },
+        text: {
+          primary: "#0f172a",
+          secondary: "#475569",
+          muted: "#64748b",
+        },
         slate: {
           50: "#f5f7fb",
           100: "#dee7f4",
@@ -46,6 +58,11 @@ export default {
         premium: "#cfaf6e",
         neutral: "#f5f7fb",
         ink: "#111827",
+      },
+      boxShadow: {
+        soft: "0 8px 24px rgba(15, 23, 42, 0.08)",
+        card: "0 10px 30px rgba(15, 23, 42, 0.08)",
+        lift: "0 16px 36px rgba(15, 23, 42, 0.12)",
       },
       animation: {
         bounce: "bounce 2s infinite",

@@ -26,14 +26,20 @@ const NavLinkItem = memo(function NavLinkItem({
     <Link
       to={to}
       onClick={onClick}
-      className={`group relative inline-flex min-h-11 items-center py-2 text-sm transition-all duration-300 after:absolute after:bottom-[-6px] after:left-0 after:h-[2px] after:w-full after:origin-left after:rounded-full after:bg-gradient-to-r after:from-cyan-400 after:to-blue-500 after:transition-transform after:duration-300 ${
+      className={`group relative inline-flex min-h-10 items-center py-2 text-sm tracking-tight transition-colors duration-200 ${
         isActive
-          ? "font-semibold text-cyan-300 after:scale-x-100"
-          : "font-medium text-slate-300 after:scale-x-0 hover:text-cyan-400 group-hover:after:scale-x-100"
+          ? "font-semibold text-blue-700 dark:text-cyan-300"
+          : "font-medium text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-cyan-300"
       }`}
       aria-current={isActive ? "page" : undefined}
     >
       {children}
+      <span
+        className={`pointer-events-none absolute -bottom-[2px] left-0 h-[2px] w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-transform duration-200 ${
+          isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+        }`}
+        aria-hidden="true"
+      />
     </Link>
   );
 });
@@ -49,16 +55,16 @@ const SolutionsMenuItem = memo(function SolutionsMenuItem({
     <Link
       to={to}
       onClick={onClick}
-      className="group flex items-start gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3 transition-all duration-300 hover:border-cyan-400/30 hover:bg-cyan-400/[0.06] hover:shadow-[0_0_22px_rgba(34,211,238,0.16)]"
+      className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-300 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-500/40"
     >
-      <span className="mt-0.5 inline-flex h-8 w-8 flex-none items-center justify-center rounded-lg border border-white/10 bg-slate-900/80 text-cyan-300 transition-colors duration-300 group-hover:text-cyan-200">
+      <span className="mt-0.5 inline-flex h-8 w-8 flex-none items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-blue-600 transition-colors duration-200 group-hover:text-blue-700 dark:border-slate-700 dark:bg-slate-800 dark:text-cyan-300 dark:group-hover:text-cyan-200">
         <Icon size={16} aria-hidden="true" />
       </span>
       <span className="min-w-0">
-        <span className="block text-sm font-semibold text-slate-100">
+        <span className="block text-sm font-semibold text-slate-900 dark:text-slate-100">
           {title}
         </span>
-        <span className="mt-0.5 block text-xs leading-relaxed text-slate-400">
+        <span className="mt-0.5 block text-xs leading-relaxed text-slate-500 dark:text-slate-400">
           {description}
         </span>
       </span>
@@ -71,45 +77,32 @@ function LanguageSwitcher({ className = "" }) {
   const { switchLocale } = useLocaleRouting();
 
   const onSwitchLanguage = (nextLang) => {
-    if (nextLang === lang) {
-      return;
-    }
-
+    if (nextLang === lang) return;
     switchLocale(nextLang);
   };
 
   const onKeyDown = (event) => {
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
-      return;
-    }
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
 
     const nextLang = event.key === "ArrowLeft" ? "en" : "th";
-
     onSwitchLanguage(nextLang);
   };
 
-  const switcherBase =
-    "relative inline-flex h-11 w-[122px] items-center rounded-full border border-white/20 bg-slate-900/85 p-1 backdrop-blur-xl shadow-[0_0_24px_rgba(34,211,238,0.2)]";
-  const indicatorClass = lang === "en" ? "translate-x-0" : "translate-x-[54px]";
-
   return (
     <div
-      className={`${switcherBase} ${className}`}
+      className={`inline-flex h-10 items-center rounded-full border border-slate-200 bg-slate-100 p-1 dark:border-slate-700 dark:bg-slate-800 ${className}`}
       role="group"
       aria-label={t("switcher_aria")}
       onKeyDown={onKeyDown}
     >
-      <span
-        aria-hidden="true"
-        className={`pointer-events-none absolute left-1 top-1 h-9 w-[58px] rounded-full bg-gradient-to-r from-cyan-400/65 via-cyan-500/55 to-blue-500/60 shadow-[0_0_22px_rgba(34,211,238,0.55)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${indicatorClass}`}
-      />
       <button
         type="button"
         onClick={() => onSwitchLanguage("en")}
-        className={`relative z-10 inline-flex h-9 w-[58px] items-center justify-center rounded-full px-3 py-1 text-xs sm:text-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/90 ${
+        className={`inline-flex h-8 min-w-[52px] items-center justify-center rounded-full px-3 text-xs font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-cyan-400 dark:focus-visible:ring-offset-slate-900 ${
           lang === "en"
-            ? "font-bold text-white"
-            : "font-semibold text-slate-100/90 hover:bg-white/10 hover:text-white"
+            ? "bg-white text-blue-600 shadow-sm dark:bg-slate-900 dark:text-cyan-300"
+            : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100"
         }`}
         aria-pressed={lang === "en"}
         aria-label={t("switcher_to_en")}
@@ -119,10 +112,10 @@ function LanguageSwitcher({ className = "" }) {
       <button
         type="button"
         onClick={() => onSwitchLanguage("th")}
-        className={`relative z-10 inline-flex h-9 w-[58px] items-center justify-center rounded-full px-3 py-1 text-xs sm:text-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/90 ${
+        className={`inline-flex h-8 min-w-[52px] items-center justify-center rounded-full px-3 text-xs font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-cyan-400 dark:focus-visible:ring-offset-slate-900 ${
           lang === "th"
-            ? "font-bold text-white"
-            : "font-semibold text-slate-100/90 hover:bg-white/10 hover:text-white"
+            ? "bg-white text-blue-600 shadow-sm dark:bg-slate-900 dark:text-cyan-300"
+            : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100"
         }`}
         aria-pressed={lang === "th"}
         aria-label={t("switcher_to_th")}
@@ -153,9 +146,7 @@ function Navbar() {
     let rafId = null;
 
     const onScroll = () => {
-      if (rafId !== null) {
-        return;
-      }
+      if (rafId !== null) return;
 
       rafId = window.requestAnimationFrame(() => {
         setIsScrolled(window.scrollY > 10);
@@ -168,9 +159,7 @@ function Navbar() {
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if (rafId !== null) {
-        window.cancelAnimationFrame(rafId);
-      }
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -181,7 +170,6 @@ function Navbar() {
     }
 
     document.body.style.overflow = "hidden";
-
     return () => {
       document.body.style.overflow = "";
     };
@@ -293,51 +281,45 @@ function Navbar() {
 
   const isPathActive = (path) => {
     const currentPath = location.pathname;
-    if (path === homePath) {
-      return currentPath === homePath;
-    }
+    if (path === homePath) return currentPath === homePath;
     return currentPath === path || currentPath.startsWith(`${path}/`);
   };
 
   const solutionsActive = location.pathname === servicesPath;
 
-  const closeDesktopSolutions = () => {
-    setSolutionsOpen(false);
-  };
-
-  const navBaseClass =
-    "fixed inset-x-0 top-0 z-50 border-b border-white/10 transition-all duration-300";
-  const navScrolledClass = isScrolled
-    ? "h-16 bg-slate-950/90 backdrop-blur-xl border-cyan-500/20 shadow-[0_8px_40px_rgba(0,0,0,0.45)]"
-    : "h-20 bg-slate-950/70 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.35)]";
+  const navClass = isScrolled
+    ? "border-slate-200/80 bg-white/95 shadow-md dark:border-slate-700/80 dark:bg-slate-950/90"
+    : "border-slate-200/60 bg-white/80 shadow-sm dark:border-slate-700/60 dark:bg-slate-950/75";
 
   return (
-    <nav className={`${navBaseClass} ${navScrolledClass}`} role="navigation">
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-400/35 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/25 to-transparent" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-full items-center justify-between transition-all duration-300">
+    <header className="sticky top-0 z-50">
+      <nav
+        className={`transform-gpu border-b backdrop-blur-xl transition-all duration-200 ${navClass}`}
+        role="navigation"
+        aria-label="Primary navigation"
+      >
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-16 lg:px-8">
           <Link
             to={homePath}
-            className="group flex items-center gap-2 rounded-xl p-1 transition-all duration-300 ease-out hover:scale-[1.03] hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.35)]"
+            className="inline-flex items-center rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-cyan-400 dark:focus-visible:ring-offset-slate-900"
+            aria-label={t("brand_logo_alt")}
           >
             <img
-              src="/images/01-Primary-Logo/siam-on-cloud-logo-primary-dark.svg"
+              src="/images/01-Primary-Logo/siam-on-cloud-logo-primary.svg"
               alt={t("brand_logo_alt")}
-              className={`w-auto object-contain transition-all duration-300 ${
-                isScrolled ? "h-9 sm:h-10 md:h-11" : "h-10 sm:h-11 md:h-12"
-              }`}
+              className="h-8 w-auto object-contain md:h-9"
             />
           </Link>
 
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+          <div className="hidden items-center gap-6 lg:gap-8 md:flex">
             <NavLinkItem to={homePath} isActive={isPathActive(homePath)}>
               {t("nav_home")}
             </NavLinkItem>
+
             <div
               className="relative"
               onMouseEnter={() => setSolutionsOpen(true)}
-              onMouseLeave={closeDesktopSolutions}
+              onMouseLeave={() => setSolutionsOpen(false)}
             >
               <button
                 type="button"
@@ -348,13 +330,13 @@ function Navbar() {
                       event.relatedTarget,
                     )
                   ) {
-                    closeDesktopSolutions();
+                    setSolutionsOpen(false);
                   }
                 }}
-                className={`group relative inline-flex min-h-11 items-center gap-1.5 py-2 text-sm transition-all duration-300 after:absolute after:bottom-[-6px] after:left-0 after:h-[2px] after:w-full after:origin-left after:rounded-full after:bg-gradient-to-r after:from-cyan-400 after:to-blue-500 after:transition-transform after:duration-300 ${
+                className={`group relative inline-flex min-h-10 items-center gap-1.5 py-2 text-sm tracking-tight transition-colors duration-200 ${
                   solutionsActive || solutionsOpen
-                    ? "font-semibold text-cyan-300 after:scale-x-100"
-                    : "font-medium text-slate-300 after:scale-x-0 hover:text-cyan-400 group-hover:after:scale-x-100"
+                    ? "font-semibold text-blue-700 dark:text-cyan-300"
+                    : "font-medium text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-cyan-300"
                 }`}
                 aria-haspopup="true"
                 aria-expanded={solutionsOpen}
@@ -363,26 +345,30 @@ function Navbar() {
                 {tf("nav_solutions", "Solutions")}
                 <ChevronDown
                   size={16}
-                  className={`transition-transform duration-300 ${
+                  className={`transition-transform duration-200 ${
                     solutionsOpen ? "rotate-180" : "rotate-0"
+                  }`}
+                  aria-hidden="true"
+                />
+                <span
+                  className={`pointer-events-none absolute -bottom-[2px] left-0 h-[2px] w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-transform duration-200 ${
+                    solutionsActive || solutionsOpen
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
                   }`}
                   aria-hidden="true"
                 />
               </button>
 
               {solutionsOpen && (
-                <div
-                  onMouseEnter={() => setSolutionsOpen(true)}
-                  onMouseLeave={closeDesktopSolutions}
-                  className="absolute left-1/2 top-[calc(100%+14px)] z-50 w-[min(92vw,780px)] -translate-x-1/2 animate-in fade-in slide-in-from-top-2 duration-200"
-                >
-                  <div className="rounded-2xl border border-white/10 bg-slate-950/95 p-5 backdrop-blur-xl shadow-[0_20px_60px_rgba(2,8,23,0.7)]">
-                    <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-cyan-300/90">
+                <div className="absolute left-1/2 top-[calc(100%+14px)] z-50 w-[min(92vw,780px)] -translate-x-1/2 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-card dark:border-slate-700 dark:bg-slate-900">
+                    <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.14em] text-blue-700 dark:text-cyan-300">
                       {tf("nav_solutions", "Solutions")}
                     </h3>
                     <div className="grid grid-cols-2 gap-5">
                       <div>
-                        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+                        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
                           {tf("nav_solutions_industries", "Industries")}
                         </p>
                         <div className="space-y-2">
@@ -393,13 +379,13 @@ function Navbar() {
                               icon={item.icon}
                               title={item.title}
                               description={item.description}
-                              onClick={closeDesktopSolutions}
+                              onClick={() => setSolutionsOpen(false)}
                             />
                           ))}
                         </div>
                       </div>
                       <div>
-                        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+                        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
                           {tf("nav_solutions_capabilities", "Capabilities")}
                         </p>
                         <div className="space-y-2">
@@ -410,7 +396,7 @@ function Navbar() {
                               icon={item.icon}
                               title={item.title}
                               description={item.description}
-                              onClick={closeDesktopSolutions}
+                              onClick={() => setSolutionsOpen(false)}
                             />
                           ))}
                         </div>
@@ -433,15 +419,14 @@ function Navbar() {
             <NavLinkItem to={contactPath} isActive={isPathActive(contactPath)}>
               {t("nav_contact")}
             </NavLinkItem>
+          </div>
+
+          <div className="hidden items-center gap-3 md:flex">
             <LanguageSwitcher />
             <Link
               to={loginPath}
-              className="group relative inline-flex min-h-11 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-premium px-7 py-2.5 font-semibold text-white shadow-[0_0_20px_rgba(47,107,255,0.28)] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 hover:-translate-y-[1px] hover:from-cyan-400 hover:via-blue-500 hover:to-premium hover:shadow-xl hover:shadow-cyan-500/30 active:translate-y-0 active:scale-[0.98]"
+              className="inline-flex min-h-10 items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-5 py-2 text-sm font-semibold text-white shadow-soft transition-all duration-200 hover:-translate-y-[1px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-cyan-400 dark:focus-visible:ring-offset-slate-900"
             >
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-              />
               {t("nav_get_started")}
             </Link>
           </div>
@@ -449,15 +434,16 @@ function Navbar() {
           <div className="md:hidden flex items-center gap-2">
             <LanguageSwitcher className="scale-95 origin-right" />
             <button
+              type="button"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
-              className="relative rounded-xl border border-white/10 bg-slate-900/75 p-2.5 text-slate-200 transition-colors duration-200 hover:border-cyan-400/40 hover:text-cyan-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition-all duration-200 hover:border-cyan-300 hover:text-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-cyan-500 dark:hover:text-cyan-300"
               aria-label={t("nav_toggle_menu")}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-nav-panel"
             >
-              <span className="relative block h-6 w-6">
+              <span className="relative block h-5 w-5" aria-hidden="true">
                 <Menu
-                  size={24}
+                  size={20}
                   className={`absolute inset-0 transition-all duration-200 ${
                     mobileMenuOpen
                       ? "scale-75 opacity-0 rotate-90"
@@ -465,7 +451,7 @@ function Navbar() {
                   }`}
                 />
                 <X
-                  size={24}
+                  size={20}
                   className={`absolute inset-0 transition-all duration-200 ${
                     mobileMenuOpen
                       ? "scale-100 opacity-100 rotate-0"
@@ -476,14 +462,12 @@ function Navbar() {
             </button>
           </div>
         </div>
-      </div>
 
-      {mobileMenuOpen && (
-        <div
-          id="mobile-nav-panel"
-          className="md:hidden px-4 pb-4 pt-2 animate-in fade-in slide-in-from-top-2 zoom-in-95 duration-200"
-        >
-          <div className="rounded-2xl border border-white/10 bg-slate-950/85 p-4 shadow-[0_16px_40px_rgba(2,8,23,0.55)] backdrop-blur-xl">
+        {mobileMenuOpen && (
+          <div
+            id="mobile-nav-panel"
+            className="md:hidden border-t border-slate-200/70 bg-white px-4 pb-4 pt-3 shadow-card animate-in fade-in slide-in-from-top-2 duration-200 dark:border-slate-700 dark:bg-slate-900"
+          >
             <div className="space-y-1">
               <NavLinkItem
                 to={homePath}
@@ -492,7 +476,8 @@ function Navbar() {
               >
                 {t("nav_home")}
               </NavLinkItem>
-              <div className="rounded-xl border border-white/5 bg-white/[0.02]">
+
+              <div className="rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800/60">
                 <button
                   type="button"
                   onClick={() =>
@@ -500,10 +485,10 @@ function Navbar() {
                       (prevMobileSolutionsOpen) => !prevMobileSolutionsOpen,
                     )
                   }
-                  className={`group relative flex min-h-11 w-full items-center justify-between px-3 py-2 text-sm transition-all duration-300 after:absolute after:bottom-1 after:left-3 after:h-[2px] after:w-[calc(100%-1.5rem)] after:origin-left after:rounded-full after:bg-gradient-to-r after:from-cyan-400 after:to-blue-500 after:transition-transform after:duration-300 ${
+                  className={`group relative flex min-h-11 w-full items-center justify-between px-3 py-2 text-sm tracking-tight transition-colors duration-200 ${
                     mobileSolutionsOpen
-                      ? "font-semibold text-cyan-300 after:scale-x-100"
-                      : "font-medium text-slate-300 after:scale-x-0"
+                      ? "font-semibold text-blue-700 dark:text-cyan-300"
+                      : "font-medium text-slate-700 dark:text-slate-300"
                   }`}
                   aria-expanded={mobileSolutionsOpen}
                   aria-controls="mobile-solutions-panel"
@@ -512,7 +497,7 @@ function Navbar() {
                   <span>{tf("nav_solutions", "Solutions")}</span>
                   <ChevronDown
                     size={16}
-                    className={`transition-transform duration-300 ${
+                    className={`transition-transform duration-200 ${
                       mobileSolutionsOpen ? "rotate-180" : "rotate-0"
                     }`}
                     aria-hidden="true"
@@ -525,7 +510,7 @@ function Navbar() {
                     className="space-y-3 px-3 pb-3 pt-2 animate-in fade-in slide-in-from-top-2 duration-200"
                   >
                     <div>
-                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">
+                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
                         {tf("nav_solutions_industries", "Industries")}
                       </p>
                       <div className="space-y-2">
@@ -545,7 +530,7 @@ function Navbar() {
                       </div>
                     </div>
                     <div>
-                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">
+                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
                         {tf("nav_solutions_capabilities", "Capabilities")}
                       </p>
                       <div className="space-y-2">
@@ -567,6 +552,7 @@ function Navbar() {
                   </div>
                 )}
               </div>
+
               <NavLinkItem
                 to={servicesPath}
                 onClick={() => setMobileMenuOpen(false)}
@@ -593,18 +579,14 @@ function Navbar() {
             <Link
               to={loginPath}
               onClick={() => setMobileMenuOpen(false)}
-              className="group relative mt-4 inline-flex min-h-11 w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-premium px-6 py-3 font-semibold text-white shadow-[0_0_24px_rgba(47,107,255,0.3)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(47,107,255,0.35)]"
+              className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 font-semibold text-white shadow-soft transition-all duration-200 hover:-translate-y-[1px] hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-cyan-400 dark:focus-visible:ring-offset-slate-900"
             >
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-              />
               {t("nav_get_started")}
             </Link>
           </div>
-        </div>
-      )}
-    </nav>
+        )}
+      </nav>
+    </header>
   );
 }
 

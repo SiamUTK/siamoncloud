@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 import CookieConsent from "./components/ui/CookieConsent";
+import AIAssistant from "./components/ai/AIAssistant";
 import AppErrorBoundary from "./components/layout/AppErrorBoundary";
 import LocalizedLayout, {
   RootLanguageRedirect,
@@ -37,12 +38,14 @@ function App() {
     <AppErrorBoundary key={lang}>
       <Suspense
         fallback={
-          <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-6">
-            <div className="w-full max-w-2xl rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-md shadow-lg">
-              <div className="h-5 w-44 rounded-full bg-white/10 animate-pulse" />
-              <div className="mt-4 h-3 w-full rounded bg-white/10 animate-pulse" />
-              <div className="mt-2 h-3 w-5/6 rounded bg-white/10 animate-pulse" />
-              <div className="mt-2 h-3 w-2/3 rounded bg-white/10 animate-pulse" />
+          <div className="min-h-screen bg-slate-50 px-6 dark:bg-slate-950">
+            <div className="mx-auto flex min-h-screen w-full max-w-2xl items-center">
+              <div className="w-full rounded-3xl border border-slate-200 bg-white p-6 shadow-card dark:border-slate-800 dark:bg-slate-900/80 dark:shadow-none">
+                <div className="h-5 w-44 rounded-full bg-slate-200 animate-pulse dark:bg-slate-700" />
+                <div className="mt-4 h-3 w-full rounded bg-slate-200 animate-pulse dark:bg-slate-700" />
+                <div className="mt-2 h-3 w-5/6 rounded bg-slate-200 animate-pulse dark:bg-slate-700" />
+                <div className="mt-2 h-3 w-2/3 rounded bg-slate-200 animate-pulse dark:bg-slate-700" />
+              </div>
             </div>
           </div>
         }
@@ -73,6 +76,7 @@ function App() {
         </Routes>
 
         <CookieConsent />
+        <AIAssistant />
       </Suspense>
     </AppErrorBoundary>
   );

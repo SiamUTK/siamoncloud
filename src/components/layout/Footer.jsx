@@ -1,277 +1,349 @@
 import { Link } from "react-router-dom";
 import useLanguage from "@/i18n/useLanguage";
+import { SITE_CONFIG } from "@/config/site";
 import Container from "./PageContainer";
 
-const TRUST_BADGE_KEYS = ["iata", "security", "partner", "traveltech"];
-const INDUSTRY_KEYS = ["agencies", "operators", "otas", "corporate"];
+const SOLUTION_LINKS = [
+  {
+    label: "All Services",
+    path: "/services",
+    ariaLabel: "Navigate to all services",
+  },
+  {
+    label: "Air Ticketing",
+    path: "/services/air-ticketing",
+    ariaLabel: "Navigate to Air Ticketing service",
+  },
+  {
+    label: "LGBTQ+ Travel",
+    path: "/services/lgbtq-travel",
+    ariaLabel: "Navigate to LGBTQ+ Travel service",
+  },
+  {
+    label: "AI & Automation",
+    path: "/services/ai-automation",
+    ariaLabel: "Navigate to AI and Automation service",
+  },
+];
+
+const COMPANY_LINKS = [
+  { label: "About", path: "/about", ariaLabel: "Navigate to About page" },
+  { label: "Contact", path: "/contact", ariaLabel: "Navigate to Contact page" },
+  { label: "Privacy", path: "/privacy", ariaLabel: "Navigate to Privacy page" },
+  { label: "Terms", path: "/terms", ariaLabel: "Navigate to Terms page" },
+  { label: "Cookies", path: "/cookies", ariaLabel: "Navigate to Cookies page" },
+];
+
+const SOCIAL_LINKS = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/siamoncloud",
+    iconPath:
+      "M13.5 8H16V5h-2.5C11.6 5 10 6.6 10 8.5V11H8v3h2v7h3v-7h2.5l.5-3H13v-2.2c0-.5.4-.8.5-.8Z",
+  },
+  {
+    label: "X",
+    href: "https://x.com/siamoncloud",
+    iconPath:
+      "m5 5 5.8 7.8L5.4 19H7l4.5-5.4L15.6 19H19l-6-8 5-6H16.4l-3.8 4.6L9.4 5H5Z",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/siamoncloud",
+    iconPath:
+      "M6.4 8.2a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6ZM4.8 9.8H8V19H4.8V9.8Zm5 0H13v1.3h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.7V19h-3.2v-4.2c0-1 0-2.3-1.4-2.3-1.4 0-1.6 1.1-1.6 2.2V19H9.8V9.8Z",
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@siamoncloud",
+    iconPath:
+      "M19.6 8.2a2.5 2.5 0 0 0-1.8-1.8C16.3 6 12 6 12 6s-4.3 0-5.8.4a2.5 2.5 0 0 0-1.8 1.8C4 9.7 4 12 4 12s0 2.3.4 3.8a2.5 2.5 0 0 0 1.8 1.8C7.7 18 12 18 12 18s4.3 0 5.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.5.4-3.8.4-3.8s0-2.3-.4-3.8ZM10.6 15V9l5 3-5 3Z",
+  },
+];
 
 function Footer() {
-  const { t, lang } = useLanguage();
-
-  const homePath = `/${lang}`;
-  const servicesPath = `/${lang}/services`;
-  const digitalPath = `/${lang}/services#digital`;
-  const aiPath = `/${lang}/services#ai`;
-  const ticketingPath = `/${lang}/services#ticketing`;
-  const lgbtqPath = `/${lang}/services#lgbtq`;
-  const agenciesPath = `/${lang}/services#agencies`;
-  const operatorsPath = `/${lang}/services#operators`;
-  const otasPath = `/${lang}/services#otas`;
-  const corporatePath = `/${lang}/services#corporate`;
-  const aboutPath = `/${lang}/about`;
-  const contactPath = `/${lang}/contact`;
-  const privacyPath = `/${lang}/privacy`;
-  const termsPath = `/${lang}/terms`;
-  const cookiesPath = `/${lang}/cookies`;
-
-  const handleNewsletterSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const languageDisplayKey = lang === "th" ? "switcher_th" : "switcher_en";
+  const { lang } = useLanguage();
+  const localize = (path) => `/${lang}${path}`;
+  const logoAlt = "Siam On Cloud";
 
   return (
-    <footer className="relative mt-20 border-t border-white/10 bg-slate-950/95 backdrop-blur-xl">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/45 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cyan-500/10 to-transparent" />
-
-      <Container className="relative py-12 sm:py-14 lg:py-16">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 xl:grid-cols-5 xl:gap-8">
-          <div className="space-y-4">
-            <Link to={homePath} className="inline-flex items-center">
+    <footer className="mt-20 border-t border-slate-200 bg-slate-50 text-slate-800 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200">
+      <Container className="py-14 sm:py-16 lg:py-20">
+        <section
+          className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-10 xl:gap-12"
+          aria-label="Footer primary content"
+        >
+          <div className="space-y-5 text-center md:text-left">
+            <Link
+              to={localize("")}
+              aria-label="Go to Siam On Cloud homepage"
+              className="inline-flex items-center justify-center rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-950 md:justify-start"
+            >
               <img
-                src="/images/01-Primary-Logo/siam-on-cloud-logo-primary-dark.svg"
-                alt={t("brand_logo_alt")}
-                className="h-12 w-auto object-contain"
-                loading="lazy"
+                src="/images/01-Primary-Logo/siam-on-cloud-logo-primary.svg"
+                alt={logoAlt}
+                className="h-9 w-auto object-contain"
+                loading="eager"
                 decoding="async"
               />
             </Link>
-            <p className="max-w-xs text-sm leading-relaxed text-slate-400/95">
-              {t("footer_brand_tagline")}
-            </p>
-            <p className="text-sm text-slate-400/95">
-              {t("footer_global_presence")}
-            </p>
-            <p className="text-sm text-slate-400/95">
-              <span className="mr-2 text-slate-300">
-                {t("footer_support_email_label")}
-              </span>
-              <a
-                href={`mailto:${t("contact_card_email_value")}`}
-                className="transition-colors duration-200 hover:text-cyan-300"
-              >
-                {t("contact_card_email_value")}
-              </a>
-            </p>
-          </div>
 
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-200">
-              {t("footer_solutions")}
-            </h3>
-            <nav className="mt-4 flex flex-col gap-1.5 text-sm text-slate-400">
-              <Link
-                to={ticketingPath}
-                className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-              >
-                {t("footer_link_ticketing")}
-              </Link>
-              <Link
-                to={lgbtqPath}
-                className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-              >
-                {t("footer_link_lgbtq")}
-              </Link>
-              <Link
-                to={digitalPath}
-                className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-              >
-                {t("footer_link_digital")}
-              </Link>
-              <Link
-                to={aiPath}
-                className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-              >
-                {t("footer_link_ai")}
-              </Link>
-            </nav>
-          </div>
+            <p className="mx-auto max-w-xs text-sm leading-relaxed text-slate-600 md:mx-0 dark:text-slate-300">
+              Enterprise travel-tech solutions for growth-focused operators and
+              modern digital teams.
+            </p>
 
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-200">
-              {t("footer_industries")}
-            </h3>
-            <nav className="mt-4 flex flex-col gap-1.5 text-sm text-slate-400">
-              {INDUSTRY_KEYS.map((key) => {
-                const industryPath =
-                  key === "agencies"
-                    ? agenciesPath
-                    : key === "operators"
-                      ? operatorsPath
-                      : key === "otas"
-                        ? otasPath
-                        : corporatePath;
-
-                return (
-                  <Link
-                    key={`industry-link-${key}`}
-                    to={industryPath}
-                    className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
+            <div className="flex items-center justify-center gap-2 md:justify-start">
+              {SOCIAL_LINKS.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={social.label}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-600 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-blue-400 dark:hover:text-blue-300 dark:focus-visible:ring-offset-slate-950"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-4 w-4"
+                    aria-hidden="true"
                   >
-                    {t(`footer_link_${key}`)}
-                  </Link>
-                );
-              })}
-            </nav>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-200">
-              {t("footer_resources")}
-            </h3>
-            <nav className="mt-4 flex flex-col gap-1.5 text-sm text-slate-400">
-              <Link
-                to={aboutPath}
-                className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-              >
-                {t("footer_link_about")}
-              </Link>
-              <Link
-                to={contactPath}
-                className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-              >
-                {t("footer_link_contact")}
-              </Link>
-              <Link
-                to={privacyPath}
-                className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-              >
-                {t("footer_link_privacy")}
-              </Link>
-              <Link
-                to={termsPath}
-                className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-              >
-                {t("footer_link_terms")}
-              </Link>
-              <Link
-                to={cookiesPath}
-                className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-              >
-                {t("footer_link_cookies")}
-              </Link>
-            </nav>
-          </div>
-
-          <div className="rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-transparent p-6 shadow-[0_12px_40px_rgba(8,47,73,0.28)]">
-            <h3 className="text-lg font-semibold text-slate-50">
-              {t("footer_newsletter_title")}
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-300">
-              {t("footer_newsletter_desc")}
-            </p>
-
-            <form className="mt-5 space-y-3" onSubmit={handleNewsletterSubmit}>
-              <label htmlFor="footer-newsletter-email" className="sr-only">
-                {t("footer_newsletter_input_label")}
-              </label>
-              <input
-                id="footer-newsletter-email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                placeholder={t("footer_newsletter_placeholder")}
-                className="min-h-11 w-full rounded-xl border border-slate-700/80 bg-slate-900/70 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/30"
-              />
-              <button
-                type="submit"
-                className="min-h-11 w-full rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 font-semibold text-white shadow-[0_10px_32px_rgba(34,211,238,0.34)] transition-all duration-200 hover:shadow-[0_18px_45px_rgba(34,211,238,0.44)]"
-              >
-                {t("footer_newsletter_button")}
-              </button>
-            </form>
-
-            <p className="mt-3 text-xs leading-relaxed text-slate-400">
-              {t("footer_newsletter_privacy")}
-            </p>
-            <p className="mt-2 text-xs leading-relaxed text-slate-500">
-              {t("footer_newsletter_reassurance")}
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-10 rounded-2xl border border-slate-800/80 bg-slate-900/45 p-4 sm:p-5">
-          <p className="text-center text-xs font-semibold uppercase tracking-[0.08em] text-slate-400 sm:text-left">
-            {t("footer_trusted_global")}
-          </p>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
-            {TRUST_BADGE_KEYS.map((key) => (
-              <div
-                key={`trust-badge-${key}`}
-                className="flex h-12 min-w-[120px] items-center justify-center rounded-xl border border-slate-700/80 bg-slate-800/50 px-3 text-center text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500 opacity-75 grayscale transition-all duration-200 hover:border-cyan-500/40 hover:text-slate-200 hover:opacity-100 hover:grayscale-0"
-              >
-                {t(`footer_trust_${key}`)}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-8 border-t border-white/10 pt-5">
-          <div className="flex flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-            <p>
-              {t("footer_copyright")} · {t("footer_company_name")}
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4 text-xs">
-              <label className="inline-flex min-h-11 items-center gap-2 rounded-lg py-2">
-                <span className="text-slate-400">
-                  {t("footer_region_label")}
-                </span>
-                <select
-                  defaultValue="apac"
-                  className="min-h-11 rounded-lg border border-slate-700/80 bg-slate-900/75 px-3 py-2 text-slate-200 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/30"
-                >
-                  <option value="apac">{t("footer_region_apac")}</option>
-                  <option value="emea">{t("footer_region_emea")}</option>
-                  <option value="americas">
-                    {t("footer_region_americas")}
-                  </option>
-                </select>
-              </label>
-
-              <div className="inline-flex min-h-11 items-center gap-2 rounded-lg py-2">
-                <span className="text-slate-400">
-                  {t("footer_language_label")}
-                </span>
-                <span className="font-semibold text-slate-200">
-                  {t(languageDisplayKey)}
-                </span>
-              </div>
-
-              <nav className="flex flex-wrap items-center gap-4 text-xs">
-                <Link
-                  to={privacyPath}
-                  className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-                >
-                  {t("footer_link_privacy")}
-                </Link>
-                <Link
-                  to={termsPath}
-                  className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-                >
-                  {t("footer_link_terms")}
-                </Link>
-                <Link
-                  to={cookiesPath}
-                  className="min-h-11 rounded-lg py-2 transition-colors duration-200 hover:text-cyan-300"
-                >
-                  {t("footer_link_cookies")}
-                </Link>
-              </nav>
+                    <path d={social.iconPath} />
+                  </svg>
+                </a>
+              ))}
             </div>
+
+            <p className="text-sm text-slate-600 dark:text-slate-300">
+              Bangkok, Thailand
+            </p>
+            <a
+              href="mailto:info@siamon.cloud"
+              aria-label="Email info@siamon.cloud"
+              className="inline-flex text-sm text-blue-600 underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-700 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:text-blue-300 dark:hover:text-blue-200 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
+            >
+              info@siamon.cloud
+            </a>
+            <a
+              href={SITE_CONFIG.lineUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Open LINE Official ${SITE_CONFIG.lineId}`}
+              className="inline-flex text-sm text-slate-600 transition-colors duration-200 hover:text-green-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:text-slate-300 dark:hover:text-green-400 dark:focus-visible:ring-offset-slate-950"
+            >
+              LINE Official: {SITE_CONFIG.lineId}
+            </a>
           </div>
-        </div>
+
+          <section aria-labelledby="footer-solutions-title">
+            <h2
+              id="footer-solutions-title"
+              className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 dark:text-slate-100"
+            >
+              SOLUTIONS
+            </h2>
+            <nav
+              className="mt-4 flex flex-col gap-1.5 text-sm text-slate-600 dark:text-slate-300"
+              aria-label="Solutions links"
+            >
+              {SOLUTION_LINKS.map((link) => (
+                <Link
+                  key={link.path}
+                  to={localize(link.path)}
+                  aria-label={link.ariaLabel}
+                  className="inline-flex min-h-11 items-center py-2 underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </section>
+
+          <section aria-labelledby="footer-company-title">
+            <h2
+              id="footer-company-title"
+              className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 dark:text-slate-100"
+            >
+              COMPANY
+            </h2>
+            <nav
+              className="mt-4 flex flex-col gap-1.5 text-sm text-slate-600 dark:text-slate-300"
+              aria-label="Company links"
+            >
+              {COMPANY_LINKS.map((link) => (
+                <Link
+                  key={link.path}
+                  to={localize(link.path)}
+                  aria-label={link.ariaLabel}
+                  className="inline-flex min-h-11 items-center py-2 underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </section>
+
+          <aside className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lift dark:border-slate-800 dark:bg-slate-900 dark:shadow-none dark:hover:shadow-none">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.08em] text-slate-900 dark:text-slate-100">
+              SUPPORT
+            </h2>
+
+            <div className="mt-4 space-y-4 text-sm">
+              <div className="border-b border-slate-200 pb-4 dark:border-slate-700">
+                <p className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400">
+                  Book by Phone
+                </p>
+                <a
+                  href={`tel:${SITE_CONFIG.phoneTel}`}
+                  aria-label={`Call ${SITE_CONFIG.phoneDisplay}`}
+                  className="mt-1 inline-flex text-slate-900 underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-slate-100 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-900"
+                >
+                  {SITE_CONFIG.phoneDisplay}
+                </a>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  Bangkok business hours
+                </p>
+              </div>
+
+              <div className="border-b border-slate-200 pb-4 dark:border-slate-700">
+                <p className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400">
+                  Email Support
+                </p>
+                <a
+                  href="mailto:info@siamon.cloud"
+                  aria-label="Email support at info@siamon.cloud"
+                  className="mt-1 inline-flex text-slate-900 underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-slate-100 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-900"
+                >
+                  info@siamon.cloud
+                </a>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  We reply within 24 hours
+                </p>
+              </div>
+
+              <div className="pb-1">
+                <p className="text-xs font-medium uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400">
+                  Support Centre
+                </p>
+                <Link
+                  to={localize("/contact")}
+                  aria-label="Go to contact page"
+                  className="mt-1 inline-flex text-slate-900 underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-slate-100 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-900"
+                >
+                  Contact Page
+                </Link>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  Get your doubts cleared
+                </p>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section
+          className="mt-10 border-t border-slate-200 pt-4 dark:border-slate-800"
+          aria-label="Footer trust strip"
+        >
+          <div className="flex flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between dark:text-slate-400">
+            <nav
+              className="flex flex-wrap items-center justify-center gap-2 sm:justify-start"
+              aria-label="Quick links"
+            >
+              <Link
+                to={localize("")}
+                className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
+              >
+                Home
+              </Link>
+              <span
+                className="text-slate-300 dark:text-slate-700"
+                aria-hidden="true"
+              >
+                ·
+              </span>
+              <Link
+                to={localize("/about")}
+                className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
+              >
+                About
+              </Link>
+              <span
+                className="text-slate-300 dark:text-slate-700"
+                aria-hidden="true"
+              >
+                ·
+              </span>
+              <Link
+                to={localize("/contact")}
+                className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
+              >
+                Contact
+              </Link>
+              <span
+                className="text-slate-300 dark:text-slate-700"
+                aria-hidden="true"
+              >
+                ·
+              </span>
+              <Link
+                to={localize("/contact")}
+                className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
+              >
+                Book Now
+              </Link>
+            </nav>
+
+            <p className="text-center sm:text-right">
+              Your trusted partner for travel technology
+            </p>
+          </div>
+        </section>
+
+        <section
+          className="mt-4 border-t border-slate-200 pt-5 dark:border-slate-800"
+          aria-label="Footer legal bar"
+        >
+          <div className="flex flex-col gap-3 text-center text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:text-left dark:text-slate-400">
+            <p>© 2026 Siam On Cloud</p>
+
+            <nav
+              className="flex items-center justify-center gap-3 sm:justify-end"
+              aria-label="Legal links"
+            >
+              <Link
+                to={localize("/privacy")}
+                className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
+              >
+                Privacy
+              </Link>
+              <span
+                className="text-slate-300 dark:text-slate-700"
+                aria-hidden="true"
+              >
+                ·
+              </span>
+              <Link
+                to={localize("/terms")}
+                className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
+              >
+                Terms
+              </Link>
+              <span
+                className="text-slate-300 dark:text-slate-700"
+                aria-hidden="true"
+              >
+                ·
+              </span>
+              <Link
+                to={localize("/cookies")}
+                className="underline decoration-transparent underline-offset-4 transition-all duration-200 hover:text-blue-600 hover:decoration-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:hover:text-blue-300 dark:hover:decoration-blue-300 dark:focus-visible:ring-offset-slate-950"
+              >
+                Cookies
+              </Link>
+            </nav>
+          </div>
+        </section>
       </Container>
     </footer>
   );
