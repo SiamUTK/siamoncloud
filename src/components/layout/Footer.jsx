@@ -40,7 +40,7 @@ function Footer() {
           <div className="space-y-4">
             <Link to={homePath} className="inline-flex items-center">
               <img
-                src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-online.png"
+                src="/images/01-Primary-Logo/siam-on-cloud-logo-primary-dark.svg"
                 alt={t("brand_logo_alt")}
                 className="h-12 w-auto object-contain"
                 loading="lazy"

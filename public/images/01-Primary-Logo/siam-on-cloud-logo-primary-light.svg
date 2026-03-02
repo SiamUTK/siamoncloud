@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="4096" height="1024" viewBox="0 0 450 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon Container -->
+  <g>
+    <!-- Circular Background -->
+    <circle cx="60" cy="60" r="47" fill="#0B1F3A" opacity="0.06"/>
+    
+    <!-- Container Stroke -->
+    <circle cx="60" cy="60" r="47.5" stroke="#2F6BFF" stroke-width="1" fill="none" opacity="0.18"/>
+    
+    <!-- Tech Ring -->
+    <circle cx="60" cy="60" r="38" stroke="#2F6BFF" stroke-width="0.5" fill="none" opacity="0.15" stroke-dasharray="2 4"/>
+    
+    <!-- Tech Dots -->
+    <g opacity="0.2">
+      <circle cx="60" cy="18" r="1.5" fill="#2F6BFF"/>
+      <circle cx="60" cy="102" r="1.5" fill="#2F6BFF"/>
+      <circle cx="18" cy="60" r="1.5" fill="#2F6BFF"/>
+      <circle cx="102" cy="60" r="1.5" fill="#2F6BFF"/>
+    </g>
+    
+    <!-- Tech Intelligence Node -->
+    <g opacity="0.35">
+      <circle cx="88" cy="40" r="2.5" fill="#2F6BFF"/>
+      <circle cx="88" cy="40" r="4.5" stroke="#2F6BFF" stroke-width="0.8" fill="none" opacity="0.5"/>
+    </g>
+    
+    <!-- Airplane -->
+    <g transform="translate(60, 60)" opacity="0.9">
+      <path d="M-15,-5 L0,-8 L15,-5 L10,-3 L0,0 L-10,-3 Z M0,0 L0,12 L-2,13 L2,13 L0,12 Z M0,-8 L0,-12" fill="#0B1F3A" stroke="#0B1F3A" stroke-width="0.5"/>
+    </g>
+  </g>
+  
+  <!-- Brand Text -->
+  <g transform="translate(140, 60)">
+    <!-- SIAM ON -->
+    <text x="0" y="0" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="32" font-weight="600" letter-spacing="0.9" fill="#111827">SIAM ON</text>
+    
+    <!-- CLOUD -->
+    <text x="145" y="0" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="32" font-weight="600" letter-spacing="1.2" fill="#2F6BFF">CLOUD</text>
+    
+    <!-- Thai Subtitle -->
+    <text x="0" y="22" font-family="'Sarabun', 'Noto Sans Thai', sans-serif" font-size="10" font-weight="400" letter-spacing="2.1" fill="#6B7280" opacity="0.85">บริษัท สยามออนคลาวด์ จำกัด</text>
+  </g>
+</svg>

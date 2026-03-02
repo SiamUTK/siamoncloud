@@ -1,0 +1,111 @@
+SIAM ON CLOUD - BRAND ASSET PACKAGE
+Aviation Ticketing Leadership • Cloud Technology Intelligence
+
+═══════════════════════════════════════════════════════════════
+
+OFFICIAL BRAND COLORS (STRICT COMPLIANCE)
+═══════════════════════════════════════════════════════════════
+
+Primary Navy:      #0B1F3A  (Midnight Navy)
+Tech Blue:         #2F6BFF  (Electric Blue)
+Sky Accent:        #4DA3FF  (Light Blue)
+Light Background:  #F5F7FB  (Cloud White)
+
+Rules:
+✓ Flat colors only
+✓ No gradients
+✓ No color shifts
+✓ Maintain contrast integrity
+
+═══════════════════════════════════════════════════════════════
+
+TYPOGRAPHY
+═══════════════════════════════════════════════════════════════
+
+English Brand Name:
+- Font: Plus Jakarta Sans / Inter (SemiBold 600)
+- "SIAM ON" — 2.8% letter spacing
+- "CLOUD" — 3.8% letter spacing (premium feel)
+
+Thai Subtitle:
+- Font: Sarabun / Noto Sans Thai (Regular 400)
+- "บริษัท สยามออนคลาวด์ จำกัด"
+- Color: #6B7280 for hierarchy
+
+═══════════════════════════════════════════════════════════════
+
+USAGE GUIDELINES
+═══════════════════════════════════════════════════════════════
+
+✓ DO:
+  • Use official color palette only
+  • Maintain clear space around logo
+  • Scale proportionally
+  • Use provided file formats
+  • Test readability at small sizes
+
+✗ DON'T:
+  • Change colors or add gradients
+  • Distort or rotate the logo
+  • Modify typography or spacing
+  • Recreate logo elements
+  • Use low-resolution versions
+
+═══════════════════════════════════════════════════════════════
+
+CLEAR SPACE
+═══════════════════════════════════════════════════════════════
+
+Minimum clear space = Height of the circular icon
+Keep this area free from other elements.
+
+═══════════════════════════════════════════════════════════════
+
+STRATEGIC POSITIONING
+═══════════════════════════════════════════════════════════════
+
+Primary:   ✈ Aviation Ticketing Expertise
+Secondary: ☁ Cloud Technology Intelligence  
+Tertiary:  🏢 Corporate B2B Reliability
+
+═══════════════════════════════════════════════════════════════
+
+FILE FORMATS INCLUDED
+═══════════════════════════════════════════════════════════════
+
+Vector (Master):
+• SVG (optimized, web-ready)
+• Infinitely scalable
+• Small file size
+
+Raster (PNG - Future export):
+• 4096px - Ultra-high resolution
+• 2048px - High resolution
+• 1024px - Standard web
+• 512px - Social media
+• 256px - Thumbnails
+
+Favicon Set:
+• 64×64px, 32×32px, 16×16px
+• .ico multi-size file
+
+═══════════════════════════════════════════════════════════════
+
+PACKAGE CONTENTS
+═══════════════════════════════════════════════════════════════
+
+01-Primary-Logo/     Main horizontal logo variants
+02-Icon/             Square icon-only versions
+03-Monochrome/       Print-ready single-color versions
+04-Favicon/          Web browser icons
+05-Vector-Master/    Editable source files
+06-Preview/          Visual reference sheets
+
+═══════════════════════════════════════════════════════════════
+
+For questions or custom asset requests, contact:
+Brand Management Team
+SIAM ON CLOUD Co., Ltd.
+
+Last Updated: March 2026
+Version: 1.0 (Final Polish)

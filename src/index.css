@@ -4,6 +4,14 @@
 
 :root {
   color-scheme: light;
+  --soc-primary: #0b1f3a;
+  --soc-accent: #2f6bff;
+  --soc-premium: #cfaf6e;
+  --soc-neutral: #f5f7fb;
+  --soc-text: #111827;
+  --soc-primary-rgb: 11, 31, 58;
+  --soc-accent-rgb: 47, 107, 255;
+  --soc-premium-rgb: 207, 175, 110;
 }
 
 body {
@@ -17,4 +25,12 @@ body {
     Helvetica,
     Arial,
     sans-serif;
+  background:
+    radial-gradient(
+      1200px 700px at 85% -10%,
+      rgba(var(--soc-accent-rgb), 0.16),
+      transparent 62%
+    ),
+    var(--soc-primary);
+  color: var(--soc-neutral);
 }

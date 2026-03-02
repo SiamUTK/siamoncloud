@@ -8,7 +8,7 @@ function Header() {
     <header className="border-b border-slate-200 bg-white">
       <Container className="flex h-16 items-center justify-between">
         <img
-          src="https://nmlycxqpjceppmsgzeod.supabase.co/storage/v1/object/public/assets/logos/logo-white-online.png"
+          src="/images/01-Primary-Logo/siam-on-cloud-logo-primary-light.svg"
           alt={t("brand_logo_alt")}
           className="h-12 w-auto object-contain"
         />
