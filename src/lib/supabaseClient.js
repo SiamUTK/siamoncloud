@@ -21,11 +21,15 @@ export function getSupabaseClient() {
   }
 
   if (!supabaseClient) {
-    supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    try {
+      supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    } catch (error) {
+      console.error("[Supabase] Failed to initialize client", error);
+      return null;
+    }
   }
 
   return supabaseClient;
 }
 
-// Export singleton for direct use
-export default getSupabaseClient();
+export default getSupabaseClient;

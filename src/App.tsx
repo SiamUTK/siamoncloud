@@ -12,6 +12,7 @@ import useLanguage from "@/i18n/useLanguage";
 
 // Lazy pages
 const About = lazy(() => import("./pages/About"));
+const Solutions = lazy(() => import("./pages/Solutions"));
 const Services = lazy(() => import("./pages/Services"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Terms = lazy(() => import("./pages/legal/Terms"));
@@ -54,6 +55,7 @@ function App() {
           <Route path="/:lang/*" element={<LocalizedLayout key={lang} />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
+            <Route path="solutions" element={<Solutions />} />
             <Route path="services" element={<Services />} />
             <Route path="contact" element={<Contact />} />
             <Route path="terms" element={<Terms />} />
@@ -66,6 +68,19 @@ function App() {
           </Route>
 
           <Route path="/terms" element={<Navigate to="/en/terms" replace />} />
+          <Route
+            path="/solutions"
+            element={<Navigate to="/en/solutions" replace />}
+          />
+          <Route
+            path="/services"
+            element={<Navigate to="/en/services" replace />}
+          />
+          <Route path="/about" element={<Navigate to="/en/about" replace />} />
+          <Route
+            path="/contact"
+            element={<Navigate to="/en/contact" replace />}
+          />
           <Route
             path="/privacy"
             element={<Navigate to="/en/privacy" replace />}

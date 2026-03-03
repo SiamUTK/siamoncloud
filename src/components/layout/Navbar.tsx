@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   Bot,
   Building2,
@@ -22,27 +22,35 @@ const NavLinkItem = memo(function NavLinkItem({
   to,
   children,
   onClick,
-  isActive = false,
+  end = false,
 }) {
+  const safeTo = typeof to === "string" ? to.replace(/^\/\/{2,}/, "/") : to;
+
   return (
-    <Link
-      to={to}
+    <NavLink
+      to={safeTo}
+      end={end}
       onClick={onClick}
-      className={`group relative inline-flex min-h-10 items-center py-2 text-sm tracking-tight transition-colors duration-200 ${
-        isActive
-          ? "font-semibold text-blue-700 dark:text-cyan-300"
-          : "font-medium text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-cyan-300"
-      }`}
-      aria-current={isActive ? "page" : undefined}
+      className={({ isActive }) =>
+        `group relative inline-flex min-h-10 items-center py-2 text-sm tracking-tight transition-colors duration-200 ${
+          isActive
+            ? "font-semibold text-blue-700 dark:text-cyan-300"
+            : "font-medium text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-cyan-300"
+        }`
+      }
     >
-      {children}
-      <span
-        className={`pointer-events-none absolute -bottom-[2px] left-0 h-[2px] w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-transform duration-200 ${
-          isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-        }`}
-        aria-hidden="true"
-      />
-    </Link>
+      {({ isActive }) => (
+        <>
+          {children}
+          <span
+            className={`pointer-events-none absolute -bottom-[2px] left-0 h-[2px] w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-transform duration-200 ${
+              isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+            }`}
+            aria-hidden="true"
+          />
+        </>
+      )}
+    </NavLink>
   );
 });
 
@@ -53,9 +61,11 @@ const SolutionsMenuItem = memo(function SolutionsMenuItem({
   description,
   onClick,
 }) {
+  const safeTo = typeof to === "string" ? to.replace(/^\/\/{2,}/, "/") : to;
+
   return (
     <Link
-      to={to}
+      to={safeTo}
       onClick={onClick}
       className="group flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-300 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-500/40"
     >
@@ -130,11 +140,11 @@ function LanguageSwitcher({ className = "" }) {
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const { lang, t } = useLanguage();
   const location = useLocation();
+  const safeLang = lang === "th" || lang === "en" ? lang : "en";
 
   const tf = useCallback(
     (key, fallback) => {
@@ -179,15 +189,15 @@ function Navbar() {
 
   useEffect(() => {
     setMobileMenuOpen(false);
-    setMobileSolutionsOpen(false);
     setSolutionsOpen(false);
   }, [location.pathname]);
 
-  const homePath = `/${lang}`;
-  const aboutPath = `/${lang}/about`;
-  const servicesPath = `/${lang}/services`;
-  const contactPath = `/${lang}/contact`;
-  const loginPath = `/${lang}/login`;
+  const homePath = `/${safeLang}`;
+  const aboutPath = `/${safeLang}/about`;
+  const solutionsPath = `/${safeLang}/solutions`;
+  const servicesPath = `/${safeLang}/services`;
+  const contactPath = `/${safeLang}/contact`;
+  const loginPath = `/${safeLang}/login`;
 
   const industries = useMemo(
     () => [
@@ -199,7 +209,7 @@ function Navbar() {
           "nav_solutions_airlines_desc",
           "Scale booking flows and customer journeys across markets.",
         ),
-        to: `${servicesPath}#airlines`,
+        to: `${solutionsPath}#airlines`,
       },
       {
         key: "agencies",
@@ -209,7 +219,7 @@ function Navbar() {
           "nav_solutions_agencies_desc",
           "Boost conversions with modern quoting and workflow automation.",
         ),
-        to: `${servicesPath}#travel-agencies`,
+        to: `${solutionsPath}#travel-agencies`,
       },
       {
         key: "otas",
@@ -219,7 +229,7 @@ function Navbar() {
           "nav_solutions_otas_desc",
           "Optimize inventory sync, pricing logic, and campaign velocity.",
         ),
-        to: `${servicesPath}#otas`,
+        to: `${solutionsPath}#otas`,
       },
       {
         key: "enterprise",
@@ -229,10 +239,10 @@ function Navbar() {
           "nav_solutions_enterprise_desc",
           "Deploy secure, governed platforms for multi-team operations.",
         ),
-        to: `${servicesPath}#enterprise-teams`,
+        to: `${solutionsPath}#enterprise-teams`,
       },
     ],
-    [servicesPath, tf],
+    [solutionsPath, tf],
   );
 
   const capabilities = useMemo(
@@ -245,7 +255,7 @@ function Navbar() {
           "nav_solutions_ai_desc",
           "Automate lead handling, support, and lifecycle intelligence.",
         ),
-        to: `${servicesPath}#ai-automation`,
+        to: `${solutionsPath}#ai-automation`,
       },
       {
         key: "booking",
@@ -255,7 +265,7 @@ function Navbar() {
           "nav_solutions_booking_desc",
           "Deliver fast, resilient booking experiences across channels.",
         ),
-        to: `${servicesPath}#booking-systems`,
+        to: `${solutionsPath}#booking-systems`,
       },
       {
         key: "cloud",
@@ -265,7 +275,7 @@ function Navbar() {
           "nav_solutions_cloud_desc",
           "Build secure, scalable cloud foundations for growth.",
         ),
-        to: `${servicesPath}#cloud-infrastructure`,
+        to: `${solutionsPath}#cloud-infrastructure`,
       },
       {
         key: "integrations",
@@ -275,19 +285,15 @@ function Navbar() {
           "nav_solutions_integrations_desc",
           "Connect CRMs, payment rails, and legacy systems seamlessly.",
         ),
-        to: `${servicesPath}#custom-integrations`,
+        to: `${solutionsPath}#custom-integrations`,
       },
     ],
-    [servicesPath, tf],
+    [solutionsPath, tf],
   );
 
-  const isPathActive = (path) => {
-    const currentPath = location.pathname;
-    if (path === homePath) return currentPath === homePath;
-    return currentPath === path || currentPath.startsWith(`${path}/`);
-  };
-
-  const solutionsActive = location.pathname === servicesPath;
+  const solutionsActive =
+    location.pathname === solutionsPath ||
+    location.pathname.startsWith(`${solutionsPath}/`);
 
   const navClass = isScrolled
     ? "border-slate-200/80 bg-white/95 shadow-md dark:border-slate-700/80 dark:bg-slate-950/90"
@@ -314,7 +320,7 @@ function Navbar() {
           </Link>
 
           <div className="hidden items-center gap-6 lg:gap-8 md:flex">
-            <NavLinkItem to={homePath} isActive={isPathActive(homePath)}>
+            <NavLinkItem to={homePath} end>
               {t("nav_home")}
             </NavLinkItem>
 
@@ -323,8 +329,8 @@ function Navbar() {
               onMouseEnter={() => setSolutionsOpen(true)}
               onMouseLeave={() => setSolutionsOpen(false)}
             >
-              <button
-                type="button"
+              <NavLink
+                to={solutionsPath}
                 onFocus={() => setSolutionsOpen(true)}
                 onBlur={(event) => {
                   if (
@@ -335,32 +341,38 @@ function Navbar() {
                     setSolutionsOpen(false);
                   }
                 }}
-                className={`group relative inline-flex min-h-10 items-center gap-1.5 py-2 text-sm tracking-tight transition-colors duration-200 ${
-                  solutionsActive || solutionsOpen
-                    ? "font-semibold text-blue-700 dark:text-cyan-300"
-                    : "font-medium text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-cyan-300"
-                }`}
+                className={({ isActive }) =>
+                  `group relative inline-flex min-h-10 items-center gap-1.5 py-2 text-sm tracking-tight transition-colors duration-200 ${
+                    isActive || solutionsActive || solutionsOpen
+                      ? "font-semibold text-blue-700 dark:text-cyan-300"
+                      : "font-medium text-slate-700 hover:text-blue-600 dark:text-slate-300 dark:hover:text-cyan-300"
+                  }`
+                }
                 aria-haspopup="true"
                 aria-expanded={solutionsOpen}
                 aria-label={tf("nav_solutions", "Solutions")}
               >
-                {tf("nav_solutions", "Solutions")}
-                <ChevronDown
-                  size={16}
-                  className={`transition-transform duration-200 ${
-                    solutionsOpen ? "rotate-180" : "rotate-0"
-                  }`}
-                  aria-hidden="true"
-                />
-                <span
-                  className={`pointer-events-none absolute -bottom-[2px] left-0 h-[2px] w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-transform duration-200 ${
-                    solutionsActive || solutionsOpen
-                      ? "scale-x-100"
-                      : "scale-x-0 group-hover:scale-x-100"
-                  }`}
-                  aria-hidden="true"
-                />
-              </button>
+                {({ isActive }) => (
+                  <>
+                    {tf("nav_solutions", "Solutions")}
+                    <ChevronDown
+                      size={16}
+                      className={`transition-transform duration-200 ${
+                        solutionsOpen ? "rotate-180" : "rotate-0"
+                      }`}
+                      aria-hidden="true"
+                    />
+                    <span
+                      className={`pointer-events-none absolute -bottom-[2px] left-0 h-[2px] w-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-transform duration-200 ${
+                        isActive || solutionsActive || solutionsOpen
+                          ? "scale-x-100"
+                          : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                      aria-hidden="true"
+                    />
+                  </>
+                )}
+              </NavLink>
 
               {solutionsOpen && (
                 <div className="absolute left-1/2 top-[calc(100%+14px)] z-50 w-[min(92vw,780px)] -translate-x-1/2 animate-in fade-in slide-in-from-top-2 duration-200">
@@ -409,18 +421,9 @@ function Navbar() {
               )}
             </div>
 
-            <NavLinkItem
-              to={servicesPath}
-              isActive={isPathActive(servicesPath)}
-            >
-              {t("nav_services")}
-            </NavLinkItem>
-            <NavLinkItem to={aboutPath} isActive={isPathActive(aboutPath)}>
-              {t("nav_about")}
-            </NavLinkItem>
-            <NavLinkItem to={contactPath} isActive={isPathActive(contactPath)}>
-              {t("nav_contact")}
-            </NavLinkItem>
+            <NavLinkItem to={servicesPath}>{t("nav_services")}</NavLinkItem>
+            <NavLinkItem to={aboutPath}>{t("nav_about")}</NavLinkItem>
+            <NavLinkItem to={contactPath}>{t("nav_contact")}</NavLinkItem>
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
@@ -474,105 +477,33 @@ function Navbar() {
               <NavLinkItem
                 to={homePath}
                 onClick={() => setMobileMenuOpen(false)}
-                isActive={isPathActive(homePath)}
+                end
               >
                 {t("nav_home")}
               </NavLinkItem>
 
-              <div className="rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800/60">
-                <button
-                  type="button"
-                  onClick={() =>
-                    setMobileSolutionsOpen(
-                      (prevMobileSolutionsOpen) => !prevMobileSolutionsOpen,
-                    )
-                  }
-                  className={`group relative flex min-h-11 w-full items-center justify-between px-3 py-2 text-sm tracking-tight transition-colors duration-200 ${
-                    mobileSolutionsOpen
-                      ? "font-semibold text-blue-700 dark:text-cyan-300"
-                      : "font-medium text-slate-700 dark:text-slate-300"
-                  }`}
-                  aria-expanded={mobileSolutionsOpen}
-                  aria-controls="mobile-solutions-panel"
-                  aria-label={tf("nav_solutions", "Solutions")}
-                >
-                  <span>{tf("nav_solutions", "Solutions")}</span>
-                  <ChevronDown
-                    size={16}
-                    className={`transition-transform duration-200 ${
-                      mobileSolutionsOpen ? "rotate-180" : "rotate-0"
-                    }`}
-                    aria-hidden="true"
-                  />
-                </button>
-
-                {mobileSolutionsOpen && (
-                  <div
-                    id="mobile-solutions-panel"
-                    className="space-y-3 px-3 pb-3 pt-2 animate-in fade-in slide-in-from-top-2 duration-200"
-                  >
-                    <div>
-                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
-                        {tf("nav_solutions_industries", "Industries")}
-                      </p>
-                      <div className="space-y-2">
-                        {industries.map((item) => (
-                          <SolutionsMenuItem
-                            key={`mobile-${item.key}`}
-                            to={item.to}
-                            icon={item.icon}
-                            title={item.title}
-                            description={item.description}
-                            onClick={() => {
-                              setMobileSolutionsOpen(false);
-                              setMobileMenuOpen(false);
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
-                        {tf("nav_solutions_capabilities", "Capabilities")}
-                      </p>
-                      <div className="space-y-2">
-                        {capabilities.map((item) => (
-                          <SolutionsMenuItem
-                            key={`mobile-cap-${item.key}`}
-                            to={item.to}
-                            icon={item.icon}
-                            title={item.title}
-                            description={item.description}
-                            onClick={() => {
-                              setMobileSolutionsOpen(false);
-                              setMobileMenuOpen(false);
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
+              <NavLinkItem
+                to={solutionsPath}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {tf("nav_solutions", "Solutions")}
+              </NavLinkItem>
 
               <NavLinkItem
                 to={servicesPath}
                 onClick={() => setMobileMenuOpen(false)}
-                isActive={isPathActive(servicesPath)}
               >
                 {t("nav_services")}
               </NavLinkItem>
               <NavLinkItem
                 to={aboutPath}
                 onClick={() => setMobileMenuOpen(false)}
-                isActive={isPathActive(aboutPath)}
               >
                 {t("nav_about")}
               </NavLinkItem>
               <NavLinkItem
                 to={contactPath}
                 onClick={() => setMobileMenuOpen(false)}
-                isActive={isPathActive(contactPath)}
               >
                 {t("nav_contact")}
               </NavLinkItem>
