@@ -206,6 +206,7 @@
   "contact_submit": "ส่งข้อความ",
   "contact_submit_loading": "กำลังส่ง...",
   "contact_success": "ส่งข้อความเรียบร้อยแล้ว",
+  "contact_submit_fallback_notice": "ข้อความของคุณถูกส่งผ่านช่องทางสำรองเพื่อให้แน่ใจว่าระบบได้รับข้อมูล",
   "contact_error_name": "ชื่อต้องมีอย่างน้อย 2 ตัวอักษร",
   "contact_error_email": "กรุณากรอกอีเมลให้ถูกต้อง",
   "contact_error_message": "ข้อความต้องมีอย่างน้อย 10 ตัวอักษร",

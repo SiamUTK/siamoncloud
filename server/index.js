@@ -11,6 +11,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const AI_MODEL = process.env.OPENAI_MODEL || "gpt-4o-mini";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
@@ -61,7 +62,7 @@ app.post("/api/ai/chat", async (req, res) => {
       });
     }
 
-    const { message } = req.body;
+    const { message, language } = req.body;
 
     if (!message || typeof message !== "string") {
       return res.status(400).json({
@@ -73,9 +74,18 @@ app.post("/api/ai/chat", async (req, res) => {
 
     console.log("[AI] Received message:", message);
 
+    const systemPrompt =
+      language === "th"
+        ? "คุณคือ N' Bindee ผู้ช่วย AI ของ Siam On Cloud ให้คำแนะนำด้านธุรกิจท่องเที่ยวแบบกระชับ มืออาชีพ และนำไปใช้ได้จริง"
+        : "You are N' Bindee, Siam On Cloud's AI assistant. Provide concise, professional, actionable guidance for travel-tech and aviation operations.";
+
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: AI_MODEL,
       messages: [
+        {
+          role: "system",
+          content: systemPrompt,
+        },
         {
           role: "user",
           content: message,
@@ -132,6 +142,7 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`[Server] Running on http://localhost:${PORT}`);
   console.log(`[Server] Static frontend path: ${distPath}`);
+  console.log(`[Server] AI model: ${AI_MODEL}`);
   console.log(
     `[Server] AI chat endpoint: POST http://localhost:${PORT}/api/ai/chat`,
   );

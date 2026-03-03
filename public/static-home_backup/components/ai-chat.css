@@ -1,0 +1,133 @@
+/* Floating AI chat widget styles */
+.soc-chat-shell {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.soc-chat-window {
+  width: min(92vw, 360px);
+  height: min(70vh, 520px);
+  margin-bottom: 0.75rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.35);
+  background: #ffffff;
+  transform: translateY(10px) scale(0.98);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.22s ease;
+}
+
+.soc-chat-window.open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.soc-chat-head {
+  background: linear-gradient(90deg, #0a2540, #06b6d4);
+  color: #fff;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.soc-chat-body {
+  height: calc(100% - 112px);
+  overflow-y: auto;
+  background: #f8fafc;
+  padding: 0.8rem;
+}
+
+.soc-msg {
+  max-width: 82%;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  padding: 0.55rem 0.7rem;
+  margin-bottom: 0.6rem;
+  border-radius: 0.85rem;
+}
+
+.soc-msg.ai {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  border-bottom-left-radius: 0.3rem;
+}
+
+.soc-msg.user {
+  margin-left: auto;
+  background: #0a2540;
+  color: #fff;
+  border-bottom-right-radius: 0.3rem;
+}
+
+.soc-chat-input {
+  border-top: 1px solid #e2e8f0;
+  background: #fff;
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.65rem;
+}
+
+.soc-chat-input input {
+  flex: 1;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  padding: 0.6rem 0.8rem;
+}
+
+.soc-chat-input button,
+.soc-chat-toggle {
+  border: 0;
+  cursor: pointer;
+}
+
+.soc-chat-toggle {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0a2540, #06b6d4);
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(6, 182, 212, 0.35);
+}
+
+.soc-typing {
+  display: inline-flex;
+  gap: 0.2rem;
+}
+
+.soc-typing span {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  background: #38bdf8;
+  animation: socBounce 0.9s infinite;
+}
+
+.soc-typing span:nth-child(2) {
+  animation-delay: 0.12s;
+}
+.soc-typing span:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+@keyframes socBounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  40% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}

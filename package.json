@@ -12,9 +12,15 @@
     "start:node": "node server/index.js",
     "preview": "vite preview",
     "lint": "eslint .",
+    "lint:src": "eslint \"src/**/*.{js,ts,tsx}\"",
+    "enforce:tsx": "node scripts/enforce-src-tsx.mjs",
+    "lint:strict": "npm run enforce:tsx",
+    "check:ci": "npm run enforce:tsx && npm run lint:src && npm run build",
     "notify": "node scripts/notify.cjs",
     "git:advisor": "node scripts/git-advisor.cjs",
-    "build:notify": "npm run build && npm run notify"
+    "build:notify": "npm run build && npm run notify",
+    "cleanup:dry": "ts-node scripts/cleanup-unused.ts --dry",
+    "cleanup:run": "ts-node scripts/cleanup-unused.ts --run"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.97.0",
@@ -39,6 +45,8 @@
     "postcss": "^8.4.49",
     "rollup-plugin-visualizer": "^7.0.0",
     "tailwindcss": "^3.4.17",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2",
     "vite": "^6.0.5"
   }
 }

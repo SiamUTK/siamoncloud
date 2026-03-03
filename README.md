@@ -1,5 +1,7 @@
 # Siam On Cloud
 
+[![CI](https://github.com/SiamUTK/siamoncloud/actions/workflows/ci.yml/badge.svg)](https://github.com/SiamUTK/siamoncloud/actions/workflows/ci.yml)
+
 Production-ready **Node web app** for Siam On Cloud.
 
 ## Architecture

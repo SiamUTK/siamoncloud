@@ -9,7 +9,20 @@ export default [
     ignores: ["dist", "deploy-static"],
   },
   {
-    files: ["**/*.{js,jsx}"],
+    files: ["src/**/*.jsx"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "Program",
+          message:
+            "JSX files in src are not allowed. Rename this file to .tsx to follow project convention.",
+        },
+      ],
+    },
+  },
+  {
+    files: ["src/**/*.{js,ts,tsx,jsx}"],
     settings: {
       react: {
         version: "detect",

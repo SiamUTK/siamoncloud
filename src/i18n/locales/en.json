@@ -206,6 +206,7 @@
   "contact_submit": "Send Message",
   "contact_submit_loading": "Sending...",
   "contact_success": "Your message has been sent successfully.",
+  "contact_submit_fallback_notice": "Your message was sent via our backup channel to ensure delivery.",
   "contact_error_name": "Name must be at least 2 characters.",
   "contact_error_email": "Please enter a valid email address.",
   "contact_error_message": "Message must be at least 10 characters.",

@@ -8,5 +8,5 @@ export const SITE_CONFIG = {
 
 export const AI_CONFIG = {
   assistantName: "N' Bindee",
-  mascot: "/images/AI-Mascot/bindee-head.png",
+  mascot: "/images/ai-mascot/bindee-head-1.png",
 };

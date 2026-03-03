@@ -12,9 +12,10 @@ const API_BASE_URL =
  * Send a message to the AI backend endpoint.
  *
  * @param {string} message - User message to send
+ * @param {{ language?: string }} [options] - Optional request metadata
  * @returns {Promise<{success: boolean, reply?: string, error?: string}>}
  */
-export async function sendMessageToAI(message) {
+export async function sendMessageToAI(message, options = {}) {
   try {
     if (!message || typeof message !== "string") {
       return {
@@ -23,24 +24,34 @@ export async function sendMessageToAI(message) {
       };
     }
 
+    const payload = {
+      message,
+      ...(options.language ? { language: options.language } : {}),
+    };
+
     const response = await fetch(`${API_BASE_URL}/api/ai/chat`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify(payload),
     });
 
+    let data = null;
+    try {
+      data = await response.json();
+    } catch {
+      data = null;
+    }
+
     if (!response.ok) {
-      const errorData = await response.json();
       return {
         success: false,
-        error: errorData.error || `HTTP ${response.status}`,
+        error: data?.error || `HTTP ${response.status}`,
       };
     }
 
-    const data = await response.json();
-    return data;
+    return data || { success: false, error: "Invalid AI server response." };
   } catch (err) {
     console.error("[AI Client Error]", err);
     return {

@@ -13,7 +13,9 @@ function safeGetLS(key) {
 function safeSetLS(key, val) {
   try {
     localStorage.setItem(key, JSON.stringify(val));
-  } catch {}
+  } catch (error) {
+    void error;
+  }
 }
 
 export function captureAttribution() {
