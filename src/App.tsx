@@ -5,7 +5,9 @@ import Home from "@/pages/Home";
 import CookieConsent from "./components/ui/CookieConsent";
 import AIAssistant from "./components/ai/AIAssistant";
 import AppErrorBoundary from "./components/layout/AppErrorBoundary";
-import LocalizedLayout from "./components/layout/LocalizedLayout";
+import LocalizedLayout, {
+  RootLanguageRedirect,
+} from "./components/layout/LocalizedLayout";
 import NotFound from "./pages/NotFound";
 import { initAnalytics, trackPageView } from "./lib/analytics";
 import useLanguage from "@/i18n/useLanguage";
@@ -50,7 +52,7 @@ function App() {
         }
       >
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<RootLanguageRedirect />} />
 
           <Route path="/:lang/*" element={<LocalizedLayout key={lang} />}>
             <Route index element={<Home />} />
@@ -67,6 +69,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Route>
 
+          <Route path="/home" element={<Navigate to="/en" replace />} />
           <Route path="/terms" element={<Navigate to="/en/terms" replace />} />
           <Route
             path="/solutions"

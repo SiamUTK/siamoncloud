@@ -6,7 +6,6 @@ import {
   HomeServices,
   HomeWhyUs,
 } from "@/components/home/sections";
-import Navbar from "@/components/layout/Navbar";
 
 export default function Home() {
   return (
@@ -15,8 +14,6 @@ export default function Home() {
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-0 h-[50vh] bg-[radial-gradient(circle_at_50%_100%,rgba(59,130,246,0.12),transparent_50%)]" />
 
       <div className="relative z-10">
-        <Navbar />
-
         <div className="mx-auto w-full max-w-7xl px-6 pb-24 pt-8 sm:px-10">
           <main>
             <HomeHero />

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import Navbar from "@/components/layout/Navbar";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Footer from "@/components/layout/Footer";
 import useLanguage from "@/i18n/useLanguage";
 import usePageMeta from "@/hooks/usePageMeta";
@@ -75,6 +75,22 @@ const capabilities = [
 
 function Solutions() {
   const { lang, t } = useLanguage();
+  const location = useLocation();
+
+  useEffect(() => {
+    const hash = location.hash;
+    if (!hash) return;
+
+    const elementId = decodeURIComponent(hash.slice(1));
+    if (!elementId) return;
+
+    requestAnimationFrame(() => {
+      const target = document.getElementById(elementId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }, [location.hash]);
 
   usePageMeta({
     title: t("nav_solutions", "Solutions"),
@@ -91,8 +107,6 @@ function Solutions() {
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-0 h-[50vh] bg-[radial-gradient(circle_at_50%_100%,rgba(59,130,246,0.12),transparent_50%)]" />
 
       <div className="relative z-10">
-        <Navbar />
-
         <main className="mx-auto w-full max-w-7xl px-6 pb-24 pt-8 sm:px-10">
           <section className={sectionClass}>
             <div className={`${containerClass} text-center`}>

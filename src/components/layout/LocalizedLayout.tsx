@@ -12,6 +12,7 @@ import detectLanguage, {
   SUPPORTED_LANGS,
 } from "@/i18n/detectLanguage";
 import { syncHreflangLinks } from "@/i18n/hreflang";
+import Navbar from "@/components/layout/Navbar";
 import SiteLayout from "./SiteLayout";
 
 function getFallbackLocalizedPath(pathname, fallbackLang) {
@@ -33,7 +34,7 @@ function LocalizedLayout() {
   const { lang: routeLang = "" } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const { lang, setLang, loading } = useLanguage();
+  const { lang, setLang } = useLanguage();
 
   const safeRouteLang = useMemo(
     () => (SUPPORTED_LANGS.includes(routeLang) ? routeLang : null),
@@ -79,33 +80,12 @@ function LocalizedLayout() {
     });
   }, [safeRouteLang, location.pathname, location.search]);
 
-  if (!safeRouteLang) {
-    return null;
-  }
-
-  if (loading || safeRouteLang !== lang) {
-    return (
-      <div className="min-h-screen bg-slate-50 px-6 dark:bg-slate-950">
-        <div className="mx-auto flex min-h-screen w-full max-w-2xl items-center">
-          <div className="w-full rounded-3xl border border-slate-200 bg-white p-6 shadow-card dark:border-slate-800 dark:bg-slate-900/80 dark:shadow-none">
-            <div className="h-5 w-56 rounded-full bg-slate-200 animate-pulse dark:bg-slate-700" />
-            <div className="mt-5 h-3 w-full rounded bg-slate-200 animate-pulse dark:bg-slate-700" />
-            <div className="mt-3 h-3 w-11/12 rounded bg-slate-200 animate-pulse dark:bg-slate-700" />
-            <div className="mt-3 h-3 w-9/12 rounded bg-slate-200 animate-pulse dark:bg-slate-700" />
-            <div className="mt-6 grid grid-cols-3 gap-3">
-              <div className="h-20 rounded-2xl bg-slate-100 animate-pulse dark:bg-slate-800" />
-              <div className="h-20 rounded-2xl bg-slate-100 animate-pulse dark:bg-slate-800" />
-              <div className="h-20 rounded-2xl bg-slate-100 animate-pulse dark:bg-slate-800" />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <SiteLayout>
-      <Outlet />
+      <Navbar />
+      <main>
+        <Outlet />
+      </main>
     </SiteLayout>
   );
 }

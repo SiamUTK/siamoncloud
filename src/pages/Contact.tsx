@@ -12,7 +12,6 @@ import { trackEvent } from "@/lib/analytics";
 import { getSupabaseClient } from "@/lib/supabaseClient";
 import { SITE_CONFIG } from "@/config/site";
 import LineContactCard from "@/components/common/LineContactCard";
-import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import useLanguage from "@/i18n/useLanguage";
 import usePageMeta from "@/hooks/usePageMeta";
@@ -256,8 +255,6 @@ function Contact() {
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-0 h-[50vh] bg-[radial-gradient(circle_at_50%_100%,rgba(59,130,246,0.12),transparent_50%)]" />
 
       <div className="relative z-10">
-        <Navbar />
-
         <main className="mx-auto w-full max-w-7xl px-6 pb-24 pt-8 sm:px-10">
           <section className={sectionClass}>
             <div className={`${containerClass} text-center`}>
